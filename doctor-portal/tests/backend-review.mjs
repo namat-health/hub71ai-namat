@@ -130,6 +130,11 @@ function options(routes = {}, overrides = {}) {
     env,
     now,
     calls,
+    analysisStore: {
+      async getInventoryReviews() {
+        return [];
+      },
+    },
     getPool() {
       calls.pools++;
       throw new Error("SECRET DATABASE_URL must not be required in API mode");
@@ -137,9 +142,34 @@ function options(routes = {}, overrides = {}) {
     async fetchImpl(url, init) {
       calls.fetches.push({ url, init });
       const path = url.slice(SHARED_API_ORIGIN.length);
-      const route = routes[path];
+      const route =
+        routes[path] ||
+        (path.endsWith("/evidence-v1")
+          ? routes[path.replace("/evidence-v1", "/extraction")]
+          : null);
       if (!route) return json({ status: "error" }, 404);
-      return route(url, init);
+      const response = await route(url, init);
+      if (!path.endsWith("/evidence-v1") || !response.ok) return response;
+      const value = await response.json();
+      value.evidenceVersion = "namat-report-evidence-v1";
+      if (value.extraction) {
+        value.extraction.inputSha256 = null;
+        value.extraction.pages = value.extraction.pages.map((page) => ({
+          ...page,
+          text: "Synthetic report",
+          lines: [],
+        }));
+      }
+      for (const item of [
+        ...(value.extraction?.observations || []),
+        ...(value.review?.observations || []),
+      ])
+        Object.assign(item, {
+          dateKind: "unknown",
+          dateSourceText: null,
+          dateSourcePage: null,
+        });
+      return json(value);
     },
     ...overrides,
   };

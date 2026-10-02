@@ -114,6 +114,7 @@ async function readBounded(response, maxBytes, expectedSize) {
 
 const FAILURES = new Map([
   [400, "invalid"],
+  [402, "budget_exhausted"],
   [404, "not_found"],
   [409, "conflict"],
 ]);
@@ -402,6 +403,138 @@ export async function sharedReportExtraction(
     async (response) =>
       extractionShape(await json(response, MAX_EXTRACTION_BYTES), reportId),
     options,
+  );
+}
+
+// Versioned source-evidence transport. The original extraction contract stays
+// unchanged for the parsed-values UI and older portal clients.
+export async function sharedReportEvidence(
+  { submissionId, reportId },
+  options = {},
+) {
+  if (!validReportReference(submissionId, reportId) || !UUID.test(reportId))
+    throw new SharedApiError("not_found");
+  return request(
+    `/v1/demo/submissions/${encodeURIComponent(submissionId)}/reports/${encodeURIComponent(reportId)}/evidence-v1`,
+    async (response) => {
+      const data = await json(response, 8 * 1024 * 1024);
+      if (
+        !exact(data, [
+          "evidenceVersion",
+          "report",
+          "extraction",
+          "review",
+          "reviewRevision",
+        ]) ||
+        data.evidenceVersion !== "namat-report-evidence-v1"
+      )
+        throw new SharedApiError();
+      const plainData = structuredClone(data);
+      delete plainData.evidenceVersion;
+      const dateFields = ["dateKind", "dateSourceText", "dateSourcePage"];
+      for (const observation of [
+        ...(plainData.extraction?.observations || []),
+        ...(plainData.review?.observations || []),
+      ]) {
+        if (
+          !["collection", "report", "unknown"].includes(observation.dateKind) ||
+          !(
+            observation.dateSourceText === null ||
+            (typeof observation.dateSourceText === "string" &&
+              observation.dateSourceText.length <= 5000)
+          ) ||
+          !(
+            observation.dateSourcePage === null ||
+            pageNumber(observation.dateSourcePage)
+          )
+        )
+          throw new SharedApiError();
+        for (const field of dateFields) delete observation[field];
+      }
+      if (plainData.extraction) {
+        const hash = plainData.extraction.inputSha256;
+        if (
+          !(
+            hash === null ||
+            (typeof hash === "string" && /^[a-f0-9]{64}$/.test(hash))
+          )
+        )
+          throw new SharedApiError();
+        delete plainData.extraction.inputSha256;
+        const pages = plainData.extraction.pages;
+        if (
+          !Array.isArray(pages) ||
+          !pages.length ||
+          (data.report.pageCount !== null &&
+            data.report.pageCount !== pages.length)
+        )
+          throw new SharedApiError();
+        const pageNumbers = new Set();
+        for (const page of pages) {
+          if (
+            !exact(page, ["number", "unit", "text", "lines"]) ||
+            !pageNumber(page.number) ||
+            page.number > pages.length ||
+            pageNumbers.has(page.number) ||
+            typeof page.text !== "string" ||
+            page.text.length > 1000000 ||
+            !Array.isArray(page.lines) ||
+            page.lines.length > 10000
+          )
+            throw new SharedApiError();
+          pageNumbers.add(page.number);
+          for (const [index, line] of page.lines.entries())
+            if (
+              !exact(line, ["id", "text", "bounds"]) ||
+              line.id !== `page:${page.number}:line:${index}` ||
+              typeof line.text !== "string" ||
+              line.text.length > 100000 ||
+              !validBounds(line.bounds)
+            )
+              throw new SharedApiError();
+          delete page.text;
+          delete page.lines;
+        }
+        if (
+          [
+            ...(plainData.extraction.observations || []),
+            ...(plainData.review?.observations || []),
+          ].some((observation) => !pageNumbers.has(observation.page))
+        )
+          throw new SharedApiError();
+      }
+      extractionShape(plainData, reportId);
+      return data;
+    },
+    options,
+  );
+}
+
+// All analysis persistence goes through the same authenticated storage owner.
+export function sharedAnalysisStore(options = {}) {
+  const call = (operation, input = {}) =>
+    request(
+      "/v1/demo/analysis-store",
+      async (response) => {
+        const data = await json(response, 4 * 1024 * 1024);
+        if (!exact(data, ["result"])) throw new SharedApiError();
+        return data.result;
+      },
+      options,
+      { method: "POST", body: { operation, input } },
+    );
+  return Object.fromEntries(
+    [
+      "reserve",
+      "settle",
+      "saveRun",
+      "findRun",
+      "getRun",
+      "saveDecision",
+      "saveInventoryReview",
+      "getInventoryReviews",
+      "budget",
+    ].map((operation) => [operation, (input) => call(operation, input)]),
   );
 }
 

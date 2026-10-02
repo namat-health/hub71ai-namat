@@ -1,19 +1,13 @@
 import Image from "next/image";
+import ClinicalEvidence, {
+  FindingBasis,
+  ReviewAlerts,
+} from "./ClinicalEvidence";
+import evidenceStyles from "./ClinicalEvidence.module.css";
 import styles from "./PlanCard.module.css";
 import shared from "./shared.module.css";
 
-function steps(labCount) {
-  return [
-    "Reading the questionnaire",
-    labCount
-      ? `Checking ${labCount} lab ${labCount === 1 ? "value" : "values"}`
-      : "Checking lab values",
-    "Consulting the knowledge base",
-    "Drafting the plan",
-  ];
-}
-
-function BloodDrop({ size, breathing = false }) {
+function BloodDrop({ size }) {
   return (
     <Image
       src="/blood-drop.webp"
@@ -22,12 +16,20 @@ function BloodDrop({ size, breathing = false }) {
       height={size}
       unoptimized
       priority
-      className={`${styles.drop} ${breathing ? styles.breathing : ""}`}
+      className={styles.drop}
     />
   );
 }
 
-function Finding({ finding, index, open, onToggle, chips }) {
+function Finding({
+  finding,
+  index,
+  open,
+  onToggle,
+  chips,
+  analysis,
+  onEvidence,
+}) {
   const act = finding.severity === "act";
   return (
     <div className={styles.finding}>
@@ -40,7 +42,7 @@ function Finding({ finding, index, open, onToggle, chips }) {
       >
         <span
           className={`${styles.severity} ${act ? styles.severityAct : ""}`}
-          title={act ? "Act now" : "Monitor"}
+          title={act ? "Review priority" : "Review in context"}
         />
         <span className={styles.findingTitle}>{finding.title}</span>
         <span className={styles.findingValues}>{finding.keyValues}</span>
@@ -69,6 +71,11 @@ function Finding({ finding, index, open, onToggle, chips }) {
               ))}
             </div>
           )}
+          <FindingBasis
+            analysis={analysis}
+            index={index}
+            onEvidence={onEvidence}
+          />
         </div>
       )}
     </div>
@@ -77,7 +84,6 @@ function Finding({ finding, index, open, onToggle, chips }) {
 
 export default function PlanCard({
   state,
-  labCount,
   expanded,
   onToggleFinding,
   chipsFor,
@@ -87,28 +93,25 @@ export default function PlanCard({
   onToggleTest,
   onReadPlan,
   onApprove,
-  sentAt,
-  firstName,
-  onUndo,
+  onEvidence,
 }) {
-  if (state.status === "loading") {
-    const labels = steps(labCount);
+  if (["loading", "loading_saved"].includes(state.status)) {
     return (
       <section className={styles.card} aria-label="Plan" aria-busy="true">
         <div className={styles.loading}>
-          <BloodDrop size={200} breathing />
+          <span className={styles.spinner} aria-hidden="true" />
           <div className={styles.progressBlock}>
             <output className={styles.step}>
-              {labels[Math.min(state.step, labels.length - 1)]}
+              {state.status === "loading_saved"
+                ? "Loading the saved assessment…"
+                : "Analyzing clinical results…"}
             </output>
-            <span className={styles.progress} aria-hidden="true">
-              <span
-                className={styles.progressFill}
-                style={{
-                  width: `${Math.min(100, ((state.step + 0.35) / 4) * 100)}%`,
-                }}
-              />
-            </span>
+            {state.status === "loading" && (
+              <p className={styles.loadingHint}>
+                Reviewing the reports and questionnaire. This may take a few
+                minutes.
+              </p>
+            )}
           </div>
         </div>
       </section>
@@ -128,7 +131,7 @@ export default function PlanCard({
             onClick={waiting ? onConfirmFirst : onCreate}
           >
             {waiting === 0
-              ? "Create personalised plan"
+              ? "Create clinical assessment"
               : waiting === 1
                 ? `Confirm ${toConfirm[0].short} first`
                 : `Confirm ${waiting} values first`}
@@ -141,18 +144,26 @@ export default function PlanCard({
               {state.error}
             </p>
           )}
+          {state.notice && (
+            <p className={evidenceStyles.notice}>{state.notice}</p>
+          )}
         </div>
       </section>
     );
   }
 
-  const { plan, selected } = state;
+  const { plan, selected = [], analysis } = state;
+  const decision = analysis?.latestDecision;
   return (
     <section className={styles.card} aria-label="Plan">
       <div className={styles.ready}>
         <div className={styles.head}>
           <div className={styles.headRow}>
-            <span className={shared.eyebrow}>Plan · Draft</span>
+            <span className={shared.eyebrow}>
+              {analysis?.demo
+                ? "Demo assessment · AI draft"
+                : "Clinical assessment · Draft"}
+            </span>
             <button
               type="button"
               className={styles.regenerate}
@@ -160,13 +171,21 @@ export default function PlanCard({
                 waiting ? "Confirm the flagged values first" : "Regenerate"
               }
               aria-label="Regenerate"
-              disabled={waiting > 0}
+              disabled={!onCreate || waiting > 0 || state.decisionSaving}
               onClick={onCreate}
             >
               ↻
             </button>
           </div>
           <p className={styles.summary}>{plan.summaryShort}</p>
+          <p className={evidenceStyles.notice}>
+            {analysis?.preview
+              ? "Illustrative fictional preview · no live model call"
+              : analysis?.demo
+                ? "Single-pass demo interpretation · requires clinician review"
+                : "AI draft for clinician review · demonstration rules are not clinically validated"}
+          </p>
+          <ReviewAlerts analysis={analysis} />
         </div>
 
         {plan.findings.length > 0 && (
@@ -174,7 +193,7 @@ export default function PlanCard({
             <span className={`${shared.eyebrow} ${styles.findingsLabel}`}>
               Findings
             </span>
-            {plan.findings.map((finding, index) => (
+            {plan.findings.slice(0, 3).map((finding, index) => (
               <Finding
                 // Findings have no IDs; their order is fixed per plan.
                 // biome-ignore lint/suspicious/noArrayIndexKey: stable order within one plan.
@@ -184,14 +203,27 @@ export default function PlanCard({
                 open={expanded.has(index)}
                 onToggle={() => onToggleFinding(index)}
                 chips={chipsFor(finding)}
+                analysis={analysis}
+                onEvidence={onEvidence}
               />
             ))}
+            {plan.findings.length > 3 && (
+              <button
+                type="button"
+                className={shared.textButton}
+                onClick={onReadPlan}
+              >
+                View all {plan.findings.length} findings ↗
+              </button>
+            )}
           </div>
         )}
 
         {plan.tests.length > 0 && (
           <div className={styles.tests}>
-            <span className={shared.eyebrow}>Tests to order</span>
+            <span className={shared.eyebrow}>
+              Tests for your consideration · select individually
+            </span>
             <div className={styles.testPills}>
               {plan.tests.map((test) => {
                 const on = selected.includes(test.id);
@@ -202,6 +234,7 @@ export default function PlanCard({
                     className={`${styles.testPill} ${on ? styles.testPillOn : ""}`}
                     title={test.reason}
                     aria-pressed={on}
+                    disabled={state.decisionSaving}
                     onClick={() => onToggleTest(test.id)}
                   >
                     <span className={styles.testMark} aria-hidden="true">
@@ -214,51 +247,34 @@ export default function PlanCard({
             </div>
           </div>
         )}
+        <ClinicalEvidence analysis={analysis} compact onEvidence={onEvidence} />
       </div>
 
       <footer className={styles.footer}>
-        {sentAt ? (
-          <>
-            <span className={styles.sent}>
-              <span className={shared.tick} aria-hidden="true">
-                ✓
-              </span>
-              Sent to {firstName}
-            </span>
-            <span className={styles.sentActions}>
-              <button
-                type="button"
-                className={styles.ghost}
-                onClick={onApprove}
-              >
-                View email
-              </button>
-              <button type="button" className={styles.outline} onClick={onUndo}>
-                Undo
-              </button>
-            </span>
-          </>
-        ) : (
-          <>
-            <button
-              type="button"
-              className={shared.textButton}
-              onClick={onReadPlan}
-            >
-              Read full plan <span aria-hidden="true">↗</span>
-            </button>
-            <button
-              type="button"
-              className={shared.primarySmall}
-              onClick={onApprove}
-            >
-              Approve plan
-              <span className={shared.primarySmallArrow} aria-hidden="true">
-                →
-              </span>
-            </button>
-          </>
+        {decision && (
+          <span className={evidenceStyles.notice}>
+            {state.selectionChanged
+              ? "Selection changed since saved review"
+              : `Review saved: ${decision.decision.replaceAll("_", " ")}`}
+          </span>
         )}
+        <button
+          type="button"
+          className={shared.textButton}
+          onClick={onReadPlan}
+        >
+          Read assessment <span aria-hidden="true">↗</span>
+        </button>
+        <button
+          type="button"
+          className={shared.primarySmall}
+          onClick={onApprove}
+        >
+          Record review
+          <span className={shared.primarySmallArrow} aria-hidden="true">
+            →
+          </span>
+        </button>
       </footer>
     </section>
   );

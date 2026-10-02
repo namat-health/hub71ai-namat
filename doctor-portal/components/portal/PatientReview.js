@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { evidenceLink } from "@/lib/clinical/evidence-links.mjs";
 import { mergeReportLabs } from "@/lib/lab-values.mjs";
 import {
   contextSentence,
@@ -6,7 +7,9 @@ import {
   profileLine,
   questionnaireGroups,
 } from "@/lib/questionnaire.mjs";
+import evidenceStyles from "./ClinicalEvidence.module.css";
 import LabReportCard from "./LabReportCard";
+import PatientEmail from "./PatientEmail";
 import PatientSummary from "./PatientSummary";
 import PlanCard from "./PlanCard";
 import PlanModal from "./PlanModal";
@@ -88,16 +91,13 @@ function useExtractions(submissionId, reports) {
 
 export default function PatientReview({
   patient,
-  clinician,
   planState,
   onCreatePlan,
   onToggleTest,
-  sentAt,
-  onSend,
-  onUndo,
+  onDecision,
+  onEvidenceChange,
 }) {
   const { submission, name } = patient;
-  const firstName = name.split(/\s+/)[0];
   const reports = useMemo(
     () => submission.attached_reports.filter((report) => report.sourceUrl),
     [submission],
@@ -128,6 +128,105 @@ export default function PatientReview({
   const [expanded, setExpanded] = useState(() => new Set());
   const [rowFocus, setRowFocus] = useState(null);
   const confirmCursor = useRef(0);
+  const inventoryLoad = useRef(null);
+  const [inventory, setInventory] = useState({
+    reviews: [],
+    pending: null,
+    error: null,
+  });
+  const inventoryVersion = reports
+    .map((report) => {
+      const data = extractions[report.id]?.data;
+      return `${report.id}:${data?.extraction?.id || ""}:${data?.revision ?? ""}`;
+    })
+    .join("|");
+  useEffect(() => {
+    void inventoryVersion;
+    const controller = new AbortController();
+    inventoryLoad.current = controller;
+    fetch(
+      `/api/submissions/${encodeURIComponent(submission.id)}/report-inventory`,
+      {
+        credentials: "same-origin",
+        cache: "no-store",
+        signal: controller.signal,
+      },
+    )
+      .then(async (response) => {
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !Array.isArray(data.reviews))
+          throw new Error(
+            typeof data.error === "string"
+              ? data.error
+              : "Report coverage reviews could not be loaded.",
+          );
+        if (!controller.signal.aborted)
+          setInventory((current) => ({
+            ...current,
+            reviews: data.reviews,
+            error: null,
+          }));
+      })
+      .catch((error) => {
+        if (!controller.signal.aborted)
+          setInventory((current) => ({ ...current, error: error.message }));
+      });
+    return () => controller.abort();
+  }, [submission.id, inventoryVersion]);
+
+  const confirmInventory = async (report) => {
+    const data = extractions[report.id]?.data;
+    if (!data?.extraction || inventory.pending) return;
+    inventoryLoad.current?.abort();
+    const review = {
+      reportId: report.id,
+      extractionId: data.extraction.id,
+      reviewRevision: data.revision ?? data.reviewRevision ?? 0,
+      confirmed: true,
+    };
+    setInventory((current) => ({
+      ...current,
+      pending: report.id,
+      error: null,
+    }));
+    try {
+      const response = await fetch(
+        `/api/submissions/${encodeURIComponent(submission.id)}/report-inventory`,
+        {
+          method: "POST",
+          credentials: "same-origin",
+          cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(review),
+        },
+      );
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok)
+        throw new Error(
+          typeof result.error === "string"
+            ? result.error
+            : "Report coverage could not be saved.",
+        );
+      setInventory((current) => ({
+        ...current,
+        pending: null,
+        reviews: [
+          ...current.reviews.filter((item) => item.reportId !== report.id),
+          result.review || review,
+        ],
+      }));
+      onEvidenceChange?.();
+    } catch (error) {
+      setInventory((current) => ({
+        ...current,
+        pending: null,
+        error: error.message,
+      }));
+    }
+  };
 
   useEffect(() => {
     document.title = `${name} · Namat`;
@@ -143,11 +242,11 @@ export default function PatientReview({
     const onKey = (event) => {
       if (event.key !== "Escape") return;
       if (drawer.open) setDrawer((current) => ({ ...current, open: false }));
-      else if (modal) setModal(null);
+      else if (modal && !planState.decisionSaving) setModal(null);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [drawer.open, modal]);
+  }, [drawer.open, modal, planState.decisionSaving]);
 
   // Pages of every report in order, so "page 3" means the same thing in the
   // viewer and in the parsed list.
@@ -247,17 +346,25 @@ export default function PatientReview({
       const result = await response.json().catch(() => ({}));
       if (response.ok && result.reportId === lab.reportId) {
         replaceExtraction(lab.reportId, result);
+        onEvidenceChange?.();
         return;
       }
       if (response.status === 409) {
         reloadExtractions();
+        onEvidenceChange?.();
         throw new Error(CHANGED);
       }
       throw new Error(
         typeof result.error === "string" ? result.error : SAVE_ERROR,
       );
     },
-    [extractions, submission.id, replaceExtraction, reloadExtractions],
+    [
+      extractions,
+      submission.id,
+      replaceExtraction,
+      reloadExtractions,
+      onEvidenceChange,
+    ],
   );
 
   const openDrawer = useCallback((key) => {
@@ -272,12 +379,37 @@ export default function PatientReview({
     () => new Map(labs.map((lab) => [lab.id, lab])),
     [labs],
   );
+  const openEvidence = useCallback(
+    (reference) => {
+      const link = evidenceLink(planState.analysis, reference);
+      if (!link) return;
+      setModal(null);
+      if (link.type === "questionnaire") {
+        openDrawer(link.key);
+        return;
+      }
+      if (!reports.some((report) => report.id === link.reportId)) return;
+      locate(labsById.get(link.labId) || link);
+    },
+    [planState.analysis, reports, labsById, locate, openDrawer],
+  );
   // Evidence chips for a finding. Lab chips only show for values this report
   // actually contains.
   const chipsFor = useCallback(
     (finding, { fromModal = false } = {}) =>
       finding.evidence
         .map((item, index) => {
+          if (item.type === "report") {
+            const link = evidenceLink(planState.analysis, item);
+            if (!link || !reports.some((report) => report.id === link.reportId))
+              return null;
+            return {
+              key: `${index}:${link.id}`,
+              text: item.label,
+              where: `· report page ${item.page}`,
+              onClick: () => openEvidence(link.id),
+            };
+          }
           if (item.type === "lab") {
             const lab = labsById.get(item.labId);
             if (!lab) return null;
@@ -291,6 +423,7 @@ export default function PatientReview({
               },
             };
           }
+          if (item.type !== "questionnaire") return null;
           return {
             key: `${index}:${item.key}`,
             text: item.label,
@@ -302,13 +435,12 @@ export default function PatientReview({
           };
         })
         .filter(Boolean),
-    [labsById, locate, openDrawer],
+    [labsById, locate, openDrawer, planState.analysis, reports, openEvidence],
   );
 
   const reading = reports.some(
     (report) => !extractions[report.id] && UUID.test(report.id),
   );
-
   return (
     <main className={styles.main}>
       <LabReportCard
@@ -338,6 +470,62 @@ export default function PatientReview({
           context={contextSentence(submission.answers)}
           onQuestionnaire={() => openDrawer(null)}
         />
+        {reports.length > 0 && (
+          <details className={evidenceStyles.inventory}>
+            <summary>
+              Confirm report coverage before adding missing tests
+            </summary>
+            <p>
+              Compare the original PDF with “What Namat read”. Confirm only when
+              every reported test appears in the extracted list. This records
+              report completeness, not a clinical all-clear.
+            </p>
+            <button type="button" onClick={() => setLabView("parsed")}>
+              Check extracted list
+            </button>
+            {reports.map((report) => {
+              const data = extractions[report.id]?.data;
+              const revision = data?.revision ?? data?.reviewRevision ?? 0;
+              const reviewed = inventory.reviews.some(
+                (item) =>
+                  item.reportId === report.id &&
+                  item.extractionId === data?.extraction?.id &&
+                  item.reviewRevision === revision &&
+                  item.confirmed !== false,
+              );
+              const uncertain = labs.some(
+                (lab) => lab.reportId === report.id && lab.note,
+              );
+              return (
+                <div key={report.id} className={evidenceStyles.inventoryRow}>
+                  <span>{report.name || "Uploaded report"}</span>
+                  {reviewed ? (
+                    <strong>Coverage confirmed</strong>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={
+                        !data?.extraction ||
+                        Boolean(inventory.pending) ||
+                        uncertain
+                      }
+                      onClick={() => confirmInventory(report)}
+                    >
+                      {inventory.pending === report.id
+                        ? "Saving…"
+                        : "All report values accounted for"}
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+            {inventory.error && (
+              <p className={evidenceStyles.error} role="alert">
+                {inventory.error}
+              </p>
+            )}
+          </details>
+        )}
         <PlanCard
           state={planState}
           labCount={reading ? 0 : labs.length}
@@ -356,11 +544,19 @@ export default function PatientReview({
           onCreate={onCreatePlan}
           onToggleTest={onToggleTest}
           onReadPlan={() => setModal("plan")}
-          onApprove={() => setModal("email")}
-          sentAt={sentAt}
-          firstName={firstName}
-          onUndo={onUndo}
+          onApprove={() => setModal("review")}
+          onEvidence={openEvidence}
         />
+        {planState.analysis?.runId &&
+          planState.analysis.latestDecision?.decision === "approved" &&
+          !planState.selectionChanged && (
+            <PatientEmail
+              key={planState.analysis.latestDecision.id}
+              submissionId={submission.id}
+              runId={planState.analysis.runId}
+              name={submission.first_name || name}
+            />
+          )}
       </div>
       <PlanModal
         mode={plan ? modal : null}
@@ -369,11 +565,11 @@ export default function PatientReview({
         onToggleTest={onToggleTest}
         chipsFor={chipsFor}
         patientName={name}
-        firstName={firstName}
-        email={submission.email}
-        clinician={clinician}
-        sentAt={sentAt}
-        onSend={onSend}
+        analysis={planState.analysis}
+        onDecision={onDecision}
+        saving={planState.decisionSaving}
+        decisionError={planState.decisionError}
+        onEvidence={openEvidence}
         onMode={setModal}
       />
       <QuestionnaireDrawer

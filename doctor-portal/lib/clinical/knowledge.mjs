@@ -73,6 +73,7 @@ export function selectKnowledge({ facts, observations, version }) {
   return {
     version: knowledge.version,
     sourceSha256: knowledge.sourceSha256,
+    governance: knowledge.governance,
     interpretationPolicy: knowledge.interpretationPolicy,
     evidenceScale: knowledge.evidenceScale,
     basisLabels: knowledge.basisLabels,

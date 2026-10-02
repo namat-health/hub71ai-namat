@@ -89,7 +89,9 @@ test("reviewed readings replace drafts and invalidate the case fingerprint", () 
   };
   r.reviewRevision = 1;
   const c = buildCaseContext(submission, [r]);
-  assert.equal(c.observations[0].asRecorded.value, "41");
+  assert.equal(c.observations[0].asRecorded.value, "14");
+  assert.equal(c.observations[0].current.value, "41");
+  assert.equal(c.observations[0].asReviewed.value, "41");
   assert.equal(c.observations[0].reviewStatus, "confirmed");
   assert.notEqual(c.caseFingerprint, make().caseFingerprint);
   assert.equal(
@@ -151,7 +153,7 @@ test("structured response rejects invented evidence, source claims and stale rea
 });
 test("connected generator does not return a fixed clinical sample", async () => {
   await assert.rejects(() => generatePlan({ caseContext: make() }), {
-    code: "analysis_not_connected",
+    code: "analysis_storage_unavailable",
   });
 });
 

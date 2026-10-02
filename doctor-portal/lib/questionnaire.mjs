@@ -301,6 +301,15 @@ export function answerText(key, submission) {
   if (key === "bloodwork" && reports)
     return `${reports} ${reports === 1 ? "report" : "reports"} uploaded`;
   const answers = submission.answers || {};
+  if (
+    key === "bloodwork" &&
+    submission.questionnaire_version === "namat-hackathon-welcome-v2"
+  )
+    return answers.bloodwork === "yes"
+      ? "Tested in the last 12 months"
+      : answers.bloodwork === "no"
+        ? "None in 12 months"
+        : "";
   const note = noteText(submission.notes?.[key]);
   if (key === "age" && /^\d+$/.test(answers.age || ""))
     return `${answers.age} years`;

@@ -148,7 +148,7 @@ def main():
         aliases.append({"path": path.relative_to(stage).as_posix(), "target": relative})
         path.unlink()
         shutil.copytree(target, path, symlinks=True)
-    assert {item["target"] for item in aliases} == {"node_modules/pg", "node_modules/pdf-parse"}, "Review changed Next package aliases."
+    assert {item["target"] for item in aliases} == {"node_modules/pg", "node_modules/pdfjs-dist"}, "Review changed Next package aliases."
     packages = []
     for package in sorted((stage / "node_modules").rglob("package.json")):
         relative = package.parent.relative_to(stage).as_posix()

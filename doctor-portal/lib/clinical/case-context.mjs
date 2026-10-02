@@ -10,7 +10,7 @@ import {
   markerId,
   selectKnowledge,
 } from "./knowledge.mjs";
-export const CASE_VERSION = "namat-case-v1";
+export const CASE_VERSION = "namat-case-v2";
 const digest = (value) =>
   createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const answered = (value) =>
@@ -29,6 +29,51 @@ const unknownAnswer = (value) =>
     ["unsure", "declined"].includes(item),
   );
 const asString = (value) => (typeof value === "string" ? value : null);
+
+function recordedFields(value) {
+  const kind =
+    value?.date && ["collection", "report"].includes(value.dateKind)
+      ? value.dateKind
+      : "unknown";
+  return {
+    name: asString(value?.name),
+    value: asString(value?.value),
+    unit: asString(value?.unit),
+    referenceRange: asString(value?.referenceRange),
+    date: asString(value?.date),
+    dateKind: kind,
+    collectionDate: kind === "collection" ? value.date : null,
+    reportDate: kind === "report" ? value.date : null,
+    dateSourceText: asString(value?.dateSourceText),
+    dateSourcePage: Number.isInteger(value?.dateSourcePage)
+      ? value.dateSourcePage
+      : null,
+    sourceText: asString(value?.sourceText),
+  };
+}
+
+function originalFor(current, originals, index, reviewed) {
+  if (!reviewed) return { observation: originals[index], index };
+  const matches = originals
+    .map((observation, index) => ({ observation, index }))
+    .filter(
+      ({ observation }) =>
+        observation.page === current.page &&
+        observation.sourceText === current.sourceText,
+    );
+  return matches.length === 1 ? matches[0] : { observation: null, index: null };
+}
+
+function effectiveFields(value, original) {
+  // Legacy review rows carry no typed date. An unchanged date can retain its
+  // original provenance; an edited date cannot become a collection date by fiat.
+  const effective = { ...value };
+  if (original && value.date === original.date && !value.dateKind) {
+    for (const key of ["dateKind", "dateSourceText", "dateSourcePage"])
+      effective[key] = original[key];
+  }
+  return recordedFields(effective);
+}
 
 /** Combines stored evidence only. It makes no clinical interpretation or model call. */
 export function buildCaseContext(
@@ -76,17 +121,34 @@ export function buildCaseContext(
     const current = data ? currentObservations(data) : { observations: [] };
     reports.push({
       id: attached.id,
-      status: attached.status,
+      status: data?.report?.status || attached.status,
       extractionId: extraction?.id || null,
       reviewRevision: data?.reviewRevision ?? 0,
+      reviewDecision: data?.review?.decision || null,
+      reviewedAt: data?.review?.createdAt || null,
       processorVersion: extraction?.processorVersion || null,
+      inputSha256: extraction?.inputSha256 || null,
+      evidenceVersion: data?.evidenceVersion || null,
       warnings: extraction?.warnings || [],
+      coverage: {
+        status: "partial",
+        reason: "parser_inventory_unverified",
+        extractedObservationCount: extraction?.observations?.length || 0,
+        currentObservationCount: current.observations.length,
+        sourcePagesAvailable:
+          Boolean(extraction?.pages?.length) &&
+          extraction.pages.every(
+            (page) =>
+              typeof page.text === "string" && Array.isArray(page.lines),
+          ),
+      },
       // Parsed pages remain untrusted evidence. Contact fields are never added here.
       pages: (extraction?.pages || []).map((page) => ({
         id: `report:${attached.id}:page:${page.number}`,
         number: page.number,
         text: asString(page.text),
-        lines: (page.lines || []).map((line) => ({
+        lines: (page.lines || []).map((line, index) => ({
+          id: `report:${attached.id}:${line.id || `page:${page.number}:line:${index}`}`,
           text: asString(line.text),
           bounds: line.bounds || null,
         })),
@@ -95,9 +157,18 @@ export function buildCaseContext(
     groups.push(
       (view?.extraction?.labs || []).map((lab) => {
         const observation = current.observations[lab.observationIndex];
+        const original = originalFor(
+          observation,
+          extraction.observations,
+          lab.observationIndex,
+          current.reviewed,
+        );
         return {
           ...lab,
           sourceObservation: observation,
+          originalObservation: original.observation,
+          originalObservationIndex: original.index,
+          reviewed: current.reviewed,
           extractionId: extraction.id,
           reviewRevision: data.reviewRevision || 0,
           attested: current.attested,
@@ -114,16 +185,15 @@ export function buildCaseContext(
     extractionId: lab.extractionId,
     reviewRevision: lab.reviewRevision,
     observationIndex: lab.observationIndex,
+    originalObservationIndex: lab.originalObservationIndex,
     page: lab.page,
     bounds: lab.bbox,
-    // Keep the stored reading separate from parsed or inferred display fields.
-    asRecorded: {
-      value: lab.sourceObservation.value,
-      unit: lab.sourceObservation.unit || null,
-      referenceRange: lab.sourceObservation.referenceRange || null,
-      date: lab.sourceObservation.date || null,
-      sourceText: lab.sourceObservation.sourceText || null,
-    },
+    // The immutable extraction and the clinician's correction are distinct.
+    asRecorded: recordedFields(lab.originalObservation),
+    asReviewed: lab.reviewed
+      ? effectiveFields(lab.sourceObservation, lab.originalObservation)
+      : null,
+    current: effectiveFields(lab.sourceObservation, lab.originalObservation),
     parsed: {
       value: lab.value,
       comparator: lab.comparator,
@@ -142,13 +212,42 @@ export function buildCaseContext(
   for (const report of reports)
     if (!report.extractionId || report.status !== "ready")
       blockers.push({ code: "report_not_ready", reference: report.id });
-  for (const observation of observations)
-    if (observation.issue)
+    else if (report.reviewDecision === "needs_changes")
       blockers.push({
-        code: "value_needs_confirmation",
+        code: "report_review_needs_changes",
+        reference: report.id,
+      });
+  for (const observation of observations)
+    if (observation.issue || observation.originalObservationIndex === null)
+      blockers.push({
+        code:
+          observation.originalObservationIndex === null
+            ? "unmatched_review_source"
+            : "value_needs_confirmation",
         reference: observation.id,
       });
   const limitations = [];
+  for (const report of reports) {
+    if (!report.coverage.sourcePagesAvailable)
+      limitations.push({
+        code: "source_pages_unavailable",
+        reference: report.id,
+      });
+    limitations.push({
+      code: "parser_inventory_unverified",
+      reference: report.id,
+    });
+    if (report.coverage.extractedObservationCount >= 500)
+      limitations.push({
+        code: "parser_observation_limit",
+        reference: report.id,
+      });
+    if (
+      report.coverage.currentObservationCount !==
+      observations.filter((o) => o.reportId === report.id).length
+    )
+      limitations.push({ code: "unmapped_observations", reference: report.id });
+  }
   for (const report of reports)
     if (
       report.extractionId &&
@@ -161,8 +260,14 @@ export function buildCaseContext(
       ["referenceRange", "missing_range"],
       ["date", "missing_date"],
     ])
-      if (!observation.asRecorded[field])
+      if (!observation.current[field])
         limitations.push({ code, reference: observation.id });
+  for (const observation of observations)
+    if (observation.current.date && !observation.current.collectionDate)
+      limitations.push({
+        code: "collection_date_unverified",
+        reference: observation.id,
+      });
   // No band midpoint, pack-years, alcohol units or family diagnoses are guessed.
   const exactAge =
     version === "namat-hackathon-welcome-v2" &&
@@ -182,12 +287,7 @@ export function buildCaseContext(
     questionnaire,
     reports,
     observations,
-    assumptions: [
-      {
-        id: "assumption:fasting",
-        text: "Fasting preparation is assumed for this demo; it is not verified patient evidence.",
-      },
-    ],
+    assumptions: [],
     blockers,
     limitations,
     knowledge,

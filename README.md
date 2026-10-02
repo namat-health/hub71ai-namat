@@ -17,7 +17,7 @@ Namat helps people who have just moved to Abu Dhabi bring their health history w
 | --- | --- | --- | --- |
 | `welcome/` | Landing page: `site/` is exactly what is served, `src/` is its Astro source | https://namat.health/welcome | namat-website `8686a08`, source namat-hackathon `cdf4aca` |
 | `start/` | Questionnaire, report upload, confirmation emails and the report reader | https://start.namat.health/welcome | start.namat.health `0654781` |
-| `doctor-portal/` | Doctor portal: patient list, report review, plan | https://doctor.namat.health | doctor-portal `c6f8661` |
+| `doctor-portal/` | Doctor portal: patient list, report review, plan | https://doctor.namat.health | doctor-portal `b99a800` |
 | `api/` | Shared Namat API between the portal and the questionnaire backend | (internal) | namat-api `cc9e624` |
 <!-- sources:end -->
 

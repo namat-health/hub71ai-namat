@@ -23,20 +23,33 @@
   mask-image: radial-gradient(circle, #000 42%, transparent 70%);
 }
 
-@keyframes breathe {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.045);
-    opacity: 0.82;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-.breathing {
-  animation: breathe 2.6s ease-in-out infinite;
+.spinner {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  border: 4px solid rgba(20, 63, 60, 0.15);
+  border-top-color: #143f3c;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}
+
+.loadingHint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #6b6857;
 }
 
 .empty,
@@ -68,31 +81,13 @@
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  width: min(260px, 100%);
+  width: min(320px, 100%);
+  text-align: center;
 }
 
 .step {
   font-size: 15px;
   color: #102523;
-}
-
-.progress {
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: rgba(16, 37, 35, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.progressFill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background: #143f3c;
-  transition: width 0.8s var(--ease);
 }
 
 .ready {
@@ -270,6 +265,11 @@
   border-color: #143f3c;
   background: #143f3c;
   color: #fbfaf4;
+}
+
+.testPill:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .testMark {

@@ -1,0 +1,244 @@
+.evidence {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #4d5a55;
+}
+.evidence h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 650;
+  color: #143f3c;
+}
+.evidence ul,
+.alert ul,
+.unknowns {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+.evidence li,
+.alert li,
+.unknowns li {
+  margin: 5px 0;
+}
+.alert {
+  padding: 14px 16px;
+  border: 1px solid #c79979;
+  border-radius: 12px;
+  background: #f8ecdf;
+  color: #783916;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.basis {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #4d5a55;
+}
+.kind {
+  font-size: 11px;
+  letter-spacing: 0.025em;
+  font-weight: 650;
+  color: #143f3c;
+}
+.unknowns {
+  color: #715f42;
+}
+.referenceGroup > strong {
+  color: #143f3c;
+  font-weight: 600;
+}
+.referenceGroup ul {
+  padding-left: 18px;
+  margin: 5px 0 0;
+}
+.referenceGroup li {
+  margin: 7px 0;
+}
+.referenceGroup button {
+  border: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: #143f3c;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.referenceGroup button:disabled {
+  cursor: default;
+  text-decoration: none;
+}
+.referenceGroup blockquote {
+  margin: 5px 0;
+  border-left: 2px solid #143f3c40;
+  padding-left: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.referenceGroup small {
+  color: #715f42;
+}
+.policyReasons {
+  grid-column: 1 / -1;
+}
+.details {
+  padding-top: 12px;
+  border-top: 1px solid #143f3c20;
+}
+.details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #143f3c;
+}
+.details p {
+  margin: 10px 0;
+  overflow-wrap: anywhere;
+}
+.sourceLinks {
+  display: flex;
+  gap: 8px 14px;
+  flex-wrap: wrap;
+  margin: 10px 0;
+}
+.sourceLinks a {
+  color: #143f3c;
+}
+.coverageRow,
+.ledgerRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 3px 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #143f3c12;
+}
+.coverageRow button {
+  text-align: left;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: #143f3c;
+  cursor: pointer;
+}
+.coverageRow button:disabled {
+  cursor: default;
+}
+.coverageRow p,
+.ledgerRow p {
+  grid-column: 1 / -1;
+  margin: 3px 0 0;
+}
+.meta {
+  font-size: 12px;
+  color: #6b6857;
+}
+.inventory {
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: #f1eee4;
+  color: #4d5a55;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.inventory summary {
+  color: #143f3c;
+  font-weight: 600;
+  cursor: pointer;
+}
+.inventory p {
+  margin: 8px 0;
+}
+.inventoryRow {
+  padding: 10px 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  border-top: 1px solid #143f3c12;
+}
+.inventoryRow > span {
+  flex: 1;
+  min-width: 140px;
+  overflow-wrap: anywhere;
+}
+.inventoryRow button {
+  border: 1px solid #143f3c40;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #143f3c;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
+.inventoryRow button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.notice {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #6b6857;
+  margin: 0;
+}
+.reviewForm {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px 40px;
+  color: #4d5a55;
+}
+.reviewForm h3 {
+  margin: 0;
+  color: #143f3c;
+}
+.reviewForm p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.reviewForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+}
+.reviewForm textarea,
+.reviewForm select {
+  width: 100%;
+  border: 1px solid #143f3c40;
+  padding: 12px;
+  border-radius: 10px;
+  background: #fffefa;
+  font: inherit;
+  color: #143f3c;
+}
+.reviewForm .attestation {
+  flex-direction: row;
+  align-items: flex-start;
+  line-height: 1.5;
+}
+.attestation input {
+  margin-top: 5px;
+}
+.saved {
+  padding: 12px 15px;
+  background: #e9eee3;
+  border-radius: 12px;
+  color: #143f3c;
+}
+.error {
+  color: #8a3f1f;
+}
+@media (max-width: 599px) {
+  .reviewForm {
+    padding: 24px 20px;
+  }
+}

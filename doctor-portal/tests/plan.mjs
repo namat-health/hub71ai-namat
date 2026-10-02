@@ -76,7 +76,7 @@ test("validation keeps contract fields only and rejects malformed plans", async 
       value.sources = -1;
     },
     (value) => {
-      value.findings = Array.from({ length: 9 }, () => value.findings[0]);
+      value.findings = Array.from({ length: 17 }, () => value.findings[0]);
     },
   ];
   for (const change of broken) {

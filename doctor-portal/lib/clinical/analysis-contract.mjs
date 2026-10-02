@@ -37,7 +37,7 @@ export const analysisSchema = obj({
         reasonLong: str(600),
         evidence: arr(evidence, 8, 1),
       }),
-      8,
+      16,
     ),
     tests: arr(
       obj({
@@ -57,13 +57,13 @@ export const analysisSchema = obj({
   grounding: obj({
     findings: arr(
       obj({
-        index: { type: "integer", minimum: 0, maximum: 7 },
+        index: { type: "integer", minimum: 0, maximum: 15 },
         kind: choice(["observation", "possible_explanation"]),
         evidenceIds: strings,
         claimIds: strings,
         uncertainties: arr(str(240), 6),
       }),
-      8,
+      16,
     ),
     tests: arr(
       obj({

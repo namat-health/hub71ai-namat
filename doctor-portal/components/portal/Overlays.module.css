@@ -117,6 +117,12 @@
   color: #6b6857;
 }
 
+.modalFooter button:disabled,
+.testRow:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .footerSent {
   display: inline-flex;
   align-items: center;

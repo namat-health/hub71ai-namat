@@ -6,6 +6,8 @@ export const TEST_GROUPS = ["now", "consider"];
 export const LOCATION_TYPES = ["lab", "clinic"];
 
 const ID = /^[a-z0-9][a-z0-9-]{0,63}$/;
+const REPORT_ID =
+  /^(?:[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}|legacy-[0-2])$/i;
 
 function text(value, max, { optional = false } = {}) {
   if (typeof value !== "string") return optional && value == null ? "" : null;
@@ -25,6 +27,18 @@ function list(value, max, map) {
 }
 
 function evidence(item) {
+  if (item?.type === "report") {
+    const reportId = text(item.reportId, 80);
+    const label = text(item.label, 100);
+    return reportId &&
+      REPORT_ID.test(reportId) &&
+      label &&
+      Number.isInteger(item.page) &&
+      item.page >= 1 &&
+      item.page <= 50
+      ? { type: "report", reportId, page: item.page, label }
+      : null;
+  }
   if (item?.type === "lab") {
     const labId = text(item.labId, 80);
     return labId && ID.test(labId) ? { type: "lab", labId } : null;
@@ -78,7 +92,7 @@ export function validatePlan(plan) {
   const value = {
     summaryShort: text(plan.summaryShort, 240),
     summaryLong: text(plan.summaryLong, 600),
-    findings: list(plan.findings, 8, finding),
+    findings: list(plan.findings, 16, finding),
     tests: list(plan.tests, 16, test),
     followUps: list(plan.followUps, 6, followUp),
     sources:
