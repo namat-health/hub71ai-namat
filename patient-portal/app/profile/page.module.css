@@ -1,0 +1,88 @@
+.page {
+  min-height: 100vh;
+  padding: 30px 24px;
+  background: #f5f3ef;
+  color: #30291f;
+}
+.shell {
+  width: min(100%, 760px);
+  margin: 0 auto;
+}
+.header {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordmark {
+  position: relative;
+  padding: 5px 8px 10px;
+  background: #3b2c1d;
+  color: #fff9ef;
+  font-size: 28px;
+  font-weight: 750;
+  letter-spacing: -1.2px;
+  line-height: 1;
+}
+
+.wordmark::before {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  left: 8px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.wordmark::after {
+  position: absolute;
+  right: 5px;
+  bottom: 4px;
+  width: 3px;
+  height: 3px;
+  background: currentColor;
+  content: "";
+}
+
+.signOut {
+  padding: 9px 13px;
+  border: 1px solid #ddd5cb;
+  border-radius: 8px;
+  background: #fff;
+  color: #62584c;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.signOut:hover {
+  background: #faf8f4;
+}
+.heading {
+  margin: 32px 0 25px;
+}
+.heading h1 {
+  margin: 0;
+  color: #30291f;
+  font-size: clamp(35px, 5.5vw, 46px);
+  font-weight: 600;
+  letter-spacing: -1.8px;
+  line-height: 1.12;
+}
+.email {
+  margin: 10px 0 0;
+  color: #81786e;
+  font-size: 14px;
+}
+.submissions {
+  display: grid;
+  gap: 14px;
+}
+.error {
+  padding: 17px;
+  border: 1px solid #ead8d2;
+  border-radius: 10px;
+  background: #fff;
+  color: #a23c32;
+  font-size: 14px;
+}

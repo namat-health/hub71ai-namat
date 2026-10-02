@@ -8,8 +8,24 @@ test('draft values preserve comparisons, units, ranges, dates and provenance wit
   assert.equal(values.length,3);assert.equal(values[0].value,'94');assert.equal(values[0].unit,'mg/dL');assert.equal(values[0].referenceRange,'70 - 99');
   assert.equal(values[1].value,'<5');assert.equal(values[1].referenceRange,'<5');assert.equal(values[2].date,'01/10/2026');assert.equal(values[2].page,2);
   assert.equal(values[2].dateSourceText,text[0]);assert.equal(values[2].sourceText,text[3]);assert.ok(values.every(value=>value.reviewRequired===true));
+  assert.equal(values[2].dateKind,'collection');
   const ambiguous=extractObservations([{number:1,lines:[{text:'Collection date: 01/10/2026'},{text:'Collection date: 02/10/2026'},{text:'Glucose 4.9'}]}]);
   assert.equal(ambiguous[0].date,null);assert.equal(ambiguous[0].unit,null);assert.equal(ambiguous[0].referenceRange,null);
+});
+test('ApoB and Lp(a) are retained as printed without a mass to molar conversion',()=>{
+  const values=extractObservations([{number:1,lines:[{text:'ApoB 1.25 g/L <1.0'},{text:'Lipoprotein(a) 94 nmol/L <75'},{text:'Lp(a) 37 mg/dL <30'},{text:'Apolipoprotein B 110 mg/dL 50 - 90'}]}]);
+  assert.equal(values.length,4);assert.equal(values[0].name,'ApoB');assert.equal(values[0].unit,'g/L');
+  assert.equal(values[1].value,'94');assert.equal(values[1].unit,'nmol/L');assert.equal(values[2].value,'37');assert.equal(values[2].unit,'mg/dL');
+});
+test('collection and issue dates remain distinct and ambiguous collections never fall back to the report date',()=>{
+  const parse=lines=>extractObservations([{number:1,lines:lines.map(text=>({text}))}])[0];
+  const report=parse(['Report date: 02/10/2026','Glucose 94 mg/dL']);
+  assert.equal(report.date,'02/10/2026');assert.equal(report.dateKind,'report');
+  const both=parse(['Collection date: 01/10/2026','Report date: 02/10/2026','Glucose 94 mg/dL']);
+  assert.equal(both.date,'01/10/2026');assert.equal(both.dateKind,'collection');
+  const ambiguous=parse(['Collection date: 01/10/2026','Collection date: 02/10/2026','Report date: 03/10/2026','Glucose 94 mg/dL']);
+  assert.equal(ambiguous.date,null);assert.equal(ambiguous.dateKind,'unknown');
+  const undated=parse(['Glucose 94 mg/dL']);assert.equal(undated.dateKind,'unknown');
 });
 test('OCR rebuilds table rows and deletes the provider result; it never follows foreign operation URLs',async()=>{
   const endpoint='https://fictional.cognitiveservices.azure.com/',operation=endpoint+'documentintelligence/documentModels/prebuilt-layout/analyzeResults/demo?api-version=2024-11-30';

@@ -1,0 +1,303 @@
+{
+ "note": "Printed names seen on UAE lab sites, added to the knowledge-base aliases. Matching is exact after normalising case, punctuation, word order, British/US spelling and filler words (test, level, serum, plasma, blood, calculated). Add only names that can mean one biomarker. Qualified names (free, direct, ionised, urine, ratio, 1,25-dihydroxy) must stay unmatched unless they have their own biomarker.",
+ "aliases": {
+  "vitamin-d-25-oh": [
+   "Vitamin D, 25 Hydroxy (25-OH), Total",
+   "25 Hydroxy Vitamin D",
+   "25-Hydroxy Vitamin D Total",
+   "Vitamin D Total",
+   "Vitamin D (25-OH)",
+   "Vitamin D 25-OH",
+   "25-OH Vitamin D Total",
+   "Vitamin D 25 Hydroxy",
+   "Vitamin D3 (25-OH)",
+   "25 OH Vitamin D3",
+   "Vitamin D (25-OH) Total",
+   "25 (OH) Vitamin D",
+   "25-Hydroxycholecalciferol",
+   "Vitamin D (25 hydroxycholecalciferol)",
+   "25 OH Cholecalciferol",
+   "Vitamin D-3",
+   "Vit D",
+   "Vitamin D; 25 hydroxy, includes fraction(s), if performed"
+  ],
+  "vitamin-b12": [
+   "Vitamin B 12",
+   "Vit B12",
+   "Vitamin B12 (Cobalamin)",
+   "Cyanocobalamin"
+  ],
+  "folate": [
+   "Folic acid",
+   "Vitamin B9",
+   "Folate (Folic Acid)"
+  ],
+  "calcium": [
+   "Calcium",
+   "Total calcium",
+   "Calcium, total",
+   "Ca"
+  ],
+  "cortisol": [
+   "Cortisol",
+   "Cortisol AM",
+   "Cortisol (morning)"
+  ],
+  "bilirubin": [
+   "Bilirubin"
+  ],
+  "neutrophils": [
+   "Neutrophils",
+   "Neutrophil count",
+   "Neutrophils, Absolute"
+  ],
+  "lymphocytes": [
+   "Lymphocytes",
+   "Lymphocyte count",
+   "Lymphocytes, Absolute"
+  ],
+  "glucose": [
+   "Glucose",
+   "Fasting blood sugar",
+   "FBS",
+   "Fasting blood glucose",
+   "Random blood sugar",
+   "RBS",
+   "Fasting Blood Sugar- Glucose",
+   "Random Blood Sugar- Glucose",
+   "Fasting Blood Glucose",
+   "Sugar-F",
+   "Glucose Sugar",
+   "ASSAY GLUCOSE BLOOD QUANT"
+  ],
+  "fasting-insulin": [
+   "Insulin (fasting)"
+  ],
+  "total-cholesterol": [
+   "Cholesterol",
+   "TOTAL CHOLESTROL"
+  ],
+  "ldl-cholesterol": [
+   "LDL cholesterol calculated",
+   "LDL cholesterol direct",
+   "Direct LDL",
+   "S.LDL"
+  ],
+  "triglycerides": [
+   "Triglyceride"
+  ],
+  "hba1c": [
+   "Glycated hemoglobin (HbA1c)",
+   "Hemoglobin A1c",
+   "Glycohemoglobin",
+   "HbA1C (Glycosylated Hemoglobin)",
+   "Hb A1C",
+   "HbA1c, Whole Blood",
+   "Glycosylated Hb"
+  ],
+  "tsh": [
+   "TSH ultrasensitive",
+   "Ultrasensitive TSH",
+   "TSH 3rd generation",
+   "Thyroid Stimulation Hormone",
+   "Thyroid (TSH)",
+   "Analysis of thyroid hormone (TSH)",
+   "Thyroid Function Test (TSH)",
+   "TSH-Total",
+   "TSH (with reflex)",
+   "Thyroid Profile (TSH)"
+  ],
+  "esr": [
+   "Erythrocyte sedimentation rate"
+  ],
+  "crp": [
+   "C reactive protein",
+   "Inflammatory Marker (CRP)",
+   "C-Reactive Protein (CRP) quantitative",
+   "CRP C-Reactive Protein",
+   "CRP (C-Reactive Protein) Test"
+  ],
+  "hs-crp": [
+   "High sensitivity C reactive protein",
+   "CRP high sensitivity",
+   "hs CRP",
+   "High-sensitivity CRP",
+   "C-Reactive Protein (CRP) High Sensitivity",
+   "C-Reactive Protein Ultra Sensitive",
+   "C-Reactive Protein, High Sensitivity (Cardiac)",
+   "C-Reactive Protein (HS-CRP)"
+  ],
+  "phosphate": [
+   "Phosphorous",
+   "Inorganic phosphorus",
+   "Phosphrous (P) in Serum",
+   "Phosphorus (P)"
+  ],
+  "egfr": [
+   "Estimated GFR",
+   "GFR, estimated",
+   "Estimated glomerular filtration rate",
+   "CKD-EPI (Creatinine with eGFR)",
+   "Glomelular Filtration Rate (GFR)"
+  ],
+  "urinalysis": [
+   "Urine routine examination",
+   "Urine complete analysis",
+   "Complete urine analysis",
+   "Urine full report",
+   "Urinalysis"
+  ],
+  "psa": [
+   "Prostate specific antigen (PSA)",
+   "PSA (total)",
+   "Prostatic Specific Antigen Total"
+  ],
+  "white-cell-count": [
+   "White blood cell count",
+   "WBC count",
+   "Total WBC count",
+   "Leukocytes",
+   "Total leukocyte count",
+   "White blood cells count",
+   "White Blood Count"
+  ],
+  "platelets": [
+   "Platelet"
+  ],
+  "transferrin-saturation": [
+   "Transferrin saturation %",
+   "Iron saturation %",
+   "Transferrin (Iron) Saturation",
+   "Transferrin Saturation Ratio"
+  ],
+  "uric-acid": [
+   "Uric acid"
+  ],
+  "urea": [
+   "Blood urea"
+  ],
+  "magnesium": [
+   "Magnesium",
+   "Magnesium (Mg) in Serum"
+  ],
+  "free-t4": [
+   "Free T4",
+   "T4 free",
+   "Free thyroxine (FT4)"
+  ],
+  "free-t3": [
+   "Free T3",
+   "T3 free",
+   "Free triiodothyronine (FT3)",
+   "Tri-Iodothyronine-Free"
+  ],
+  "apob": [
+   "Apolipoprotein B (ApoB)",
+   "Apo-B"
+  ],
+  "lipoprotein-a": [
+   "Lipoprotein (a)",
+   "Lipoprotein a",
+   "Lp (a)"
+  ],
+  "alt": [
+   "Alanine aminotransferase",
+   "SGPT (ALT), Serum",
+   "SGPT (Serum glutamic-pyruvic transaminase) (ALT)"
+  ],
+  "ast": [
+   "Aspartate aminotransferase",
+   "SGOT (AST), Serum",
+   "SGOT (Serum glutamic-oxaloacetic transaminas) (AST)"
+  ],
+  "pregnancy-test": [
+   "Beta-human chorionic gonadotropin",
+   "Pregnancy blood test (hCG hormone)",
+   "BHCG - Pregnancy Test",
+   "Beta hCG, Quantitative"
+  ],
+  "haemoglobin": [
+   "Hemoglobin(HBG)"
+  ],
+  "pth": [
+   "Parathyroid Hormone (PTH) Intact"
+  ],
+  "ggt": [
+   "Gamma Glutamyl Transferase"
+  ],
+  "tpo-antibodies": [
+   "aTPO",
+   "Anti Thyroid Peroxidase Abs (TPO)"
+  ],
+  "dhea-s": [
+   "Dehydroepiandrosterone sulfate",
+   "DHEA-SO4"
+  ],
+  "urine-acr": [
+   "Microalbumin/Creatinine Ratio, Random urine",
+   "Microalbuminuria (Albumin/Creatinine ratio)"
+  ],
+  "fit": [
+   "Immunochemical FOB"
+  ],
+  "anti-hbc": [
+   "Hepatitis B Core Antibody - Total (HBC Total)",
+   "Hepatitis B Core Total Antibodies"
+  ],
+  "hepatitis-c-antibody": [
+   "Hepatitis C Virus (HCV) Antibody (Anti HCV)",
+   "Hepatitis C Virus (HCV) Abs",
+   "Hepatitis C Virus Antibody (anti HCV)"
+  ],
+  "rubella-igg": [
+   "Rubella Antibody, IgG"
+  ],
+  "prothrombin-time": [
+   "Prothrombin Time (PT) (INR)"
+  ],
+  "hdl-cholesterol": [
+   "HDL Cholesterol, S",
+   "High Density Lipoprotein",
+   "S.HDL"
+  ],
+  "serum-iron": [
+   "Iron (Fe) in Serum"
+  ],
+  "sodium": [
+   "Sodium (Na) in Serum"
+  ],
+  "potassium": [
+   "Potassium (K) in Serum"
+  ],
+  "bicarbonate": [
+   "Bicarbonate (CO2)"
+  ],
+  "fsh": [
+   "Follicular Stimulating Hormone"
+  ],
+  "lh": [
+   "Lutenizing Hormone"
+  ],
+  "igf-1": [
+   "Insulin like Growth Factor"
+  ],
+  "hbsag": [
+   "Hepatitis B surface (HBs) Ag."
+  ],
+  "anti-hbs": [
+   "Hepatitis B surface (HBs) Abs"
+  ],
+  "nt-probnp": [
+   "NT-Pro B-Type Natriuretic Peptide (BNP), Serum"
+  ],
+  "haemoglobin-electrophoresis": [
+   "Haemoglobin Electropheresis"
+  ],
+  "creatinine": [
+   "S. Creatinine"
+  ],
+  "ferritin": [
+   "Ferritine"
+  ]
+ }
+}

@@ -1,0 +1,132 @@
+---
+import {content} from '../data/content';
+---
+
+<section class="home-hero" data-home-hero data-hero aria-labelledby="hero-title">
+  <span class="header-morph-trigger" data-header-morph-trigger aria-hidden="true"></span>
+  <div class="home-hero-media" aria-hidden="true">
+    <img class="home-hero-poster" src="/assets/hero/namat-hero-poster.webp?v=3-review-v1" alt="" width="1920" height="1080" loading="eager" fetchpriority="high" />
+    <video data-hero-video data-src="/assets/hero/namat-hero.mp4?v=3-review-v1" muted loop playsinline preload="none" tabindex="-1"></video>
+    <div class="home-hero-overlay"></div>
+  </div>
+
+  <div class="home-hero-content">
+    <h1 id="hero-title">Your health,<br />expertly managed</h1>
+    <p>A doctor-led approach to preventive health, designed to help you ace your check-ups. Tailor-made plans and direct 1:1 doctor access, all in one platform.</p>
+    <a class="home-hero-cta" href="#waitlist">{content.cta}</a>
+  </div>
+
+  <button class="home-hero-motion" data-hero-video-toggle type="button" aria-label="Play background video" hidden>
+    <svg class="home-hero-pause" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" /></svg>
+    <svg class="home-hero-play" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M8 4.8a.8.8 0 0 1 1.2-.7l11 7.2a.8.8 0 0 1 0 1.4l-11 7.2a.8.8 0 0 1-1.2-.7Z" /></svg>
+  </button>
+</section>
+
+<style>
+  /* The film is framed at rest, not scaled or pinned during scrolling. */
+  .home-hero{position:relative;isolation:isolate;display:grid;place-items:center;min-height:calc(100svh - 24px);margin:12px 12px 20px;padding:100px 32px;border-radius:24px;overflow:hidden;clip-path:inset(0 round 24px);background:var(--namat-deep);color:var(--namat-white)}
+  .home-hero-media,.home-hero-poster,.home-hero-media video,.home-hero-overlay{position:absolute;inset:0;width:100%;height:100%}
+  .home-hero-media{z-index:-1;pointer-events:none}
+  .home-hero-poster,.home-hero-media video{object-fit:cover;object-position:50% 50%}
+  .home-hero-media video{opacity:0}
+  .home-hero[data-video-ready="true"] video{opacity:1}
+  .home-hero-overlay{background:rgb(0 0 0 / 60%)}
+  .home-hero-content{width:100%;max-width:800px;text-align:center;display:flex;flex-direction:column;align-items:center;transform:translateY(-6px)}
+  .home-hero h1{margin:0;color:inherit;font-size:clamp(2.5rem,4.2vw,4rem);font-weight:640;line-height:1.04;letter-spacing:-.055em;font-stretch:104%;text-shadow:0 2px 24px #00000015}
+  .home-hero-content p{max-width:470px;margin:20px 0 0;font-size:1rem;line-height:1.4;color:rgb(255 255 255 / 91%);text-wrap:pretty}
+  .home-hero-cta{display:inline-flex;align-items:center;justify-content:center;min-height:54px;margin-top:28px;padding:14px 32px;border-radius:99px;background:var(--namat-white);color:var(--namat-ink);font-size:1rem;font-weight:650;line-height:1.2;text-decoration:none;transition:background .2s ease,transform .2s ease}
+  .home-hero-cta:hover{background:#e6ebdf;transform:translateY(-2px)}
+  .home-hero-cta:focus-visible,.home-hero-motion:focus-visible{outline:2px solid white;outline-offset:5px}
+  .home-hero-motion{position:absolute;right:24px;bottom:24px;display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #ffffff66;border-radius:50%;background:#00000020;color:white;backdrop-filter:blur(8px);transition:background .2s ease}
+  .home-hero-motion[hidden]{display:none}
+  .home-hero-motion:hover{background:#ffffff26}
+  .home-hero-pause{display:none}
+  .home-hero[data-video-playing="true"] .home-hero-pause{display:block}
+  .home-hero[data-video-playing="true"] .home-hero-play{display:none}
+  @media(max-width:760px){
+    .home-hero{min-height:calc(100svh - 16px);margin:8px 8px 16px;padding:96px 18px;border-radius:24px}
+    .home-hero-content{transform:none}
+    .home-hero h1{font-size:clamp(1.45rem,7.9vw,2.9rem);line-height:1.06;letter-spacing:-.055em;font-stretch:100%}
+    .home-hero-content p{max-width:340px;margin-top:20px;font-size:.95rem;line-height:1.4}
+    .home-hero-cta{min-height:52px;margin-top:28px;padding:14px 28px}
+    .home-hero-motion{right:16px;bottom:16px}
+  }
+  @media(max-height:500px) and (orientation:landscape){
+    .home-hero{padding:76px 32px 20px}
+    .home-hero-content p{margin-top:12px}
+    .home-hero-cta{min-height:46px;margin-top:16px}
+  }
+  @media(prefers-reduced-motion:reduce){.home-hero-cta,.home-hero-motion{transition:none}.home-hero-cta:hover{transform:none}}
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-home-hero]');
+  const video = hero?.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const toggle = hero?.querySelector<HTMLButtonElement>('[data-hero-video-toggle]');
+  if (hero && video && toggle) {
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const connection = (navigator as Navigator & {connection?: {saveData?: boolean}}).connection;
+    let inView = false;
+    let userPaused = false;
+    let optedIn = false;
+    let failed = false;
+    video.muted = true;
+    toggle.hidden = false;
+
+    const canPlay = () => inView && !document.hidden && !userPaused && !failed && (optedIn || (!motion.matches && !connection?.saveData));
+    const updateControl = () => {
+      const playing = !video.paused && !video.ended;
+      hero.dataset.videoPlaying = String(playing);
+      toggle.setAttribute('aria-label', playing ? 'Pause background video' : 'Play background video');
+    };
+    const syncPlayback = () => {
+      if (!canPlay()) {
+        video.pause();
+        return;
+      }
+      if (!video.getAttribute('src')) video.src = video.dataset.src!;
+      video.play().then(() => {
+        // Scrolling away or changing preferences may happen while playback starts.
+        if (!canPlay()) video.pause();
+      }).catch((error: unknown) => {
+        // A lifecycle pause can interrupt a pending play without being a user pause.
+        if (!(error instanceof DOMException && error.name === 'AbortError') && canPlay()) userPaused = true;
+        updateControl();
+      });
+    };
+    video.addEventListener('playing', () => {
+      hero.dataset.videoReady = 'true';
+      updateControl();
+    });
+    video.addEventListener('pause', updateControl);
+    video.addEventListener('error', () => {
+      failed = true;
+      hero.dataset.videoReady = 'false';
+      toggle.hidden = true;
+    });
+    toggle.addEventListener('click', () => {
+      if (video.paused) {
+        userPaused = false;
+        optedIn = true;
+      } else {
+        userPaused = true;
+      }
+      syncPlayback();
+    });
+    motion.addEventListener('change', () => {
+      optedIn = false;
+      if (motion.matches) hero.dataset.videoReady = 'false';
+      syncPlayback();
+    });
+    document.addEventListener('visibilitychange', syncPlayback);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        syncPlayback();
+      }, {threshold:0}).observe(hero);
+    } else {
+      inView = true;
+      syncPlayback();
+    }
+  }
+</script>

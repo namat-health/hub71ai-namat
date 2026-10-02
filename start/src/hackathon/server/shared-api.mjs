@@ -40,6 +40,7 @@ export function sharedApiRoute(path,method) {
 }
 
 export function portalRoute(path,method) {
+  if(path==='/api/namat-portal/analysis-store')return method==='POST'?{kind:'analysis-store'}:null;
   const review=path.match(new RegExp(`^/api/namat-portal/submissions/(${UUID})/reports/(${UUID})/reviews$`,'i'));
   if(review)return method==='POST'?{kind:'review',submissionId:review[1],reportId:review[2]}:null;
   if(method!=='GET')return null;
@@ -47,6 +48,8 @@ export function portalRoute(path,method) {
   if(path==='/api/namat-portal/submissions')return {kind:'submissions'};
   const match=path.match(new RegExp(`^/api/namat-portal/submissions/(${UUID})/reports/(${UUID}|legacy-[0-2])$`,'i'));
   if(match)return {kind:'source',submissionId:match[1],reportId:match[2]};
+  const evidence=path.match(new RegExp(`^/api/namat-portal/submissions/(${UUID})/reports/(${UUID})/evidence-v1$`,'i'));
+  if(evidence)return {kind:'evidence',submissionId:evidence[1],reportId:evidence[2]};
   // Legacy attachments are never processed, so only stored reports have drafts.
   const extraction=path.match(new RegExp(`^/api/namat-portal/submissions/(${UUID})/reports/(${UUID})/extraction$`,'i'));
   return extraction?{kind:'extraction',submissionId:extraction[1],reportId:extraction[2]}:null;

@@ -1,0 +1,209 @@
+---
+const chapters = [
+  {slug: 'baseline', phase: 'Baseline', title: 'Start with a clearer picture.', description: 'Comprehensive testing to understand your health.', alt: 'A member having a blood test at home'},
+  {slug: 'plan', phase: 'Plan', title: 'A plan built around you.', description: 'Your medical team builds a plan around you.', alt: 'A member discussing their results with a doctor by video call'},
+  {slug: 'check-ins', phase: 'Check-ins', title: 'Support for the everyday.', description: 'Your concierge helps you put the plan into practice.', alt: 'Illustrative Namat concierge conversation on a phone'},
+  {slug: 'retest', phase: 'Retest', title: 'See what has changed.', description: 'See what’s changed and what still needs attention.', alt: 'Illustrative retest results comparing a baseline with a follow-up'},
+  {slug: 'adjust', phase: 'Adjust', title: 'Move forward. With context.', description: 'Your results and feedback shape the next cycle.', alt: 'Illustrative updated health plan on a phone'},
+];
+---
+
+<section class="health-chapters" id="membership" data-health-chapters aria-labelledby="experience-title">
+  <div class="chapters-shell">
+    <header class="chapters-heading">
+      <h2 id="experience-title"><span>Doctor-led care.</span><span>The latest science, working for you.</span></h2>
+    </header>
+    <div class="chapters-story">
+      <nav class="chapters-navigation" aria-label="The five steps of Namat Health">
+        <ol>{chapters.map((chapter, index) => (
+          <li><a href={`#membership-${chapter.slug}`} data-chapter-link aria-current={index === 0 ? 'step' : undefined}>
+            <span class="chapter-nav-number">{String(index + 1).padStart(2, '0')}</span><span>{chapter.phase}</span>
+          </a></li>
+        ))}</ol>
+      </nav>
+      <div class="chapters-stack">
+        {chapters.map((chapter, index) => (
+          <>
+            <div class="chapter-anchor" id={`membership-${chapter.slug}`} data-chapter-anchor style={`--chapter-index:${index}`}></div>
+            <article class="health-chapter" data-health-chapter style={`--chapter-index:${index}`} aria-labelledby={`chapter-${chapter.slug}-title`}>
+              <div class="chapter-copy">
+                <p class="chapter-phase"><span class="chapter-mobile-number">{String(index + 1).padStart(2, '0')} / </span>{chapter.phase}</p>
+                <span class="chapter-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                <h3 id={`chapter-${chapter.slug}-title`}>{chapter.title}</h3>
+                <p class="chapter-description">{chapter.description}</p>
+              </div>
+              <figure class:list={['chapter-image', {'chapter-image-device': index >= 2}]}>
+                <img src={`/assets/how-it-works/${chapter.slug}.webp`} width="758" height="1000" alt={chapter.alt} loading="lazy" decoding="async" />
+              </figure>
+            </article>
+          </>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .health-chapters {
+    --chapter-paper: var(--namat-white);
+    --chapter-stone: #eeece2;
+    --chapter-line: #cfcec1;
+    --chapter-ink: #172523;
+    --chapter-muted: #687063;
+    --chapter-rust: #a55028;
+    --chapter-nav-top: 6rem;
+    --chapter-card-top: 12.25rem;
+    --chapter-stack-gap: .3rem;
+    --chapter-bottom-clearance: 2rem;
+    --chapter-image-inset: 2.5rem;
+    --chapter-pinned: 0;
+    position: relative;
+    background: var(--chapter-paper);
+    color: var(--chapter-ink);
+    padding: clamp(4.5rem, 8vw, 8rem) var(--page-gutter) clamp(4rem, 6vw, 6rem);
+  }
+  .chapters-shell { max-width: 72rem; margin-inline: auto; }
+  .chapters-heading { margin-bottom: clamp(2.5rem, 4.7vw, 4.5rem); }
+  .chapters-heading h2 { max-width: none; font: 650 clamp(2.15rem, 3.6vw, 3.75rem)/1.075 var(--display); font-stretch: 108%; letter-spacing: -.055em; text-wrap: balance; }
+  .chapters-heading h2 span { display: block; }
+  .chapters-story { position: relative; isolation: isolate; }
+  .chapters-navigation { position: relative; z-index: 10; padding-block: 1rem 1.45rem; background: var(--chapter-paper); }
+  .chapters-navigation ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(.45rem, 1.4vw, 1.2rem); }
+  .chapters-navigation a { display: flex; flex-direction: column; gap: .3rem; min-height: 3.5rem; padding-top: .7rem; border-top: 2px solid var(--chapter-line); text-decoration: none; font: 500 .9rem/1.3 var(--sans); color: var(--chapter-muted); transition: border-color .2s ease, color .2s ease; }
+  .chapters-navigation a[aria-current="step"] { border-color: var(--chapter-rust); color: var(--chapter-ink); }
+  .chapter-nav-number { font: 400 .69rem/1.4 var(--mono); letter-spacing: .05em; }
+  .chapters-navigation a[aria-current="step"] .chapter-nav-number { color: var(--chapter-rust); }
+  .chapters-stack { position: relative; padding-bottom: .15rem; }
+  .chapter-anchor { height: 0; scroll-margin-top: 7rem; }
+  .health-chapter { position: relative; display: grid; grid-template-columns: 1.08fr 1fr; min-height: 30rem; border: 1px solid var(--chapter-line); border-radius: .45rem; background: var(--chapter-stone); overflow: clip; margin-bottom: 2rem; }
+  .health-chapter:last-child { margin-bottom: 0; }
+  .chapter-copy { padding: clamp(2rem, 3.7vw, 3.5rem); display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+  .chapter-phase { color: var(--chapter-rust); font: 400 .75rem/1.5 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+  .chapter-mobile-number { display: none; }
+  .chapter-number { display: block; font: 400 clamp(4.5rem, 6.2vw, 6.2rem)/1 var(--display); letter-spacing: -.09em; color: var(--chapter-rust); margin: 1.1rem 0 1.25rem; }
+  .chapter-copy h3 { max-width: 13ch; font: 630 clamp(2rem, 3.6vw, 3.5rem)/1.025 var(--display); font-stretch: 106%; letter-spacing: -.045em; text-wrap: balance; }
+  .chapter-description { margin-top: 1.2rem; max-width: 29ch; font: 400 clamp(1rem, 1.45vw, 1.2rem)/1.5 var(--sans); color: #515d51; }
+  .chapter-image { margin: var(--chapter-image-inset) var(--chapter-image-inset) var(--chapter-image-inset) 0; min-width: 0; min-height: 0; position: relative; border-radius: .65rem; overflow: hidden; background: #e7e3d2; }
+  .chapter-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+  .chapter-image-device img { object-fit: contain; object-position: center; }
+
+  @media (min-width: 900px) and (min-height: 480px) {
+    .health-chapters {
+      --chapter-pinned: 1;
+      --chapter-nav-h: 5.95rem;
+      --chapter-card-h: min(35rem, calc(100svh - var(--chapter-card-top) - 4 * var(--chapter-stack-gap) - var(--chapter-bottom-clearance)));
+      /* The last card unpins when its bottom (plus 2rem margin and 2rem stack padding) reaches the
+         stack's end; the tabs unpin at the story's end. Shorten the story by the difference. */
+      --chapter-nav-release: calc(var(--chapter-card-top) + 4 * var(--chapter-stack-gap) + var(--chapter-card-h) + 4rem - var(--chapter-nav-top) - var(--chapter-nav-h));
+      padding-bottom: calc(clamp(4rem, 6vw, 6rem) + var(--chapter-nav-release));
+    }
+    /* flow-root stops the negative margin collapsing through, so the story itself gets shorter. */
+    .chapters-story { display: flow-root; }
+    .chapters-stack { margin-bottom: calc(-1 * var(--chapter-nav-release)); }
+    .chapters-navigation { position: sticky; top: var(--chapter-nav-top); }
+    .chapters-stack { padding-bottom: 2rem; }
+    /* Equal image insets leave a 40px stone cap, concealing photos even at the end of the stack. */
+    .health-chapter {
+      position: sticky;
+      top: calc(var(--chapter-card-top) + var(--chapter-index) * var(--chapter-stack-gap));
+      z-index: calc(1 + var(--chapter-index));
+      /* Reserve room for all five stack caps, including the final card. */
+      height: min(35rem, calc(100vh - var(--chapter-card-top) - 4 * var(--chapter-stack-gap) - var(--chapter-bottom-clearance)));
+      height: min(35rem, calc(100svh - var(--chapter-card-top) - 4 * var(--chapter-stack-gap) - var(--chapter-bottom-clearance)));
+      min-height: 0;
+      margin-bottom: 2rem;
+    }
+    .health-chapter:last-child { margin-bottom: 2rem; }
+    .chapter-copy { padding: clamp(2rem, 3svh, 2.8rem) clamp(2rem, 3.7vw, 3.5rem); }
+    .chapter-number { font-size: clamp(4rem, 9svh, 5.8rem); margin: 1rem 0 1.1rem; }
+    .chapter-copy h3 { font-size: clamp(2.1rem, 4.6svh, 3.4rem); }
+    .chapter-description { font-size: clamp(1rem, 2.1svh, 1.15rem); margin-top: 1rem; }
+  }
+  @media (min-width: 900px) and (min-height: 480px) and (max-height: 699px) {
+    .health-chapters {
+      --chapter-nav-top: 5.7rem;
+      --chapter-card-top: 10.25rem;
+      --chapter-stack-gap: .25rem;
+      --chapter-image-inset: 1.5rem;
+      --chapter-bottom-clearance: 1.5rem;
+    }
+    .chapters-navigation { padding-block: .35rem .65rem; }
+    .chapters-navigation a { min-height: 3rem; padding-top: .45rem; gap: .15rem; font-size: .82rem; }
+    .chapter-copy { padding: 1.5rem 1.75rem; justify-content: center; }
+    .chapter-mobile-number { display: inline; }
+    .chapter-number { display: none; }
+    .chapter-copy h3 { max-width: 19ch; margin-top: 1.25rem; font-size: clamp(1.65rem, 3vw, 2rem); }
+    .chapter-description { margin-top: .75rem; font-size: 1rem; }
+  }
+  @media (max-width: 899px) {
+    .health-chapters { --chapter-image-inset: 1.5rem; padding-top: 4rem; }
+    .chapters-heading h2 { max-width: 25ch; font-size: clamp(2.45rem, 5.6vw, 3.5rem); }
+    .health-chapter { min-height: 26rem; }
+    .chapter-copy { padding: 1.75rem; }
+    .chapter-number { font-size: 4.2rem; }
+    .chapter-copy h3 { font-size: clamp(1.9rem, 3.8vw, 2.5rem); }
+    .chapter-description { font-size: 1rem; }
+  }
+  @media (max-width: 600px) {
+    .health-chapters { --chapter-image-inset: 1rem; padding: 3.5rem 5% 3.5rem; }
+    .chapters-heading { margin-bottom: 1.7rem; }
+    .chapters-heading h2 { max-width: 20ch; font-size: clamp(2.15rem, 8.7vw, 3.2rem); line-height: 1.055; }
+    .chapters-navigation { padding-block: .5rem 1.4rem; }
+    .chapters-navigation ol { gap: .45rem; }
+    .chapters-navigation a { min-height: 3.2rem; font-size: .72rem; gap: .25rem; padding-top: .55rem; }
+    .health-chapter { display: flex; flex-direction: column; min-height: 0; margin-bottom: 1.35rem; }
+    .chapter-image { order: -1; height: auto; aspect-ratio: 1.12; margin: var(--chapter-image-inset); }
+    .chapter-image img { object-position: 50% 20%; }
+    .chapter-image-device img { object-position: center; }
+    .chapter-copy { padding: 1.65rem 1.5rem; }
+    .chapter-mobile-number { display: inline; }
+    .chapter-number { display: none; }
+    .chapter-copy h3 { margin-top: 1rem; max-width: 16ch; font-size: clamp(1.9rem, 8.1vw, 2.6rem); }
+    .chapter-description { margin-top: 1rem; max-width: 32ch; }
+    .chapter-phase { font-size: .69rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .chapters-navigation a { transition: none; } }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-health-chapters]');
+  if (section) {
+    const links = Array.from(section.querySelectorAll<HTMLAnchorElement>('[data-chapter-link]'));
+    const anchors = Array.from(section.querySelectorAll<HTMLElement>('[data-chapter-anchor]'));
+    const cards = Array.from(section.querySelectorAll<HTMLElement>('[data-health-chapter]'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active = -1;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const pinned = getComputedStyle(section).getPropertyValue('--chapter-pinned').trim() === '1';
+      const firstCardTop = parseFloat(getComputedStyle(cards[0]).top);
+      const threshold = pinned ? firstCardTop + cards[0].offsetHeight * .45 : window.innerHeight * .4;
+      let next = 0;
+      anchors.forEach((anchor, index) => { if (anchor.getBoundingClientRect().top <= threshold) next = index; });
+      if (next === active) return;
+      active = next;
+      links.forEach((link, index) => {
+        if (index === active) link.setAttribute('aria-current', 'step');
+        else link.removeAttribute('aria-current');
+      });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    links.forEach((link, index) => {
+      link.addEventListener('click', event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        const pinned = getComputedStyle(section).getPropertyValue('--chapter-pinned').trim() === '1';
+        const pinnedTop = parseFloat(getComputedStyle(cards[index]).top);
+        const offset = pinned && Number.isFinite(pinnedTop) ? pinnedTop : 96;
+        const target = window.scrollY + anchors[index].getBoundingClientRect().top - offset;
+        window.scrollTo({top: Math.max(0, target), behavior: reducedMotion.matches ? 'instant' : 'smooth'});
+        history.replaceState(null, '', link.hash);
+      });
+    });
+    window.addEventListener('scroll', schedule, {passive: true});
+    window.addEventListener('resize', schedule, {passive: true});
+    reducedMotion.addEventListener('change', schedule);
+    update();
+  }
+</script>

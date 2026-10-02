@@ -1,0 +1,40 @@
+{
+  "kind": "namat-hackathon-foundations-release",
+  "releasedAtUtc": "2026-10-01T20:02:43.3451969Z",
+  "releasedOnDubai": "2026-10-02",
+  "repository": "https://github.com/namat-health/start.namat.health",
+  "url": "https://start.namat.health/welcome/",
+  "sourceCommit": "24e3689f6f4f120044aded4234a5c73020d59706",
+  "mergedCommit": "bfe725cf93fcbebbade3e68efd01d75df5d9f285",
+  "pullRequest": "https://github.com/namat-health/start.namat.health/pull/4",
+  "azure": {
+    "app": "namat-welcome-test-uaen-001",
+    "resourceGroup": "namat-data-test-uaen",
+    "deploymentId": "651d6d6d-d87e-4db3-910e-5090e99b6331",
+    "deploymentStatus": "RuntimeSuccessful"
+  },
+  "archive": {
+    "sha256": "e5305dc804cf8d3f53dea0e5c05c3ee49ea0328ce35f2b746d0615cb25daa6a5",
+    "bytes": 66904255,
+    "fileCount": 3992,
+    "manifestSha256": "a4e4314cec67e488fd6394f3699d6f508584b498363144ba5ec38e4f1420f751"
+  },
+  "databaseMigration": {
+    "path": "src/hackathon/db/003_questionnaire_v2.sql",
+    "sha256": "c78cfd0b254b2471c6bdac153d3a70add7b9321a2ed9a65bba31cd23d9ce2f78",
+    "applied": true,
+    "acceptsVersions": [
+      "namat-hackathon-welcome-v1",
+      "namat-hackathon-welcome-v2"
+    ]
+  },
+  "validation": {
+    "ci": "https://github.com/namat-health/start.namat.health/actions/runs/36918095910",
+    "passed": 130,
+    "failed": 0,
+    "skipped": 2,
+    "liveForm": "v2 goals and exact age with optional height/weight verified",
+    "liveApi": "v2 fictional input with blank email reached email validation; no submission saved or email sent"
+  },
+  "packagingNote": "The archive was built at 705709da6929abebed4bacd67c2b98eb9b28f496. Later commits add migration and test changes only; packaged runtime source hashes match sourceCommit. The ZIP and full generated manifest remain in the private output directory."
+}

@@ -21,6 +21,7 @@ export const REPORT_RUNTIME_FILES=Object.freeze([
 export const SHARED_API_RUNTIME_FILES=Object.freeze([
   'src/hackathon/server/shared-api.mjs','src/hackathon/server/portal-data.mjs',
 ]);
+export const ANALYSIS_RUNTIME_FILES=Object.freeze(['store.mjs','http.mjs'].map(name=>`services/clinical-analysis/${name}`));
 const STATIC_EXTENSION = /\.(?:js|css|woff2?|webp|avif|png|jpe?g|svg|ico|mp4)$/;
 // The questionnaire switches scenes and demographics in the browser. Every
 // responsive source in its visual catalogue must remain in the static closure.
@@ -29,7 +30,7 @@ const REQUIRED_PHOTOS = new Set(Object.values(JOURNEY_VISUALS).flatMap(visual =>
   ...visual.srcSet.split(',').map(candidate => candidate.trim().split(/\s+/)[0]),
 ]));
 const sharedModules = new Set(['src/hackathon/welcome/questionnaire-model.mjs', 'src/hackathon/welcome/questionnaire-v1.mjs', 'src/lib/overview-preview.mjs', 'src/lib/overview-preview-v4.mjs', 'server/journey-email-layout.mjs']);
-const runtimePath = path => path === ENTRY || /^src\/hackathon\/server\/[\w-]+\.mjs$/.test(path) || sharedModules.has(path) || REPORT_RUNTIME_FILES.includes(path);
+const runtimePath = path => path === ENTRY || /^src\/hackathon\/server\/[\w-]+\.mjs$/.test(path) || sharedModules.has(path) || REPORT_RUNTIME_FILES.includes(path) || ANALYSIS_RUNTIME_FILES.includes(path);
 const staticPath = path => path === 'favicon.svg' || /^(?:_astro|assets)\/[\w./-]+$/.test(path) && STATIC_EXTENSION.test(path);
 const hash = value => createHash('sha256').update(value).digest('hex');
 const json = value => Buffer.from(JSON.stringify(value, null, 2) + '\n');
@@ -101,7 +102,7 @@ export function runtimeClosure(read) {
   const files = new Map();
   // Worker entrypoints constructed with new URL() and reviewer assets loaded
   // with readFile() are deliberately explicit; import tracing cannot see them.
-  const pending = [ENTRY,...REPORT_RUNTIME_FILES,...SHARED_API_RUNTIME_FILES];
+  const pending = [ENTRY,...REPORT_RUNTIME_FILES,...SHARED_API_RUNTIME_FILES,...ANALYSIS_RUNTIME_FILES];
   const externals = new Set();
   while (pending.length) {
     const path = pending.pop();
@@ -167,7 +168,7 @@ export function vercelConfig() {
     installCommand: 'npm ci --ignore-scripts --no-audit --no-fund',
     buildCommand: '', outputDirectory: 'public', cleanUrls: true, trailingSlash: false,
     functions: {'api/hackathon.mjs': {maxDuration: 60,
-      includeFiles:'{services/report-processing/**,node_modules/pdfjs-dist/**,node_modules/@cantoo/pdf-lib/**,node_modules/sharp/**,node_modules/@img/**,node_modules/@napi-rs/**}'}},
+      includeFiles:'{services/report-processing/**,services/clinical-analysis/**,node_modules/pdfjs-dist/**,node_modules/@cantoo/pdf-lib/**,node_modules/sharp/**,node_modules/@img/**,node_modules/@napi-rs/**}'}},
     redirects: [{source: '/', destination: '/welcome', permanent: false}],
     headers: [{source: '/(.*)', headers: [
       {key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive'},

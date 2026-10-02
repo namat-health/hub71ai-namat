@@ -1,0 +1,29 @@
+<!-- Stacked lockup: Archivo 125%, tight rule + square, descriptor ending before the square.
+     Matches the latest revisions described in Claude's Wordmark as Logo — Asset System. -->
+<span class="health-lockup" aria-hidden="true">
+  <span class="health-lockup-name">namat</span>
+  <span class="health-lockup-rule"></span>
+  <span class="health-lockup-stop"></span>
+  <span class="health-lockup-descriptor">{['h', 'e', 'a', 'l', 't', 'h'].map(letter => <span>{letter}</span>)}</span>
+</span>
+
+<style>
+  .health-lockup {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    width: max-content;
+    font-family: var(--display);
+    font-size: var(--health-lockup-size, 3.1rem);
+    font-style: normal;
+    color: var(--namat-ink);
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+  .health-lockup-name { display: block; padding-right: .18em; font-weight: 700; font-stretch: 125%; letter-spacing: -.035em; line-height: .9; }
+  .health-lockup-rule { position: absolute; top: .93em; left: 0; right: .18em; height: max(1px, .022em); background: currentColor; }
+  .health-lockup-stop { position: absolute; top: .876em; right: 0; width: .13em; height: .13em; background: currentColor; }
+  .health-lockup-descriptor { display: flex; justify-content: space-between; padding-right: .18em; margin-top: .2em; }
+  .health-lockup-descriptor span { font-size: .36em; line-height: 1; font-weight: 350; }
+</style>

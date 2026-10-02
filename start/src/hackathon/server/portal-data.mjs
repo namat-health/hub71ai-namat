@@ -196,6 +196,8 @@ function fileResponse(request, bytes, report) {
 }
 
 const MAX_EXTRACTION_BYTES = 4 * 1024 * 1024;
+export const MAX_EVIDENCE_BYTES = 8 * 1024 * 1024;
+export const EVIDENCE_VERSION = "namat-report-evidence-v1";
 const OBSERVATION_TEXT = [
   "name",
   "value",
@@ -254,14 +256,75 @@ function pageUnit(page, ocr, mime) {
   return mime === "application/pdf" ? "inch" : "pixel";
 }
 
+// The evidence endpoint is deliberately separate from the strict legacy draft
+// contract. It fails closed at its size bound rather than dropping source rows.
+function evidencePages(pages, ocr, mime, pageCount) {
+  if (!Array.isArray(pages) || !pages.length || pages.length > 50)
+    throw new Error("invalid_evidence_pages");
+  if (Number.isInteger(pageCount) && pages.length !== pageCount)
+    throw new Error("incomplete_evidence_pages");
+  const seen = new Set();
+  return pages.map((page) => {
+    if (!Number.isInteger(page?.number) || page.number < 1 || page.number > pages.length || seen.has(page.number))
+      throw new Error("invalid_evidence_page");
+    seen.add(page.number);
+    if (!Array.isArray(page.lines) || page.lines.length > 10000)
+      throw new Error("invalid_evidence_lines");
+    const lines = page.lines.map((line, index) => {
+      if (typeof line?.text !== "string" || line.text.length > 100000)
+        throw new Error("invalid_evidence_line");
+      return {id:`page:${page.number}:line:${index}`,text:line.text,bounds:observationBounds(line.bounds)};
+    });
+    if (page.text !== undefined && typeof page.text !== "string")
+      throw new Error("invalid_evidence_text");
+    const text = page.text ?? lines.map((line) => line.text).join("\n");
+    if (text.length > 1000000) throw new Error("evidence_page_too_large");
+    return {number:page.number,unit:pageUnit(page,ocr,mime),text,lines};
+  });
+}
+
+function dateEvidence(value, original = value) {
+  // Review storage predates typed dates. Reuse date provenance only if an
+  // unchanged date has one matching original row; a changed date stays unknown.
+  const unchanged = original && value.date === original.date;
+  const source = unchanged && typeof original.dateSourceText === "string"
+    ? original.dateSourceText : null;
+  let kind = unchanged && ["collection","report"].includes(original.dateKind)
+    ? original.dateKind : "unknown";
+  if (kind === "unknown" && source && value.date && source.includes(value.date)) {
+    if (/^(?:collection|collected|sample|specimen)(?:\s+date)?\s*:/i.test(source.trim())) kind = "collection";
+    else if (/^(?:report|reported|issued)(?:\s+date)?\s*:/i.test(source.trim())) kind = "report";
+  }
+  if (!value.date) kind = "unknown";
+  return {dateKind:kind,dateSourceText:source,dateSourcePage:unchanged && Number.isInteger(original.dateSourcePage)?original.dateSourcePage:null};
+}
+
+function evidenceObservations(values, originals, reviewed = false) {
+  if (!Array.isArray(values) || values.length > 500)
+    throw new Error("invalid_evidence_observations");
+  return values.map((value) => {
+    // Reject, rather than shorten, any observation that cannot travel intact.
+    if (OBSERVATION_TEXT.some((field) => value?.[field] != null &&
+      (typeof value[field] !== "string" || value[field].length > 5000)))
+      throw new Error("invalid_evidence_observation");
+    const clean = reviewed ? reviewedObservation(value) : draftObservation(value);
+    if (!clean) throw new Error("invalid_evidence_observation");
+    const matches = reviewed ? originals.filter((candidate) => candidate.page === value.page && candidate.sourceText === value.sourceText) : [value];
+    const dates = dateEvidence(value, matches.length === 1 ? matches[0] : null);
+    if (dates.dateSourceText?.length > 5000) throw new Error("invalid_evidence_date");
+    return {...clean,...dates};
+  });
+}
+
 /**
  * Latest parser draft for one bound report: observations, warnings and each
  * page's coordinate unit, plus the latest review of that draft and the
  * report's current review revision. Page text and older reviews stay here.
  */
-export async function reportExtractionResponse(
+async function readReportResponse(
   { submissionId, reportId },
   { pool, now = Date.now() } = {},
+  includeEvidence = false,
 ) {
   if (!UUID.test(submissionId || "") || !UUID.test(reportId || ""))
     return notFound();
@@ -271,11 +334,11 @@ export async function reportExtractionResponse(
     } = await pool.query(
       `SELECT r.id,r.submission_id,r.mime,r.status,r.page_count,r.expires_at,
       s.data_class,s.fictional_confirmed,s.expires_at AS submission_expires_at,
-      e.id AS extraction_id,e.processor_version,e.created_at AS extracted_at,e.pages,e.observations,e.warnings,
+      e.id AS extraction_id,e.processor_version,e.input_sha256,e.created_at AS extracted_at,e.pages,e.observations,e.warnings,
       v.revision AS reviewed_revision,v.decision AS review_decision,v.observations AS review_observations,v.created_at AS reviewed_at,
       (SELECT COALESCE(MAX(revision),0) FROM public.namat_report_reviews WHERE report_id=r.id)::integer AS review_revision
       FROM public.namat_reports r JOIN public.hackathon_welcome_submissions s ON s.id=r.submission_id
-      LEFT JOIN LATERAL (SELECT id,processor_version,created_at,pages,observations,warnings
+      LEFT JOIN LATERAL (SELECT id,processor_version,input_sha256,created_at,pages,observations,warnings
         FROM public.namat_report_extractions WHERE report_id=r.id ORDER BY created_at DESC,id DESC LIMIT 1) e ON TRUE
       LEFT JOIN LATERAL (SELECT revision,decision,observations,created_at
         FROM public.namat_report_reviews WHERE report_id=r.id AND extraction_id=e.id ORDER BY revision DESC LIMIT 1) v ON TRUE
@@ -294,18 +357,22 @@ export async function reportExtractionResponse(
     )
       return notFound();
     const ocr = /:azure-layout$/.test(row.processor_version || "");
+    if (includeEvidence && row.extraction_id && (!Array.isArray(row.warnings) || row.warnings.length > 20 ||
+      row.warnings.some((warning) => typeof warning !== "string" || warning.length > 500)))
+      throw new Error("invalid_evidence_warnings");
     const extraction = row.extraction_id
       ? {
           id: row.extraction_id,
           processorVersion: row.processor_version,
           createdAt: new Date(row.extracted_at).toISOString(),
-          pages: (Array.isArray(row.pages) ? row.pages : [])
+          ...(includeEvidence?{inputSha256:/^[a-f0-9]{64}$/.test(row.input_sha256||"")?row.input_sha256:null}:{}),
+          pages: includeEvidence ? evidencePages(row.pages,ocr,row.mime,row.page_count) : (Array.isArray(row.pages) ? row.pages : [])
             .filter((page) => Number.isInteger(page?.number))
             .map((page) => ({
               number: page.number,
               unit: pageUnit(page, ocr, row.mime),
             })),
-          observations: (Array.isArray(row.observations)
+          observations: includeEvidence ? evidenceObservations(row.observations,row.observations) : (Array.isArray(row.observations)
             ? row.observations
             : []
           )
@@ -324,7 +391,7 @@ export async function reportExtractionResponse(
             revision: row.reviewed_revision,
             decision: row.review_decision,
             createdAt: new Date(row.reviewed_at).toISOString(),
-            observations: (Array.isArray(row.review_observations)
+            observations: includeEvidence ? evidenceObservations(row.review_observations,row.observations,true) : (Array.isArray(row.review_observations)
               ? row.review_observations
               : []
             )
@@ -334,6 +401,7 @@ export async function reportExtractionResponse(
           }
         : null;
     const body = JSON.stringify({
+      ...(includeEvidence?{evidenceVersion:EVIDENCE_VERSION}:{}),
       report: {
         id: row.id,
         status: row.status,
@@ -345,7 +413,7 @@ export async function reportExtractionResponse(
         ? row.review_revision
         : 0,
     });
-    if (Buffer.byteLength(body) > MAX_EXTRACTION_BYTES)
+    if (Buffer.byteLength(body) > (includeEvidence?MAX_EVIDENCE_BYTES:MAX_EXTRACTION_BYTES))
       return portalJson({ status: "unavailable" }, 503);
     return new Response(body, {
       status: 200,
@@ -358,6 +426,15 @@ export async function reportExtractionResponse(
   } catch {
     return portalJson({ status: "unavailable" }, 503);
   }
+}
+
+export function reportExtractionResponse(reference, options) {
+  return readReportResponse(reference, options);
+}
+
+/** Full source evidence, exposed only by the independently authenticated alias. */
+export function reportEvidenceResponse(reference, options) {
+  return readReportResponse(reference, options, true);
 }
 
 /**

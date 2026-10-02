@@ -1,0 +1,79 @@
+.form {
+  margin-top: 30px;
+}
+.form label {
+  display: block;
+  margin-bottom: 9px;
+  color: #29251f;
+  font-size: 14px;
+  font-weight: 650;
+}
+.inputRow {
+  display: flex;
+  gap: 10px;
+}
+
+.inputRow input {
+  min-width: 0;
+  flex: 1;
+  height: 52px;
+  padding: 0 15px;
+  border: 1px solid #d9d4cc;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #29251f;
+  font: inherit;
+  font-size: 15px;
+}
+
+.inputRow input:focus {
+  border-color: #755b40;
+  box-shadow: 0 0 0 3px #755b401a;
+}
+.inputRow input::placeholder {
+  color: #a29a90;
+}
+
+.inputRow button {
+  display: inline-flex;
+  min-width: 125px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 9px;
+  background: #3b2c1d;
+  color: #fff9ef;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.inputRow button:hover {
+  background: #55402c;
+}
+.inputRow button span {
+  font-size: 20px;
+}
+.hint {
+  margin: 10px 0 0;
+  color: #8a837a;
+  font-size: 12px;
+}
+.error {
+  margin: 18px 0 0;
+  color: #a23c32;
+  font-size: 14px;
+}
+
+@media (max-width: 520px) {
+  .inputRow {
+    flex-direction: column;
+  }
+  .inputRow button {
+    min-height: 50px;
+  }
+}

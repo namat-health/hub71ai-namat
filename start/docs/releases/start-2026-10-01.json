@@ -1,0 +1,1393 @@
+{
+  "formatVersion": 1,
+  "releaseDate": "2026-10-01",
+  "url": "https://start.namat.health/welcome",
+  "environment": "fictional-data demo",
+  "deployedArchiveSha256": "c6c79700e21d309dd38401e9db11e2498911169e34bc52180aa54b070acfd94a",
+  "runtimeFiles": [
+    {
+      "path": "server/journey-email-layout.mjs",
+      "bytes": 6770,
+      "sha256": "a787d7b062701ecd53bfc67c66496a2ebf81bb43296315eb02ace3846a8c3818"
+    },
+    {
+      "path": "services/report-processing/blob.mjs",
+      "bytes": 3524,
+      "sha256": "1a19a34cb7340b1f49892b17c37a88e8288a9bfa48895da8b4d4ae0aefa0ec6a"
+    },
+    {
+      "path": "services/report-processing/document-worker.mjs",
+      "bytes": 13750,
+      "sha256": "b4073d22d04aa5d3bb2e66a1a2e60597fa0c6bf747997998d424622ae9519087"
+    },
+    {
+      "path": "services/report-processing/document.mjs",
+      "bytes": 4011,
+      "sha256": "9b00c88dd697d8ab8b7918b02fa83243400af6d919388f28bc6de82b12536448"
+    },
+    {
+      "path": "services/report-processing/extract.mjs",
+      "bytes": 2957,
+      "sha256": "9baad37e9cd450e74c0036dc63e042d08a698bdfafe73631e882cd3898457dc6"
+    },
+    {
+      "path": "services/report-processing/local-blob.mjs",
+      "bytes": 3039,
+      "sha256": "cfcf951159bf5f6ca736814d9890c574a6df0eabba34a878f202c1154c72d35e"
+    },
+    {
+      "path": "services/report-processing/ocr.mjs",
+      "bytes": 3917,
+      "sha256": "707e9f01a42b3f895c024757d4f7b129d595ea36932f9ecfdb1172fdd66fb699"
+    },
+    {
+      "path": "services/report-processing/review.css",
+      "bytes": 5751,
+      "sha256": "05e743c63d3202e01c9033cb1d0f1dbf2f199404cabd0c10338727427c1da71a"
+    },
+    {
+      "path": "services/report-processing/review.html",
+      "bytes": 1472,
+      "sha256": "5495ad9ccf7941b0a81c2c79bec8d7f34f86a6b7e624a3074b290a49ae71b284"
+    },
+    {
+      "path": "services/report-processing/review.mjs",
+      "bytes": 20605,
+      "sha256": "ff845e8fdbd63177073d3e300871114659f1078a883d6975a2ce9a591f0e1ec0"
+    },
+    {
+      "path": "services/report-processing/service.mjs",
+      "bytes": 9593,
+      "sha256": "c001070d56d440211eeeff96a0505048b19338c634f838472f6d8811026196e1"
+    },
+    {
+      "path": "services/report-processing/store.mjs",
+      "bytes": 21714,
+      "sha256": "f0109fbee7327a0f2dbbe5a112116a22e5542c856ef90beb8829bbf5d861027d"
+    },
+    {
+      "path": "services/report-processing/worker.mjs",
+      "bytes": 4576,
+      "sha256": "33bd704c2a58cff010a84298476d862cea87ac890d3fd33f11c40f97b6b7f7bf"
+    },
+    {
+      "path": "src/hackathon/server/api.mjs",
+      "bytes": 9249,
+      "sha256": "fd160820a84ec03957371a49704c93bce5f1584d5942359f79ad5db93767afca"
+    },
+    {
+      "path": "src/hackathon/server/azure-server.mjs",
+      "bytes": 9196,
+      "sha256": "49a0c8941ed1b232e9f1b69dc5f635d7b66d95de442f5cc4e98111ffaf12699c"
+    },
+    {
+      "path": "src/hackathon/server/confirmation-email.mjs",
+      "bytes": 9488,
+      "sha256": "5bc3ab220dedf5919ec66cf8be31029e66257a85b36e97a3e50dc3411c58a944"
+    },
+    {
+      "path": "src/hackathon/server/http.mjs",
+      "bytes": 1470,
+      "sha256": "349e21027cb56beb75359c51290a8f424b63de058cc582a533fd94a6dd67fc1e"
+    },
+    {
+      "path": "src/hackathon/server/store.mjs",
+      "bytes": 6958,
+      "sha256": "46e51517246cc624655b93dc7972e164c6af999a2813ffbf32178e3e80ee5a0e"
+    },
+    {
+      "path": "src/hackathon/server/uploads.mjs",
+      "bytes": 4909,
+      "sha256": "e0401e8abee73d4d9f0c8c74dbada6a0dfee54996c915278adc8585cea0ec894"
+    },
+    {
+      "path": "src/hackathon/welcome/questionnaire-model.mjs",
+      "bytes": 7739,
+      "sha256": "4185b94ffc0c8b8d784a81cb0fd9b406733ee9d9629d4693fa1c942d7ea6824d"
+    },
+    {
+      "path": "src/lib/overview-preview-v4.mjs",
+      "bytes": 21647,
+      "sha256": "6a6a2117ae467b1e5ec6cde74e1533391854d92a335c3d240b92df8a2ed3c450"
+    },
+    {
+      "path": "src/lib/overview-preview.mjs",
+      "bytes": 22902,
+      "sha256": "3ffc50bef3598ffe1c749351a056c71f86f8e0121dc846a70dbc7f08c77d7b01"
+    }
+  ],
+  "sourceAssets": [
+    {
+      "path": "public/assets/archivo-original-latin.woff2",
+      "bytes": 90096,
+      "sha256": "4c98b9d490d1698ec95f2ff17a6c7d0e72691864c0c5d7bc2a2c161b45afe5ad"
+    },
+    {
+      "path": "public/assets/journey/bloodwork-no.svg",
+      "bytes": 658,
+      "sha256": "6b1c68d34cd042dcb2cbe03730b98305b1fa0485c29a638b0aa700b365542f44"
+    },
+    {
+      "path": "public/assets/journey/bloodwork-yes.svg",
+      "bytes": 895,
+      "sha256": "15a23fd77e3fe162703e7348ec9bb4cb7eaf9ea8a38a0acb4c1b23683f38e3fa"
+    },
+    {
+      "path": "public/assets/journey/clinic-welcome-1920.webp",
+      "bytes": 112178,
+      "sha256": "3b38adcceaec90c4ffba582c96e9a5e86ed08d1fdf5a4d45d1fecf49ee0e35b9"
+    },
+    {
+      "path": "public/assets/journey/clinic-welcome-480.webp",
+      "bytes": 25448,
+      "sha256": "b33eb805bf6ff030456a0a0e810bafc9b43fafee87503f37b789b75c02418e1f"
+    },
+    {
+      "path": "public/assets/journey/clinic-welcome-960.webp",
+      "bytes": 61964,
+      "sha256": "e0e09cb5624f6fa716b3b6bcfe5d70fa749a070ff0b1ee5e7d12d76dda5ee01f"
+    },
+    {
+      "path": "public/assets/journey/env01-1200.webp",
+      "bytes": 78604,
+      "sha256": "4b258b2840de3ce2c8ae0e653e7dbd91556f34c81f628cadf0f349a5edd1b73a"
+    },
+    {
+      "path": "public/assets/journey/env01-480.webp",
+      "bytes": 18498,
+      "sha256": "40a229fe838aff160b331fa8aa024cf84fd7eed0a9bbd2e18218fd26a895fd92"
+    },
+    {
+      "path": "public/assets/journey/env01-800.webp",
+      "bytes": 41290,
+      "sha256": "1afed600dee88c89c8085e7a7192ac50176078de814308b3b46d06ac544fea22"
+    },
+    {
+      "path": "public/assets/journey/env02-1200.webp",
+      "bytes": 251084,
+      "sha256": "2f9a2c87ba0b92ef040a6968cb829f4e2ebdf9822a9afb6e1bf7f979dfdff693"
+    },
+    {
+      "path": "public/assets/journey/env02-480.webp",
+      "bytes": 56902,
+      "sha256": "170bdd433c18e3d66d035b63fd4c08e83e5715e4cc55c84fca8362db756e460e"
+    },
+    {
+      "path": "public/assets/journey/env02-800.webp",
+      "bytes": 129338,
+      "sha256": "f81b73a39e4a4e5a41b602b5184d1410b1571b58603ba04bb7999ebe1e54aa3b"
+    },
+    {
+      "path": "public/assets/journey/f01-01-1200.webp",
+      "bytes": 240010,
+      "sha256": "1fd5e46a203dd1c0e155122790429bd8b9f6861f3ce4047424fce9166ef01a23"
+    },
+    {
+      "path": "public/assets/journey/f01-01-480.webp",
+      "bytes": 37048,
+      "sha256": "226b272d17ce703dd5df55bd2dd52f20b9e1f3d6a36b002466bdd8e682a94b4c"
+    },
+    {
+      "path": "public/assets/journey/f01-01-800.webp",
+      "bytes": 84340,
+      "sha256": "82997b1c2e25a6f9b8f826049c3b1604f8de1a1e2573a9bdd5747d6ee34c01ad"
+    },
+    {
+      "path": "public/assets/journey/f01-02-1200.webp",
+      "bytes": 163184,
+      "sha256": "4cad8fc7c1f110fcfecd3c7fc83d814acaf934226585fb981f9a9eee8b8b2319"
+    },
+    {
+      "path": "public/assets/journey/f01-02-480.webp",
+      "bytes": 29794,
+      "sha256": "29bf8e5ea4a7986131e79a2180c586c25ad29d195af8afb52d42a7ad98b19e51"
+    },
+    {
+      "path": "public/assets/journey/f01-02-800.webp",
+      "bytes": 65374,
+      "sha256": "e2fa0753e4f174774fcc1bf4f9a708cc025ea0497158337d6d6f3a2d025e1503"
+    },
+    {
+      "path": "public/assets/journey/f01-03-1200.webp",
+      "bytes": 437544,
+      "sha256": "2e7bb4e6b1af71f3d8d000a24a86d61e189b734b77fdf96cd2097113a3994dba"
+    },
+    {
+      "path": "public/assets/journey/f01-03-480.webp",
+      "bytes": 138336,
+      "sha256": "62c3bb6c7dab5d6a8820b4d6701f2427f3a167144d5c33f9014ba8125e3d9b32"
+    },
+    {
+      "path": "public/assets/journey/f01-03-800.webp",
+      "bytes": 292114,
+      "sha256": "0c7eef0900e8fdf6825c6adfb22abb289d5f6e8b66a5aa1b741b73c57a6cca80"
+    },
+    {
+      "path": "public/assets/journey/f01-04-1200.webp",
+      "bytes": 190334,
+      "sha256": "4132bd1c17234f003b1402cf6c8b302c8619e4ac46a4aac4828dddbd5a88848b"
+    },
+    {
+      "path": "public/assets/journey/f01-04-480.webp",
+      "bytes": 36478,
+      "sha256": "3875a5392ba42e1996fb9cc664e6e271f2b1ff8e2a91188111569891caa4386e"
+    },
+    {
+      "path": "public/assets/journey/f01-04-800.webp",
+      "bytes": 77868,
+      "sha256": "5ee2eb41fe112f19d5ba154709b1479b91ebf926574b57a3ef3732e91f4b71d6"
+    },
+    {
+      "path": "public/assets/journey/f01-05-1200.webp",
+      "bytes": 174590,
+      "sha256": "6c45842d1a95026815dcf019d313ad6230417f6f059bd0eb3b95c5d1159308f7"
+    },
+    {
+      "path": "public/assets/journey/f01-05-480.webp",
+      "bytes": 35376,
+      "sha256": "e3e266298e321cf030e7e72c06164098791080e9dd1089b48e6eefced070f9bf"
+    },
+    {
+      "path": "public/assets/journey/f01-05-800.webp",
+      "bytes": 73388,
+      "sha256": "367e38a8dcc2d505ec9a816607164e2bbeb39360bdf5617299b0d2e69a65ad8e"
+    },
+    {
+      "path": "public/assets/journey/f02-01-1200.webp",
+      "bytes": 161732,
+      "sha256": "ff9a9a080be009d9b271da7f7a46263a99a256e39715ffe1525ce6a2d45e9b87"
+    },
+    {
+      "path": "public/assets/journey/f02-01-480.webp",
+      "bytes": 39616,
+      "sha256": "cdf671d401326b9162bc267da0f8cafdddd74d6d5164f851f9c1f54fe0172e1d"
+    },
+    {
+      "path": "public/assets/journey/f02-01-800.webp",
+      "bytes": 83344,
+      "sha256": "39bde00a53b9c3949f23b7a7fb68b1115df527ed0e5311ccdc2a17b9dae68921"
+    },
+    {
+      "path": "public/assets/journey/f02-02-1200.webp",
+      "bytes": 139382,
+      "sha256": "a48615a779dea4138ae87cea39b094f511b64ed30daa7c5edb245e753ac9d9c9"
+    },
+    {
+      "path": "public/assets/journey/f02-02-480.webp",
+      "bytes": 28208,
+      "sha256": "ea2bbd62262a82bdfd3e9d35adaee0d668b895ca58ea1f4b0f4ebc56ab20ecfe"
+    },
+    {
+      "path": "public/assets/journey/f02-02-800.webp",
+      "bytes": 62632,
+      "sha256": "cc1cc8532c70e54c92909042c47ad6ac33b84a07ac51fdb51ecd17013ab1687d"
+    },
+    {
+      "path": "public/assets/journey/f02-03-1200.webp",
+      "bytes": 294654,
+      "sha256": "bd88579cad7a261c54d31c5e8859abe76ad1819865e2eef8b81df155dcd6c320"
+    },
+    {
+      "path": "public/assets/journey/f02-03-480.webp",
+      "bytes": 101884,
+      "sha256": "7635d14e09723e6333c2e15a88b3dc7ecc586ae4a6ca16ed9be7f720ae9086fc"
+    },
+    {
+      "path": "public/assets/journey/f02-03-800.webp",
+      "bytes": 208034,
+      "sha256": "ba19eb308bfa0a65360f87f933ed4b81d8b65c7b7acdec5b929ade91b803255b"
+    },
+    {
+      "path": "public/assets/journey/f02-04-1200.webp",
+      "bytes": 157398,
+      "sha256": "95f56729dbc92fd49be8dfff6f889234915b23698951dd8beadfa2fed99cc869"
+    },
+    {
+      "path": "public/assets/journey/f02-04-480.webp",
+      "bytes": 35670,
+      "sha256": "21489c985fc2abe670eaf92bcfcfb1b3d33c49f691fdfc0a6eac91d3c9277583"
+    },
+    {
+      "path": "public/assets/journey/f02-04-800.webp",
+      "bytes": 76274,
+      "sha256": "b58d5c2481994a3b6c121d04e129de8bfffc28ece1bba18a21ab70ac5f689c46"
+    },
+    {
+      "path": "public/assets/journey/f02-05-1200.webp",
+      "bytes": 132466,
+      "sha256": "121b86137616cdb30a6013675d255603f0366f26c6d330a7ac13bc9935e9b982"
+    },
+    {
+      "path": "public/assets/journey/f02-05-480.webp",
+      "bytes": 30180,
+      "sha256": "d9b00787f22c7199b4bb97dace21dcec6fb822bac6b26834477a43a399ace6d0"
+    },
+    {
+      "path": "public/assets/journey/f02-05-800.webp",
+      "bytes": 64408,
+      "sha256": "d8b750283565d594e593afa934c9742fd9b1d3ffb1159b474b23b327d3e23172"
+    },
+    {
+      "path": "public/assets/journey/f03-01-1200.webp",
+      "bytes": 173588,
+      "sha256": "32a626bf41750ccf1e956a6c8c69437e7d179ffe5ce37190c6ffe667fe131594"
+    },
+    {
+      "path": "public/assets/journey/f03-01-480.webp",
+      "bytes": 52240,
+      "sha256": "988c96a6376d407413b730ec917560756d52aa155b346ca249ce4a05a7ae6acf"
+    },
+    {
+      "path": "public/assets/journey/f03-01-800.webp",
+      "bytes": 115742,
+      "sha256": "807399130fd2847a6be0a24c9098d0517149fa63cfd87013a06f34c764087506"
+    },
+    {
+      "path": "public/assets/journey/f03-02-1200.webp",
+      "bytes": 154282,
+      "sha256": "3d7b4de356c79465ef16ea6281b342fc7593f95607f808b06bd50470d16529a4"
+    },
+    {
+      "path": "public/assets/journey/f03-02-480.webp",
+      "bytes": 52360,
+      "sha256": "be64ee8db728bfad8eb7a1b7f4d6543b5e1e25a7c91c58efe5a7539dfacf00e6"
+    },
+    {
+      "path": "public/assets/journey/f03-02-800.webp",
+      "bytes": 102122,
+      "sha256": "f3f852312826fb04f3f8624447d2732b6db90b8dc1d6ed2b2af5b830b6071ade"
+    },
+    {
+      "path": "public/assets/journey/f03-03-1200.webp",
+      "bytes": 223014,
+      "sha256": "e734945c27032aa91cc94ae5aed302cebd6e3e66e5202fe28005b5c0d15a1de8"
+    },
+    {
+      "path": "public/assets/journey/f03-03-480.webp",
+      "bytes": 77764,
+      "sha256": "4056fce82a473cb8f6ae490080bb4ac772376b87f262d0431b65a7b3a256ea25"
+    },
+    {
+      "path": "public/assets/journey/f03-03-800.webp",
+      "bytes": 154834,
+      "sha256": "1d370b35f03cd8ff9d6e1998d1c86efba54f2db954590b9d1d1acb1b4594fd52"
+    },
+    {
+      "path": "public/assets/journey/f03-04-1200.webp",
+      "bytes": 147816,
+      "sha256": "91078d1b5e09770b9020d69545c20c6aa5615455714a1fe13753ae4d888c59f0"
+    },
+    {
+      "path": "public/assets/journey/f03-04-480.webp",
+      "bytes": 48022,
+      "sha256": "4db44318c192f1cb6a63855c263e9c4bba6c0ef9a77cbf5393ef0bc42c565e51"
+    },
+    {
+      "path": "public/assets/journey/f03-04-800.webp",
+      "bytes": 100958,
+      "sha256": "3fb56762d6565b249087af5ed03f62ad8fac8ed41256a48321a28f1e5d23d252"
+    },
+    {
+      "path": "public/assets/journey/f03-05-1200.webp",
+      "bytes": 161050,
+      "sha256": "35832c83ec865f9835cb1a1fefa23cf1832e6d3fcc9171cfbf662194a6031891"
+    },
+    {
+      "path": "public/assets/journey/f03-05-480.webp",
+      "bytes": 53588,
+      "sha256": "1190c023efb76dbf819d3f3c261605e6f73b61fc5903a8108cc6957de870befa"
+    },
+    {
+      "path": "public/assets/journey/f03-05-800.webp",
+      "bytes": 107356,
+      "sha256": "65428e6e0c463858c0fe019a9201b95c6b8ec0053a6accf8ceb8e9a3aa2db093"
+    },
+    {
+      "path": "public/assets/journey/f04-01-1200.webp",
+      "bytes": 150828,
+      "sha256": "338c9e0b23832bdc94c304f06fa6b09ac1e532c50e78a2befe57569408968502"
+    },
+    {
+      "path": "public/assets/journey/f04-01-480.webp",
+      "bytes": 47104,
+      "sha256": "8cfb2e108c5045157d20ad74d2a34d8530cbff352347beac1dd927535e8fd0c0"
+    },
+    {
+      "path": "public/assets/journey/f04-01-800.webp",
+      "bytes": 97462,
+      "sha256": "f88ea24765ea23e9f196832c66267f615306cb5aac8281946fc78865b1ac9ce7"
+    },
+    {
+      "path": "public/assets/journey/f04-02-1200.webp",
+      "bytes": 160864,
+      "sha256": "60adebf25f20c3435d4b8a4806af2b28b006db9bd74edd9a5b8fece84420b414"
+    },
+    {
+      "path": "public/assets/journey/f04-02-480.webp",
+      "bytes": 51668,
+      "sha256": "0643fe91cabb5341c5364bd65d2183f25cfd289d7a1b9b66af851689ee950cc3"
+    },
+    {
+      "path": "public/assets/journey/f04-02-800.webp",
+      "bytes": 105768,
+      "sha256": "c6d1ab1e3a49afbbe84a59a7899002024e63d3ce8196f590c8e511c7684d317b"
+    },
+    {
+      "path": "public/assets/journey/f04-03-1200.webp",
+      "bytes": 242254,
+      "sha256": "d57ad450ad3f7243c2d48023c56c64c639e02b40bbd4426089276e24fbe16a7d"
+    },
+    {
+      "path": "public/assets/journey/f04-03-480.webp",
+      "bytes": 79548,
+      "sha256": "6aa6a2dc1f56e8378562186f55c8bfec7c07744795620d78cb54332fcd61369d"
+    },
+    {
+      "path": "public/assets/journey/f04-03-800.webp",
+      "bytes": 166612,
+      "sha256": "975c2ffe66e919eedadd996c21dc586c04f92d2a9c136a72b7a48a3f1ef45042"
+    },
+    {
+      "path": "public/assets/journey/f04-04-1200.webp",
+      "bytes": 157732,
+      "sha256": "fd829f506f89f78c44725397c915fe80511c7db6d9865e61fb63092e6b0187c9"
+    },
+    {
+      "path": "public/assets/journey/f04-04-480.webp",
+      "bytes": 51858,
+      "sha256": "2a459e0db0c45dfa4fe8e0bcb486a508d9580bd6e7bbc6be9a92df1dd19bb5f7"
+    },
+    {
+      "path": "public/assets/journey/f04-04-800.webp",
+      "bytes": 108574,
+      "sha256": "ebb6f8d68d7cea55eb99cdcd259bc5d759e57a3dcd023d5da3b5aea2bb3cd071"
+    },
+    {
+      "path": "public/assets/journey/f04-05-1200.webp",
+      "bytes": 163686,
+      "sha256": "0105990c07f1e48ff7754402cdb34b52d1ca3370406c153097bde74941c3cdfc"
+    },
+    {
+      "path": "public/assets/journey/f04-05-480.webp",
+      "bytes": 52996,
+      "sha256": "e2a8f5e67d9d88fdbbf5897d0d325967068c0420793cc0f0ca271593a5336717"
+    },
+    {
+      "path": "public/assets/journey/f04-05-800.webp",
+      "bytes": 109748,
+      "sha256": "634f26eeef88fe7595536335fe401963652b4aba44b17fd9af2aae44efba09dd"
+    },
+    {
+      "path": "public/assets/journey/f05-01-1200.webp",
+      "bytes": 180230,
+      "sha256": "392543a164669d9741549ff680e57384f9dc725a73c582a9ce17956c3dd6e2c0"
+    },
+    {
+      "path": "public/assets/journey/f05-01-480.webp",
+      "bytes": 53306,
+      "sha256": "89ef57acb5ed5ef4b6170e2dc96810fc249a2b8995d58d7e1b349959c8663c31"
+    },
+    {
+      "path": "public/assets/journey/f05-01-800.webp",
+      "bytes": 115306,
+      "sha256": "1e1e9273f74b0db6237ac62f91e557a2d93c6f0d4b2ba4e457aeb3ea68183194"
+    },
+    {
+      "path": "public/assets/journey/f05-02-1200.webp",
+      "bytes": 168422,
+      "sha256": "796f0c0890f4844905afd503f72e9068b68b7cbca8daa77cdd15ca3de5597ad4"
+    },
+    {
+      "path": "public/assets/journey/f05-02-480.webp",
+      "bytes": 53548,
+      "sha256": "54dc0af628de8dbce2fb21fd7065cd3dc6d19e205b544e89e86300345c5fbf13"
+    },
+    {
+      "path": "public/assets/journey/f05-02-800.webp",
+      "bytes": 110132,
+      "sha256": "3ef6da7ff4ce607acd08f1ab4745364a37bb7758a2925a39c4523e9d90147e3f"
+    },
+    {
+      "path": "public/assets/journey/f05-03-1200.webp",
+      "bytes": 336534,
+      "sha256": "d66ea1c79b581bb8d7b0bc4586eabfaf15a2bd5ab7bb8ec5c69ed08747029fa3"
+    },
+    {
+      "path": "public/assets/journey/f05-03-480.webp",
+      "bytes": 104908,
+      "sha256": "d49bd80ac8f11d13281a276849325cc5b98048f3390336fb469ff49b551efc6c"
+    },
+    {
+      "path": "public/assets/journey/f05-03-800.webp",
+      "bytes": 223764,
+      "sha256": "0bf241e6c81032dccf8526e5e4e31505086cbc84f2c001bb4c0a2aec134fd0e0"
+    },
+    {
+      "path": "public/assets/journey/f05-04-1200.webp",
+      "bytes": 168516,
+      "sha256": "aa985457d1360b1af4b76cf3e5b2e88d64aa8dd6bda4dc2a2f61b354b3028b6d"
+    },
+    {
+      "path": "public/assets/journey/f05-04-480.webp",
+      "bytes": 54424,
+      "sha256": "e1185aae4cf94cca1bd7a9cb760f66020b27b6da1c03e0482e58c9042611fc11"
+    },
+    {
+      "path": "public/assets/journey/f05-04-800.webp",
+      "bytes": 114640,
+      "sha256": "6ac18f54796f6d7c7ff645a8d83531e0dd292107dfa06eb906405d1c1a4d6bd5"
+    },
+    {
+      "path": "public/assets/journey/f05-05-1200.webp",
+      "bytes": 167520,
+      "sha256": "c0328f67752c8343eb7527763d686362e659bb985ad02f3ff3f2904b544ad964"
+    },
+    {
+      "path": "public/assets/journey/f05-05-480.webp",
+      "bytes": 55612,
+      "sha256": "222259fccd0d1fa15ab926349f38bee25df05fd073079a17505cb75c511b97bc"
+    },
+    {
+      "path": "public/assets/journey/f05-05-800.webp",
+      "bytes": 111996,
+      "sha256": "c2e14b2652dd79b67637083a9c600bf30979bb13f9af53959c7bddc581f4a83e"
+    },
+    {
+      "path": "public/assets/journey/f06-01-1200.webp",
+      "bytes": 165496,
+      "sha256": "a56dd03cf03947e8cade2618b9c60ae0491b5f04cbc4e9d7624857a7783fde6e"
+    },
+    {
+      "path": "public/assets/journey/f06-01-480.webp",
+      "bytes": 49474,
+      "sha256": "b5316f41845970bd3c414a21fe4240d5ab2ff842c9d11470a225e8cd7afcc56f"
+    },
+    {
+      "path": "public/assets/journey/f06-01-800.webp",
+      "bytes": 106324,
+      "sha256": "3ecf484ef83959e63dbf42254f5c360fd74b406acfda69ba4b6efd6de139aadd"
+    },
+    {
+      "path": "public/assets/journey/f06-02-1200.webp",
+      "bytes": 174360,
+      "sha256": "7b04f1ec5597b7d3e2fb4f71fa4eeb0dccc145053c8d5e8bc74611bd17e9883d"
+    },
+    {
+      "path": "public/assets/journey/f06-02-480.webp",
+      "bytes": 53586,
+      "sha256": "9dee6206ec308073ae9d21b82db6cfda365ae33ee873e652cde07eacbc601320"
+    },
+    {
+      "path": "public/assets/journey/f06-02-800.webp",
+      "bytes": 114530,
+      "sha256": "d613295f1f4e44c8eb63ec2975cba25bb49092718de63b6d593476b36073eee7"
+    },
+    {
+      "path": "public/assets/journey/f06-03-1200.webp",
+      "bytes": 268376,
+      "sha256": "475858b2aac533fa8beb0af0bf2e705f9ec899ef32e9df10cfd88afbf764cab8"
+    },
+    {
+      "path": "public/assets/journey/f06-03-480.webp",
+      "bytes": 85066,
+      "sha256": "1b1265886e4b9ff98d0ded17af0509424af859cb342ff259ca81ee3547f5cfea"
+    },
+    {
+      "path": "public/assets/journey/f06-03-800.webp",
+      "bytes": 179690,
+      "sha256": "317c6ade29e2866d8d97169415c3a0a1000d1f1a55295a75713b1438456c80f8"
+    },
+    {
+      "path": "public/assets/journey/f06-04-1200.webp",
+      "bytes": 157182,
+      "sha256": "bc9d128acd85dc90ce7d51b289137857d8ff84875ce84a6470fcb67c06d735d1"
+    },
+    {
+      "path": "public/assets/journey/f06-04-480.webp",
+      "bytes": 52122,
+      "sha256": "b9e6c69afe0edb91cbd62a73d994c0d4311bb07299a299e3960e6efbc8bb0cd0"
+    },
+    {
+      "path": "public/assets/journey/f06-04-800.webp",
+      "bytes": 108768,
+      "sha256": "4183ec1d793502662218126b8a82633620e84ddf14e83e8a380346aff4baae75"
+    },
+    {
+      "path": "public/assets/journey/f06-05-1200.webp",
+      "bytes": 166048,
+      "sha256": "752a347c20d7c219529d3bb228f10def1d5ae3d81fabee00908567a22515249e"
+    },
+    {
+      "path": "public/assets/journey/f06-05-480.webp",
+      "bytes": 51778,
+      "sha256": "54f2a2245525aa4066d5c3aa0fa4f03014672fa6bebffb65363b6574b594c564"
+    },
+    {
+      "path": "public/assets/journey/f06-05-800.webp",
+      "bytes": 109652,
+      "sha256": "e619992d553698aabb013191ca932d07b93b4b3ccee756e45b7b4bb916e11afb"
+    },
+    {
+      "path": "public/assets/journey/how01-1200.webp",
+      "bytes": 144992,
+      "sha256": "6ee631adad389e364d3e2b3799df1aeb77c543c67d7dbef4a47fd22d0874a8af"
+    },
+    {
+      "path": "public/assets/journey/how01-480.webp",
+      "bytes": 33970,
+      "sha256": "fd5beec75c868ec3ebe205e97420157d46b852cc66a716324f754932076166cd"
+    },
+    {
+      "path": "public/assets/journey/how01-800.webp",
+      "bytes": 74578,
+      "sha256": "4bb8d017a75d43c8c232ab5a0f7d29b731b5905f5d1cf79d9ec7af7c19c11102"
+    },
+    {
+      "path": "public/assets/journey/how02-1200.webp",
+      "bytes": 145622,
+      "sha256": "2b7555ab8a43d78209669a51145a0e833a0dacb96dd0aaf23bb9ee45de643733"
+    },
+    {
+      "path": "public/assets/journey/how02-480.webp",
+      "bytes": 33560,
+      "sha256": "f31986b1a0e983042bfc686e385382c00fe8a58c98e65f194afdc36d03fe2bcb"
+    },
+    {
+      "path": "public/assets/journey/how02-800.webp",
+      "bytes": 74176,
+      "sha256": "a609540626084197da0dc4b49296432e8cf442234e590e3a5cc3945658846b11"
+    },
+    {
+      "path": "public/assets/journey/how03-1200.webp",
+      "bytes": 142102,
+      "sha256": "35a2bc0d9c136dca36c14d38068fff6a98f428f983b901ccad64ea70e25c1efd"
+    },
+    {
+      "path": "public/assets/journey/how03-480.webp",
+      "bytes": 31058,
+      "sha256": "66c8a26054f955f7f68c1818c63b8806fdfc051b790b0c74fb6ed6b290b6f562"
+    },
+    {
+      "path": "public/assets/journey/how03-800.webp",
+      "bytes": 68964,
+      "sha256": "e131f77c58f8d70e7356a5a7515eacb4177ac6256e91ee39dd1fe2362a4685e5"
+    },
+    {
+      "path": "public/assets/journey/how04-1200.webp",
+      "bytes": 149732,
+      "sha256": "42352dd70c378d2f18620357b9b77b2dc01001ec5e387c3ab7c2aef1651962fc"
+    },
+    {
+      "path": "public/assets/journey/how04-480.webp",
+      "bytes": 42322,
+      "sha256": "a8c80241b7d1b6d406b21577bb6dcb8813e750c7cbdf6ccfd5f03f2b8e045dda"
+    },
+    {
+      "path": "public/assets/journey/how04-800.webp",
+      "bytes": 83172,
+      "sha256": "6dc3301fb6dd0c399340fc155f7df7edb8c6afb237e56be552df1dcca8d517ba"
+    },
+    {
+      "path": "public/assets/journey/how05-1200.webp",
+      "bytes": 129522,
+      "sha256": "c5b103402eab594e5d6d712427b7a6c7110ceb05065039a6542cbf19981b4ef6"
+    },
+    {
+      "path": "public/assets/journey/how05-480.webp",
+      "bytes": 31570,
+      "sha256": "c5f41ffc97b42c8ea70b401d3f85d1c34c1a61a184223041bf49b796000910c8"
+    },
+    {
+      "path": "public/assets/journey/how05-800.webp",
+      "bytes": 67206,
+      "sha256": "ad2789f6d7f6bf078a0f93a2207873e985813e4a78eac59bcbb5af23aba4b5ae"
+    },
+    {
+      "path": "public/assets/journey/m01-01-1200.webp",
+      "bytes": 98256,
+      "sha256": "15784e1cfa4ad8ecb21bea95be1166d83e2716a835e374b7e6513eb27906edcc"
+    },
+    {
+      "path": "public/assets/journey/m01-01-480.webp",
+      "bytes": 26162,
+      "sha256": "0bc5e09ccefd43420ccce0779817b8be1bea0431ae04f911a35c82a63839f641"
+    },
+    {
+      "path": "public/assets/journey/m01-01-800.webp",
+      "bytes": 55012,
+      "sha256": "cc70710fa3bea5da3ae5875ebe27674604595e5c5a51555da2dee9fcac4d9d10"
+    },
+    {
+      "path": "public/assets/journey/m01-02-1200.webp",
+      "bytes": 104986,
+      "sha256": "24d4ea3b92b105a329e472b9ed817930ae332e97070d657c2bc3beb87d421b1c"
+    },
+    {
+      "path": "public/assets/journey/m01-02-480.webp",
+      "bytes": 27298,
+      "sha256": "72d6a20606b59e9f33dfdf64adb5d43dddb8d232d0801932f2872ecb036812ca"
+    },
+    {
+      "path": "public/assets/journey/m01-02-800.webp",
+      "bytes": 55226,
+      "sha256": "a3db941add8944ecb2f74be3cbc07f96c35147d592fd500f8bfa58163c239d9c"
+    },
+    {
+      "path": "public/assets/journey/m01-03-1200.webp",
+      "bytes": 282948,
+      "sha256": "b745a7d476bf19d984b3e16c8e6bfc116919a55d32712a9ef45d1cf7c74959cc"
+    },
+    {
+      "path": "public/assets/journey/m01-03-480.webp",
+      "bytes": 95744,
+      "sha256": "b631dc694fad65159a0e917a50c8eadc850eb503b2c82f111fc248acf1cace5b"
+    },
+    {
+      "path": "public/assets/journey/m01-03-800.webp",
+      "bytes": 195646,
+      "sha256": "ed3fe748c8d29ef01b708e62ae0ac380d6bb9ec4b35383ac596f9e15745f9931"
+    },
+    {
+      "path": "public/assets/journey/m01-04-1200.webp",
+      "bytes": 103324,
+      "sha256": "ed6aa81c758d2264eefa7144671aeab2fc3386d943ccacf39557b3a09a03924f"
+    },
+    {
+      "path": "public/assets/journey/m01-04-480.webp",
+      "bytes": 29280,
+      "sha256": "b53da3ccee2aabd749af39e61e4f61e5e03e31873382359aa2edc29956da280c"
+    },
+    {
+      "path": "public/assets/journey/m01-04-800.webp",
+      "bytes": 56068,
+      "sha256": "f4ef4dd91988952a8e869d72ec582e0ca4b155e2156673bfd114fe3f0d19c01d"
+    },
+    {
+      "path": "public/assets/journey/m01-05-1200.webp",
+      "bytes": 96608,
+      "sha256": "5531b69014dde9773673e587e233c5a888c62c774f7020ade2c4d6b73682e094"
+    },
+    {
+      "path": "public/assets/journey/m01-05-480.webp",
+      "bytes": 26374,
+      "sha256": "ccff7520c09f27447606316c5454550d8d858bb16e3013957d71ea8b1a1652a6"
+    },
+    {
+      "path": "public/assets/journey/m01-05-800.webp",
+      "bytes": 52376,
+      "sha256": "58d5542e056b5ee040dcc34f38e845c863220aeaa2809aac1b36d68c460d4310"
+    },
+    {
+      "path": "public/assets/journey/m02-01-1200.webp",
+      "bytes": 119858,
+      "sha256": "ca23efe3592bf56adaa1685c4ba6f28c2b0cd2762e8346cfbda9366ce34830f1"
+    },
+    {
+      "path": "public/assets/journey/m02-01-480.webp",
+      "bytes": 34514,
+      "sha256": "f7c0bf29c21b9d96017c89c745a22566eea5657c180975cab21e2f1384737958"
+    },
+    {
+      "path": "public/assets/journey/m02-01-800.webp",
+      "bytes": 75738,
+      "sha256": "34f28e221a1dcf69fe5e6d120c3eccc179b63816a31911ac5a4882788ed5f461"
+    },
+    {
+      "path": "public/assets/journey/m02-02-1200.webp",
+      "bytes": 150902,
+      "sha256": "a42f393a9a1bc899ecc924165f22c2c374c891f038b816b5ba80825e36edb145"
+    },
+    {
+      "path": "public/assets/journey/m02-02-480.webp",
+      "bytes": 44178,
+      "sha256": "371508db533093c9f85329446480e1e8508dd82ce9ca6f6fda930599487a27d7"
+    },
+    {
+      "path": "public/assets/journey/m02-02-800.webp",
+      "bytes": 97646,
+      "sha256": "b1d2569e4641a18ba2f4af5ac9950bea6ec63baaf069735bab8ebfff9d97cbeb"
+    },
+    {
+      "path": "public/assets/journey/m02-03-1200.webp",
+      "bytes": 199688,
+      "sha256": "3e134063c154b03f86ace930b365f60e9974322cbcede78190970a9b218b5784"
+    },
+    {
+      "path": "public/assets/journey/m02-03-480.webp",
+      "bytes": 64362,
+      "sha256": "455a297b2a739bd35e3eb830db3efcd10700c2cf0dd953e3c5a5597bc43aa671"
+    },
+    {
+      "path": "public/assets/journey/m02-03-800.webp",
+      "bytes": 131822,
+      "sha256": "9cc62619427be11812e3f504f6a34936c130a88cc01c265e223cdc67e756a14b"
+    },
+    {
+      "path": "public/assets/journey/m02-04-1200.webp",
+      "bytes": 153442,
+      "sha256": "8ced59eeeb21b70a9bddb4f104614569850251fcb89b14c20152c84344949be7"
+    },
+    {
+      "path": "public/assets/journey/m02-04-480.webp",
+      "bytes": 47438,
+      "sha256": "d0d1b5d72f7ec068ace00e72d3bc310879f27f2bc02ca1a1e04a2eb8573a9812"
+    },
+    {
+      "path": "public/assets/journey/m02-04-800.webp",
+      "bytes": 100116,
+      "sha256": "dbe3bff385bd2f86615e30f0c9032e973b3ec0370e16feff05f8cd3ccf973b67"
+    },
+    {
+      "path": "public/assets/journey/m02-05-1200.webp",
+      "bytes": 151410,
+      "sha256": "9a6c39f453c125462885574e662db960e2344268be3e222913c03ec4fd0fee00"
+    },
+    {
+      "path": "public/assets/journey/m02-05-480.webp",
+      "bytes": 45738,
+      "sha256": "ad430a94313ea7d2aac966b5fd3063f3f851a3c9c2c7b9556c3d1a281ea686ed"
+    },
+    {
+      "path": "public/assets/journey/m02-05-800.webp",
+      "bytes": 97966,
+      "sha256": "e2ca10b92b85b37147163913e795bedac54393b699080dc139df0fc594927e07"
+    },
+    {
+      "path": "public/assets/journey/m03-01-1200.webp",
+      "bytes": 209626,
+      "sha256": "33d57b03862176085365140816e13879d4b9d04d8f5ba6f7f051bd17a5175eb7"
+    },
+    {
+      "path": "public/assets/journey/m03-01-480.webp",
+      "bytes": 34348,
+      "sha256": "0e6588694ef5df1df8e75bc8f6bd2cc860ec262a6bbb4971d9aba32d7d91d86a"
+    },
+    {
+      "path": "public/assets/journey/m03-01-800.webp",
+      "bytes": 88062,
+      "sha256": "43a6247aaf2c67c349cd66d2f32b3a396c2a08f0dd42e87f434357a6fd98350e"
+    },
+    {
+      "path": "public/assets/journey/m03-02-1200.webp",
+      "bytes": 198242,
+      "sha256": "6a5769eb1da79ec5908d93d8303257fc0fcb99cb7f20e3ea54be899712df513b"
+    },
+    {
+      "path": "public/assets/journey/m03-02-480.webp",
+      "bytes": 37164,
+      "sha256": "dbd8de69ad0458c75e6c3c61064ebdc3ffdcc28c44fca7b64e5d8b3d4a23599d"
+    },
+    {
+      "path": "public/assets/journey/m03-02-800.webp",
+      "bytes": 86486,
+      "sha256": "e29543f5a4a005782ada1fe573b6abbfaf75a3507aef3854410fdc4a2d3583a2"
+    },
+    {
+      "path": "public/assets/journey/m03-03-1200.webp",
+      "bytes": 175506,
+      "sha256": "ab9d4c52cb500c55c45c6d99efff6af4578d464f2eb6903f6b53dc1730cdd2d3"
+    },
+    {
+      "path": "public/assets/journey/m03-03-480.webp",
+      "bytes": 62404,
+      "sha256": "a46755c8891b70d9dbd66431911069539859fc0bba8b1a691b567a0006f5632b"
+    },
+    {
+      "path": "public/assets/journey/m03-03-800.webp",
+      "bytes": 119264,
+      "sha256": "2946f5fdd877aa6a4710f6f4c84239bd7b3e8a026b42df17c992a574be60e68f"
+    },
+    {
+      "path": "public/assets/journey/m03-04-1200.webp",
+      "bytes": 186898,
+      "sha256": "d718ada4c4663ea8a8c1cc37f59f56f2fbdfe59e56e9f214392f84bc28311e15"
+    },
+    {
+      "path": "public/assets/journey/m03-04-480.webp",
+      "bytes": 33790,
+      "sha256": "6dcfe31a03af18d793f7e9add334774b43bd282dcc696edd9dc3ecdc865f90cb"
+    },
+    {
+      "path": "public/assets/journey/m03-04-800.webp",
+      "bytes": 82104,
+      "sha256": "9b02febb08155c17237f6a80597ac00247d61c77c098bb224c08a5931290e5b7"
+    },
+    {
+      "path": "public/assets/journey/m03-05-1200.webp",
+      "bytes": 144778,
+      "sha256": "8d1f78a7de7d0ba0a5c065daf9e336549090bbc1f75af9a0b757c8135caeb1f6"
+    },
+    {
+      "path": "public/assets/journey/m03-05-480.webp",
+      "bytes": 24222,
+      "sha256": "0e2ebf0cabd4bcf0692448b473f85f8ecaae60d82852d2f7764811cbab4091bc"
+    },
+    {
+      "path": "public/assets/journey/m03-05-800.webp",
+      "bytes": 63522,
+      "sha256": "d3d922566e3f29d6aec0e80d149faa9e744733a4029380dea0b83b013bd42dce"
+    },
+    {
+      "path": "public/assets/journey/m04-01-1200.webp",
+      "bytes": 126914,
+      "sha256": "9d91c7bcc641bac13bf0e613aed69fe805a37d3d18a463dbf6c25ed7a9a01202"
+    },
+    {
+      "path": "public/assets/journey/m04-01-480.webp",
+      "bytes": 36592,
+      "sha256": "ed64a772cab3a7e2d7b401b5056f281ede7837dd5a2338231c126659601dc396"
+    },
+    {
+      "path": "public/assets/journey/m04-01-800.webp",
+      "bytes": 79756,
+      "sha256": "c8ade7b1f5a61d3babf4e5eccb99346a17750e6b37372ba387d2937c78b20c0a"
+    },
+    {
+      "path": "public/assets/journey/m04-02-1200.webp",
+      "bytes": 149024,
+      "sha256": "feec73f1dec6a55c63cd1c91fb7ead56102f7b3b761f7bb81bec81ef3bacc746"
+    },
+    {
+      "path": "public/assets/journey/m04-02-480.webp",
+      "bytes": 44848,
+      "sha256": "ea74d286b4b94372d5c6e36b4cbb717f20094e5d524e4d3cc0eb605f9bb9fd5c"
+    },
+    {
+      "path": "public/assets/journey/m04-02-800.webp",
+      "bytes": 96032,
+      "sha256": "9054e879b953b0b90af65d2d0449b751eedf5592818a09ae91697603c37c5442"
+    },
+    {
+      "path": "public/assets/journey/m04-03-1200.webp",
+      "bytes": 176882,
+      "sha256": "001b4475dedd85d57bde42bcb418dac60922e3dec31dd6bc0e7d640580cd95d5"
+    },
+    {
+      "path": "public/assets/journey/m04-03-480.webp",
+      "bytes": 59658,
+      "sha256": "df8a4ef44d13c36a7b50730ae31f4d15868ba38366286fb70c4e350cd2053671"
+    },
+    {
+      "path": "public/assets/journey/m04-03-800.webp",
+      "bytes": 117296,
+      "sha256": "833613f1e354d1a99fdafc4fc8026c70171d69139ccf5a1f5700ddb69487843a"
+    },
+    {
+      "path": "public/assets/journey/m04-04-1200.webp",
+      "bytes": 141284,
+      "sha256": "01a49c96d2fa37fb1352c1f2061c71b7031a385823c654f10b16211e7972180d"
+    },
+    {
+      "path": "public/assets/journey/m04-04-480.webp",
+      "bytes": 45254,
+      "sha256": "29beb9f1c4e2d81546bf858c534cfad0a89a0a2b24a030f0397f5435ad88f652"
+    },
+    {
+      "path": "public/assets/journey/m04-04-800.webp",
+      "bytes": 94146,
+      "sha256": "a87ec453a8ae7dfb18200ef6487942b40038ba6934c655e9b0e2a91e58ae27ad"
+    },
+    {
+      "path": "public/assets/journey/m04-05-1200.webp",
+      "bytes": 146900,
+      "sha256": "0156872ee5d00ec0f718948b68e9ef26f87a3f8a7754669c99837362e70357d6"
+    },
+    {
+      "path": "public/assets/journey/m04-05-480.webp",
+      "bytes": 46528,
+      "sha256": "82a60143d17370b2897fccabb30f39675437575a810bb7965914e227be023724"
+    },
+    {
+      "path": "public/assets/journey/m04-05-800.webp",
+      "bytes": 96014,
+      "sha256": "03b9022b19805e542920d585117fd8102261ecd278f579f3d73e790b96a7999d"
+    },
+    {
+      "path": "public/assets/journey/m05-01-1200.webp",
+      "bytes": 122814,
+      "sha256": "42a99cbed001a4023cc8ec42f133418fe84dfaca5cde2bee13245ab2a5c1136f"
+    },
+    {
+      "path": "public/assets/journey/m05-01-480.webp",
+      "bytes": 37454,
+      "sha256": "46e0d88e88c1391127ca6995b7577a32b92c4ff0981b7d71757fdea02db13e2a"
+    },
+    {
+      "path": "public/assets/journey/m05-01-800.webp",
+      "bytes": 79228,
+      "sha256": "943d791386e620532d3629947feaa9f82949baaf467b63adb9cb48461e17ba20"
+    },
+    {
+      "path": "public/assets/journey/m05-02-1200.webp",
+      "bytes": 147352,
+      "sha256": "1d128fe70818c7f2c7e8e7fa4d1e77cd5c9edf815ee91b26c21e61f440533ede"
+    },
+    {
+      "path": "public/assets/journey/m05-02-480.webp",
+      "bytes": 44792,
+      "sha256": "f953de213f763d6cb8975a7c7a25463491df8b8597fea0f0371acef5a3cb59e1"
+    },
+    {
+      "path": "public/assets/journey/m05-02-800.webp",
+      "bytes": 94524,
+      "sha256": "e31f13c45a210a880d60880efca36b7cc0b7ad2fce2aa20be14ce234745c62a9"
+    },
+    {
+      "path": "public/assets/journey/m05-03-1200.webp",
+      "bytes": 220114,
+      "sha256": "a88f13c1f46668da96dd11e96a9b0697e2b98dabfb40bdc77c73b1e414e1ccd8"
+    },
+    {
+      "path": "public/assets/journey/m05-03-480.webp",
+      "bytes": 76970,
+      "sha256": "0f89295f2e6145630dde1cb008c5202855af6253228eea49fcb326aacae8b032"
+    },
+    {
+      "path": "public/assets/journey/m05-03-800.webp",
+      "bytes": 152372,
+      "sha256": "1e01f53da440b550af7543cb5c1dad7c3fbf3f698f989196890af5fabde41510"
+    },
+    {
+      "path": "public/assets/journey/m05-04-1200.webp",
+      "bytes": 152724,
+      "sha256": "0e641deb9e0292056d832853bab2b8db1606a0900611406a837661ef9c12fcdc"
+    },
+    {
+      "path": "public/assets/journey/m05-04-480.webp",
+      "bytes": 48432,
+      "sha256": "7a4b44de55fc7a9eb98b9f966fb0a4317646ebc03082107a568199c78eff3b1f"
+    },
+    {
+      "path": "public/assets/journey/m05-04-800.webp",
+      "bytes": 99896,
+      "sha256": "c7fe7a05a113237f6c8c9f3971c5cfdd72d6b982cc1ce581f72119b034e388b8"
+    },
+    {
+      "path": "public/assets/journey/m05-05-1200.webp",
+      "bytes": 136320,
+      "sha256": "805ca1dbe48c1b32d43b94b13849530675bf3039e2c48014d3047435e8707809"
+    },
+    {
+      "path": "public/assets/journey/m05-05-480.webp",
+      "bytes": 44096,
+      "sha256": "1c2476d920f045eed60944f34eba7b3f16a893719c6376ee8e87d3850b384b43"
+    },
+    {
+      "path": "public/assets/journey/m05-05-800.webp",
+      "bytes": 91276,
+      "sha256": "15fed045989f053f6e7a3be440202c15cb889a38befc1e4f2adb49518d95f9bc"
+    },
+    {
+      "path": "public/assets/journey/m06-01-1200.webp",
+      "bytes": 124666,
+      "sha256": "0913c6a480e7fc7b729495c314067d051391c0e33c79c3b8f25a481b27a7e8c3"
+    },
+    {
+      "path": "public/assets/journey/m06-01-480.webp",
+      "bytes": 36904,
+      "sha256": "0b3b855406c82450659cd6a68bb4ccf373eee2848aabfb14c8e00475fd5a3b20"
+    },
+    {
+      "path": "public/assets/journey/m06-01-800.webp",
+      "bytes": 76850,
+      "sha256": "72440caeba3f9442bb1ee1998f57d9d50f0970ad5de99c020031c87f8d509042"
+    },
+    {
+      "path": "public/assets/journey/m06-02-1200.webp",
+      "bytes": 147586,
+      "sha256": "f1eb1ac22c48aa2fd379ebfa5671919845f0af10814296cd71fc25f09af37983"
+    },
+    {
+      "path": "public/assets/journey/m06-02-480.webp",
+      "bytes": 46140,
+      "sha256": "0da3b96d9f679fd033c3fc6f55eb9f5875e0ca67f00e5ffd4c088704f3d75405"
+    },
+    {
+      "path": "public/assets/journey/m06-02-800.webp",
+      "bytes": 95652,
+      "sha256": "e2329e8f85d0bde216998a70badca6d14cf9e7f8f22532e19fa2bc9596630a69"
+    },
+    {
+      "path": "public/assets/journey/m06-03-1200.webp",
+      "bytes": 246764,
+      "sha256": "eef082b2de6b6ffa0e87122c5fb91a00fd20228276aab53b6c03ea861385a2cf"
+    },
+    {
+      "path": "public/assets/journey/m06-03-480.webp",
+      "bytes": 78556,
+      "sha256": "c838de68c1e0dbf88f049b6e79317679abcafd26997bcb6309483be9e6f57eeb"
+    },
+    {
+      "path": "public/assets/journey/m06-03-800.webp",
+      "bytes": 165994,
+      "sha256": "847e5ca4ae2a6e8d6c9f624dccf368567c946371a3deebd50a05f5f402ed151c"
+    },
+    {
+      "path": "public/assets/journey/m06-04-1200.webp",
+      "bytes": 135892,
+      "sha256": "3ec589854a4e9bb5df48a3a9b33e06a4bbc7128a7aab672edab127cc0184a9e3"
+    },
+    {
+      "path": "public/assets/journey/m06-04-480.webp",
+      "bytes": 42534,
+      "sha256": "7b47b984de6f7f617dc2de3dc97edeeb2e84025593996373f60f44d114838a72"
+    },
+    {
+      "path": "public/assets/journey/m06-04-800.webp",
+      "bytes": 88500,
+      "sha256": "b8ff45e817adac0476668bdfc91451237f27b22c4d5b4bcd1a4f0d7d6056b2d3"
+    },
+    {
+      "path": "public/assets/journey/m06-05-1200.webp",
+      "bytes": 138092,
+      "sha256": "234fe45c68d408781b28078eb76000d9649b61582e33b41afc1756af61db1853"
+    },
+    {
+      "path": "public/assets/journey/m06-05-480.webp",
+      "bytes": 43752,
+      "sha256": "58056e5260cf0e92b7c38509483d5ba308b92480bf9b8c3e0ca944f8e976d952"
+    },
+    {
+      "path": "public/assets/journey/m06-05-800.webp",
+      "bytes": 91706,
+      "sha256": "93d2f78d7c944026c171c4d8275d3248a5fb3381681b0131f66c8af56c1820ed"
+    },
+    {
+      "path": "public/assets/journey/nature-coast-1200.webp",
+      "bytes": 63000,
+      "sha256": "d68bb63b904125fcce7149b2e6aae484d76478a668bdff08f72fa0b0a43ecd13"
+    },
+    {
+      "path": "public/assets/journey/nature-coast-480.webp",
+      "bytes": 10728,
+      "sha256": "47611e8df52003be6ab1c0be52bb46a5cbb764baaed8ec938403985f9d462a66"
+    },
+    {
+      "path": "public/assets/journey/nature-coast-800.webp",
+      "bytes": 30152,
+      "sha256": "844e63497cf0ef5614caa79985138d538a727b8cb47c54a3a2b42e3e60a2ecf4"
+    },
+    {
+      "path": "public/assets/journey/route01-1200.webp",
+      "bytes": 103698,
+      "sha256": "7a6194d5e96ef5dcdce0b1faf97b86e6d568a32c6c1f691988b16d4201e66a9d"
+    },
+    {
+      "path": "public/assets/journey/route01-480.webp",
+      "bytes": 28008,
+      "sha256": "aa9d7b32d41d25b7743754f8e30fd64e3bca84407186bf21c9aa02e9e3a4a9b2"
+    },
+    {
+      "path": "public/assets/journey/route01-800.webp",
+      "bytes": 56258,
+      "sha256": "c9e3f73a9c223e9ae269501ede33a10eae32a303676fcce851b3c693890d3990"
+    },
+    {
+      "path": "public/assets/journey/route02-1200.webp",
+      "bytes": 59164,
+      "sha256": "f4530fb23df2b758679250f31956c5620abeca81fd48878038778b4a663c4ed8"
+    },
+    {
+      "path": "public/assets/journey/route02-480.webp",
+      "bytes": 17096,
+      "sha256": "4a927c6dfa326f50416bbbffe41a20ab88041ff9cb26632544d9a0c913b70b26"
+    },
+    {
+      "path": "public/assets/journey/route02-800.webp",
+      "bytes": 33474,
+      "sha256": "7a20b49687428e0d44c59bb5d32fd4c7ecf9c692183e011f5129275f5e484479"
+    },
+    {
+      "path": "public/assets/journey/scenery-clouds-1086.webp",
+      "bytes": 129504,
+      "sha256": "5385ec2e4d5a7c8e9d3e4e4890782f4ccfeda5311acf082fa030aec3f6865212"
+    },
+    {
+      "path": "public/assets/journey/scenery-clouds-480.webp",
+      "bytes": 46492,
+      "sha256": "10ae24443b8c618bf767b27e04d7cb1e0c7865f2e7ac3092b6d95c971091e604"
+    },
+    {
+      "path": "public/assets/journey/scenery-clouds-800.webp",
+      "bytes": 88800,
+      "sha256": "ab20b7d4e6b08d295fb66141b07fd0b179e3dabde89ca65434358291be3e0db8"
+    },
+    {
+      "path": "public/assets/journey/scenery-dunes-1086.webp",
+      "bytes": 445406,
+      "sha256": "b546505bec69191f10a053f1552b6949fa8c388351de540855e485aa9822da8f"
+    },
+    {
+      "path": "public/assets/journey/scenery-dunes-480.webp",
+      "bytes": 92200,
+      "sha256": "6c2af4e695dfc13dbca57dad70e8a4fce2eacc8c39363d9c6978deabca87a741"
+    },
+    {
+      "path": "public/assets/journey/scenery-dunes-800.webp",
+      "bytes": 261132,
+      "sha256": "5be47c3cdf8cb604107ef1131006ec40e9c097f538b37222012c5c26b5bb3649"
+    },
+    {
+      "path": "public/assets/journey/scenery-foliage-1086.webp",
+      "bytes": 249994,
+      "sha256": "0d9ee86fe030d55bfa96402280daa484c8f7934a0e6f4babd1e4c37c202124e0"
+    },
+    {
+      "path": "public/assets/journey/scenery-foliage-480.webp",
+      "bytes": 85020,
+      "sha256": "414038f4cd93826e2135fc1a2f56a45058571378c32fcab745a9929b268c8b83"
+    },
+    {
+      "path": "public/assets/journey/scenery-foliage-800.webp",
+      "bytes": 169062,
+      "sha256": "8b27068198a1e67e42affc4c83d1abcf987c51afcba3180cbdcb9a13a545e0cd"
+    },
+    {
+      "path": "public/assets/journey/scenery-shadow-1086.webp",
+      "bytes": 515500,
+      "sha256": "83b7193cfa2c7096236719c787480242514498890322cda4311d8cb79a2b196b"
+    },
+    {
+      "path": "public/assets/journey/scenery-shadow-480.webp",
+      "bytes": 123396,
+      "sha256": "514d6dc3a50652de609fc47dcc045767a23c5d9f282ef3b2e2cdd55c9e537bc2"
+    },
+    {
+      "path": "public/assets/journey/scenery-shadow-800.webp",
+      "bytes": 320814,
+      "sha256": "9162f8f221549a65d08194137fd1ebb5211d213c95adead4e837559a28a5b475"
+    },
+    {
+      "path": "public/assets/journey/scenery-water-1086.webp",
+      "bytes": 669470,
+      "sha256": "a356d95f04298a24b0a45ae5cd706c62ae7d23f7a4cd6781da520729148dca25"
+    },
+    {
+      "path": "public/assets/journey/scenery-water-480.webp",
+      "bytes": 154986,
+      "sha256": "e025b9e76447cc7a9380fd0cc48a47562b4081e091bab3eb511a3c64d42af0e4"
+    },
+    {
+      "path": "public/assets/journey/scenery-water-800.webp",
+      "bytes": 406354,
+      "sha256": "7a41b7c4dd025ca11f387f9709b929fd2410f0cbe20a6b805c47871d88cb2ed0"
+    }
+  ],
+  "historicalBrowserFiles": [
+    {
+      "path": "public/_astro/dm-sans-latin-ext-wght-normal.BOFOeGcA.woff2",
+      "bytes": 18228,
+      "sha256": "a5d38fe99f930275684999b462c7123faa063d9e44e73b4b241723d884aa0f49"
+    },
+    {
+      "path": "public/_astro/dm-sans-latin-wght-normal.Xz1IZZA0.woff2",
+      "bytes": 36932,
+      "sha256": "9fea608a947e67020c33cad9a6fe3d60c54119dfb8cff87768a8117a15ed7543"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-cyrillic-400-normal.BSMlKf0J.woff2",
+      "bytes": 8356,
+      "sha256": "7635422bd10ddbbcb0e0caa1154b928298f5c8319b8c00b30978d4395f4783ce"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-cyrillic-400-normal.CEL4l2ZJ.woff",
+      "bytes": 7204,
+      "sha256": "42da81a28bbcddda6768a25a4b3105ee291e69d5fa6c74747bc51bbc6718c538"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-cyrillic-ext-400-normal.DMdlQ8Kv.woff",
+      "bytes": 5820,
+      "sha256": "0e4a2393e8ed3185ae300e4a202b6d9149d47d8a0e5bb8f1d1db33e76b86ecd1"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-cyrillic-ext-400-normal.xuaO2J-f.woff2",
+      "bytes": 6912,
+      "sha256": "f8c22ec1804bd6966b70f43ac7c327025645b4c09597117fca2a5a6c750106fe"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-latin-400-normal.CvHOgSBP.woff",
+      "bytes": 13144,
+      "sha256": "328d50b6ece9ca25c46eea3e885ba497f6237f2fb84ef7b92f88e14a1a25e381"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-latin-400-normal.DMJ8VG8y.woff2",
+      "bytes": 14708,
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-latin-ext-400-normal.BmRBH3aV.woff2",
+      "bytes": 13348,
+      "sha256": "6bc0f226a5b7884a8170e3f62c63d7675609d4631bdc5931b5cdab81821f00eb"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-latin-ext-400-normal.D3D2R8hC.woff",
+      "bytes": 11768,
+      "sha256": "f8ddaa0ab9d3c052c9fe035751c8214b7e0d59e6e7b69b045f8659c2fe4dced2"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-vietnamese-400-normal.BulugwFq.woff2",
+      "bytes": 5868,
+      "sha256": "62632b6375305e70ddcafdd895218e6ae41a184fcd280a69c739460604ca00a9"
+    },
+    {
+      "path": "public/_astro/ibm-plex-mono-vietnamese-400-normal.DDuiU_S-.woff",
+      "bytes": 5620,
+      "sha256": "bced561d991e3f81c150c08e71f7fa849fcbff523560f6059245f2edce19b600"
+    },
+    {
+      "path": "public/_astro/journey-copy.uBq91wKU.css",
+      "bytes": 28438,
+      "sha256": "6e9ba82332edb3f3b91411daf439438ef15e935a45062ea04727cf7f997dcd54"
+    },
+    {
+      "path": "public/_astro/journey-visuals.DOqn8EQ8.js",
+      "bytes": 58173,
+      "sha256": "eaa60e2cf7696348b58176f1abdca5b853af68e2c1575fb8a3d46363d5646637"
+    },
+    {
+      "path": "public/_astro/Questionnaire.astro_astro_type_script_index_0_lang.COffH7Cj.js",
+      "bytes": 22290,
+      "sha256": "04afd2408432522755fceb921aad4194984d0d5fdebf13f22feb3842d8effba5"
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 236,
+      "sha256": "b6410fe700e668463aa2dc08a1cbd004f59d1dbe0ddaba2734f12d843c42db5d"
+    },
+    {
+      "path": "public/welcome/index.html",
+      "bytes": 9004,
+      "sha256": "db01a29606314e39f51ff3f311181b1888241dd8c9f3418bee100d8c7ea09edc"
+    }
+  ],
+  "rebuildNote": "The 22 runtime files and 231 source assets match the deployed archive byte for byte. This dedicated repository builds only the form from src/pages/welcome.astro, so Vite regenerates browser chunk names and combines shared modules differently. The regenerated ZIP is a new artifact and was not deployed by this source-control change.",
+  "liveVerificationCompletedAt": "2026-10-01T09:50:31.446Z",
+  "repository": "https://github.com/namat-health/start.namat.health",
+  "sourceCaptureVerification": {
+    "verifiedSourceCommit": "13ef265809158503eb381403b6254630af89db9d",
+    "method": "fresh Git clone with clean npm ci",
+    "nodeVersion": "22.15.0",
+    "testsWithLocalPrivateFixture": {
+      "passed": 104,
+      "failed": 0,
+      "skipped": 0
+    },
+    "testsWithoutPrivateFixture": {
+      "passed": 102,
+      "failed": 0,
+      "skipped": 2,
+      "skipReason": "Optional owner-supplied C2PA sample is excluded from Git."
+    },
+    "database": "Loopback only; disposable random schemas",
+    "checks": [
+      "Astro type check",
+      "form build",
+      "form package verification",
+      "Linux x64 runtime packaging",
+      "known private credential exclusion",
+      "independent source review"
+    ],
+    "rebuiltArchiveSha256": "b34b3c87ead17929dbaa1d1dbd63e3c89b411fef26bed1ac0cfeb0ec018ff3a3",
+    "rebuiltArchiveDeployed": false
+  }
+}

@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "fictional": true,
+  "purpose": "Hub71 hackathon demo, 2 Oct 2026. Providers, prices and addresses are fictional. Prices follow plan v3 section 2.11 and sit inside the AED ranges researched on 30 Sep 2026 (vitamin D 50-249, lipid 89-199, ferritin 55-90, B12 50-149).",
+  "notes": "Home visit A adds one package so a '+N tests not ordered' option appears. Provider D only collects in Dubai, so it is never listed for an Abu Dhabi patient."
+ },
+ "providers": [
+  {
+   "collected_on": "2026-10-01",
+   "provider": {"slug": "home-visit-a", "name": "Home visit A", "type": "home_collection_service", "notes": "Fictional demo provider."},
+   "collection_options": [
+    {"emirate": "abu_dhabi", "mode": "home", "fee_rule": "all_inclusive", "areas": ["Al Reem Island", "Al Raha", "Khalifa City", "Saadiyat Island"], "turnaround_text": "48 hours"}
+   ],
+   "branches": [],
+   "offerings": [
+    {"name": "Lipid profile", "kind": "panel", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Total cholesterol", "id": "total-cholesterol"}, {"name": "LDL cholesterol (calculated)", "id": "ldl-cholesterol"}, {"name": "HDL cholesterol", "id": "hdl-cholesterol"}, {"name": "Triglycerides", "id": "triglycerides"}],
+     "prices": [{"emirate": "abu_dhabi", "price_aed": 169}]},
+    {"name": "Ferritin", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Ferritin", "id": "ferritin"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 89}]},
+    {"name": "Vitamin D (25-OH)", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin D (25-OH)", "id": "vitamin-d-25-oh"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 199}]},
+    {"name": "Vitamin B12", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin B12", "id": "vitamin-b12"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 149}]},
+    {"name": "Essential Health Check", "kind": "package", "specimen": ["venous_blood"], "fasting": "required", "turnaround_text": "48 hours", "contents_complete": true,
+     "description": "Heart, sugar, liver, kidney, thyroid, iron and vitamins in one home visit.",
+     "biomarkers_as_printed": [{"name": "Total cholesterol", "id": "total-cholesterol"}, {"name": "LDL cholesterol (calculated)", "id": "ldl-cholesterol"}, {"name": "HDL cholesterol", "id": "hdl-cholesterol"}, {"name": "Triglycerides", "id": "triglycerides"},
+      {"name": "Ferritin", "id": "ferritin"}, {"name": "Vitamin D (25-OH)", "id": "vitamin-d-25-oh"}, {"name": "Vitamin B12", "id": "vitamin-b12"}, {"name": "HbA1c", "id": "hba1c"}, {"name": "Fasting glucose", "id": "glucose"},
+      {"name": "TSH", "id": "tsh"}, {"name": "ALT", "id": "alt"}, {"name": "AST", "id": "ast"}, {"name": "Creatinine", "id": "creatinine"}, {"name": "eGFR", "id": "egfr"}],
+     "prices": [{"emirate": "abu_dhabi", "price_aed": 399}]}
+   ]
+  },
+  {
+   "collected_on": "2026-10-01",
+   "provider": {"slug": "walk-in-lab-b", "name": "Walk-in lab B", "type": "lab", "notes": "Fictional demo provider."},
+   "collection_options": [
+    {"emirate": "abu_dhabi", "mode": "walk_in", "fee_rule": "none", "turnaround_text": "24 hours"}
+   ],
+   "branches": [
+    {"name": "Walk-in lab B, Al Reem Island", "address": "Fictional address, Al Reem Island, Abu Dhabi", "area": "Al Reem Island", "emirate": "abu_dhabi", "hours": "Daily 07:00-22:00"}
+   ],
+   "offerings": [
+    {"name": "Lipid profile", "kind": "panel", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Total cholesterol", "id": "total-cholesterol"}, {"name": "LDL cholesterol (calculated)", "id": "ldl-cholesterol"}, {"name": "HDL cholesterol", "id": "hdl-cholesterol"}, {"name": "Triglycerides", "id": "triglycerides"}],
+     "prices": [{"emirate": "abu_dhabi", "price_aed": 110}]},
+    {"name": "Ferritin", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Ferritin", "id": "ferritin"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 70}]},
+    {"name": "Vitamin D (25-OH)", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin D (25-OH)", "id": "vitamin-d-25-oh"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 120}]},
+    {"name": "Vitamin B12", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin B12", "id": "vitamin-b12"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 90}]}
+   ]
+  },
+  {
+   "collected_on": "2026-10-01",
+   "provider": {"slug": "clinic-c", "name": "Clinic C", "type": "hospital_clinic", "notes": "Fictional demo provider. Does not offer vitamin B12."},
+   "collection_options": [
+    {"emirate": "abu_dhabi", "mode": "walk_in", "fee_rule": "free_above", "fee_aed": 50, "free_above_aed": 400, "turnaround_text": "48 hours"}
+   ],
+   "branches": [
+    {"name": "Clinic C, Khalifa City", "address": "Fictional address, Khalifa City, Abu Dhabi", "area": "Khalifa City", "emirate": "abu_dhabi", "hours": "Sat-Thu 08:00-20:00"}
+   ],
+   "offerings": [
+    {"name": "Lipid profile", "kind": "panel", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Total cholesterol", "id": "total-cholesterol"}, {"name": "LDL cholesterol (calculated)", "id": "ldl-cholesterol"}, {"name": "HDL cholesterol", "id": "hdl-cholesterol"}, {"name": "Triglycerides", "id": "triglycerides"}],
+     "prices": [{"emirate": "abu_dhabi", "price_aed": 95}]},
+    {"name": "Ferritin", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Ferritin", "id": "ferritin"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 60}]},
+    {"name": "Vitamin D (25-OH)", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "48 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin D (25-OH)", "id": "vitamin-d-25-oh"}], "prices": [{"emirate": "abu_dhabi", "price_aed": 99}]}
+   ]
+  },
+  {
+   "collected_on": "2026-10-01",
+   "provider": {"slug": "provider-d", "name": "Provider D", "type": "lab", "notes": "Fictional demo provider. Collects in Dubai only."},
+   "collection_options": [
+    {"emirate": "dubai", "mode": "home", "fee_rule": "flat", "fee_aed": 75, "turnaround_text": "24 hours"},
+    {"emirate": "dubai", "mode": "walk_in", "fee_rule": "none", "turnaround_text": "24 hours"}
+   ],
+   "branches": [
+    {"name": "Provider D, Business Bay", "address": "Fictional address, Business Bay, Dubai", "area": "Business Bay", "emirate": "dubai", "hours": "Daily 07:00-23:00"}
+   ],
+   "offerings": [
+    {"name": "Lipid profile", "kind": "panel", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Total cholesterol", "id": "total-cholesterol"}, {"name": "LDL cholesterol (calculated)", "id": "ldl-cholesterol"}, {"name": "HDL cholesterol", "id": "hdl-cholesterol"}, {"name": "Triglycerides", "id": "triglycerides"}],
+     "prices": [{"emirate": "dubai", "price_aed": 120}]},
+    {"name": "Ferritin", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Ferritin", "id": "ferritin"}], "prices": [{"emirate": "dubai", "price_aed": 65}]},
+    {"name": "Vitamin D (25-OH)", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin D (25-OH)", "id": "vitamin-d-25-oh"}], "prices": [{"emirate": "dubai", "price_aed": 110}]},
+    {"name": "Vitamin B12", "kind": "single_test", "specimen": ["venous_blood"], "turnaround_text": "24 hours", "contents_complete": true,
+     "biomarkers_as_printed": [{"name": "Vitamin B12", "id": "vitamin-b12"}], "prices": [{"emirate": "dubai", "price_aed": 85}]}
+   ]
+  }
+ ]
+}

@@ -10,6 +10,7 @@ const REVIEWS=new RegExp(`^/v1/demo/submissions/(${UUID})/reports/(${UUID})/revi
 const UPLOAD=new RegExp(`^/v1/demo/reports/uploads/(${UUID})/complete$`,'i');
 const REPORT=new RegExp(`^/v1/demo/reports/(${UUID})/(source|reviews|retry)$`,'i');
 const CASE=new RegExp(`^/v1/demo/reports/cases/(${UUID})$`,'i');
+const EVIDENCE=new RegExp(`^/v1/demo/submissions/(${UUID})/reports/(${UUID})/evidence-v1$`,'i');
 const MAX_REQUEST=4_000_000,MAX_RESPONSE=12*1024*1024;
 const token=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value)&&new Set(value).size>=8;
 const equal=(a,b)=>typeof a==='string'&&a.length<=256&&timingSafeEqual(createHash('sha256').update(a).digest(),createHash('sha256').update(b).digest());
@@ -30,6 +31,9 @@ export function demoRoute(path) {
   if(path==='/v1/demo/intake')return {scope:'intake',methods:['GET','POST','OPTIONS'],upstream:'/api/hackathon'};
   if(path==='/v1/demo/ready')return {scope:'portal',methods:['GET'],upstream:'/api/namat-portal/ready'};
   if(path==='/v1/demo/submissions')return {scope:'portal',methods:['GET'],upstream:'/api/namat-portal/submissions'};
+  if(path==='/v1/demo/analysis-store')return {scope:'portal',methods:['POST'],upstream:'/api/namat-portal/analysis-store'};
+  const evidence=EVIDENCE.exec(path);
+  if(evidence)return {scope:'portal',methods:['GET'],upstream:`/api/namat-portal/submissions/${evidence[1]}/reports/${evidence[2]}/evidence-v1`};
   const source=SOURCE.exec(path);
   if(source)return {scope:'portal',methods:['GET'],upstream:`/api/namat-portal/submissions/${source[1]}/reports/${source[2]}`};
   const extraction=EXTRACTION.exec(path);

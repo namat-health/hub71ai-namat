@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import HomeHero from '../../components/HomeHero.astro';
+import HealthspanRelief from '../../components/HealthspanRelief.astro';
+import ProductExplainer from '../../components/ProductExplainer.astro';
+import WelcomeHeader from './WelcomeHeader.astro';
+import {welcome} from './content';
+---
+
+<Base title={welcome.title} description={welcome.intro} bodyClass="landing mvp-home hackathon-welcome" robots="noindex, nofollow">
+  <WelcomeHeader />
+  <main id="main">
+    <HomeHero titleLines={welcome.titleLines} intro={welcome.intro} ctaLabel={welcome.ctaLabel} ctaHref={welcome.formUrl} />
+    <HealthspanRelief />
+    <ProductExplainer ctaLabel={welcome.ctaLabel} ctaHref={welcome.formUrl} />
+  </main>
+  <footer class="welcome-footer">
+    <div class="welcome-footer-meta">
+      <p>© {new Date().getFullYear()} Namat Health</p>
+      <a href="/privacy/">Privacy</a>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .welcome-footer{padding:1.5rem var(--page-gutter) 2rem;border-top:1px solid var(--namat-line);background:var(--namat-paper);color:#596663;font-size:.75rem}
+  .welcome-footer-meta{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+</style>

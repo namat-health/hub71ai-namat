@@ -1,0 +1,65 @@
+---
+import {content} from '../data/content';
+const {variant} = Astro.props;
+---
+<section class="waitlist section" id="waitlist" aria-labelledby="waitlist-title">
+  <div class="waitlist-copy">
+    <p class="eyebrow">{content.waitlist.label}</p>
+    <h2 id="waitlist-title">{content.waitlist.title}</h2>
+    <p>{content.waitlist.body}</p>
+  </div>
+  <form class="waitlist-form" data-variant={variant} action="/api/waitlist" method="post">
+    <label for="email">Email address</label>
+    <div class="input-row"><input type="email" id="email" name="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" /><button class="button" type="submit">{content.cta}<span aria-hidden="true">↗</span></button></div>
+    <div class="honeypot" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off" /></div>
+    <label class="consent"><input type="checkbox" name="consent" required /><span>{content.waitlist.consent} <a href="/privacy/">Privacy note</a></span></label>
+    <p class="form-message" role="status" aria-live="polite"></p>
+    <p class="fine-print">{content.waitlist.note}</p>
+    <noscript><p>Please enable JavaScript to submit this form, or <a href={`mailto:${content.email}`}>contact Namat</a>.</p></noscript>
+  </form>
+</section>
+<script>
+  const form = document.querySelector<HTMLFormElement>('.waitlist-form');
+  if (form) {
+    const feedback = form.querySelector<HTMLElement>('.form-message')!;
+    const button = form.querySelector<HTMLButtonElement>('button')!;
+    let pending = false;
+    async function submitWaitlist() {
+      if (!form || pending || !form.reportValidity()) return {status:'invalid'};
+      const fields = new FormData(form);
+      pending = true;
+      button.disabled = true;
+      button.textContent = 'Joining…';
+      feedback.textContent = '';
+      try {
+        const response = await fetch('/api/waitlist', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:fields.get('email'), consent:fields.get('consent')==='on', website:fields.get('website'), variant:form.dataset.variant})});
+        let result;
+        try {result = await response.json();} catch {throw new Error('We couldn’t confirm your request. Please check your inbox before trying again.');}
+        if (!response.ok) throw new Error(typeof result?.message === 'string' ? result.message : 'We couldn’t confirm your request. Please try again.');
+        if (response.status !== 202 || result?.status !== 'confirmation_pending' || typeof result?.message !== 'string' || !result.message.trim()) throw new Error('We couldn’t confirm your request. Please check your inbox before trying again.');
+        feedback.textContent = result.message;
+        feedback.dataset.state = 'success';
+        form.reset();
+        return {status:result.status, message:result.message};
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'We couldn’t connect. Please try again.';
+        feedback.textContent = message;
+        feedback.dataset.state = 'error';
+        return {status:'error', message};
+      } finally {
+        pending = false;
+        button.disabled = false;
+        button.innerHTML = 'Join the waitlist <span aria-hidden="true">↗</span>';
+      }
+    }
+    form.addEventListener('submit', (event) => {event.preventDefault(); void submitWaitlist();});
+    // Optional WebMCP entry only stages the visible form; it never subscribes a person.
+    const context = (document as Document & {modelContext?: {registerTool: (tool:unknown, options:unknown)=>unknown}}).modelContext;
+    if (context?.registerTool) {
+      const lifecycle = new AbortController();
+      const tool = {name:'open_namat_waitlist', title:'Open Namat waitlist', description:'Navigate to the visible Namat waitlist form. Does not submit data or subscribe anyone.', inputSchema:{type:'object',properties:{},additionalProperties:false}, annotations:{readOnlyHint:true}, execute:() => {document.querySelector('#waitlist')?.scrollIntoView({behavior:'instant'}); document.querySelector<HTMLInputElement>('#email')?.focus(); return {status:'form_open', submitted:false};}};
+      try {void Promise.resolve(context.registerTool(tool,{signal:lifecycle.signal})).catch(()=>{});} catch {}
+      window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});
+    }
+  }
+</script>

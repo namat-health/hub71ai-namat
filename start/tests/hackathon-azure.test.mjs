@@ -12,7 +12,7 @@ import {azureServerOptions,createHackathonAzureServer,SECURITY_HEADERS} from '..
 import {MAX_BODY_BYTES} from '../src/hackathon/server/api.mjs';
 import {collectHackathonAzureFiles,verifyLinuxNative,AZURE_RUNTIME_TARGET} from '../scripts/package-hackathon-azure.mjs';
 import {deterministicZip} from '../scripts/lib/deterministic-zip.mjs';
-import {vercelConfig,RUNTIME_DEPENDENCIES,REPORT_RUNTIME_FILES} from '../scripts/build-hackathon-site.mjs';
+import {vercelConfig,RUNTIME_DEPENDENCIES,REPORT_RUNTIME_FILES,ANALYSIS_RUNTIME_FILES} from '../scripts/build-hackathon-site.mjs';
 import {env as baseEnv,origin,input} from './hackathon-fixtures.mjs';
 
 function directory(t) {
@@ -116,7 +116,7 @@ test('Azure ZIP includes explicit workers, reviewer assets and Linux native depe
   assert.ok(files.has('node_modules/pg/package.json'));
   for(const path of files.keys()) {
     assert.doesNotMatch(path,/(^|\/)\.|\.env|\.map$|^api\/|^db\/|^research\/|^vercel\.json$/);
-    assert.match(path,/^(?:public\/|src\/hackathon\/(?:server\/|welcome\/questionnaire-(?:model|v1)\.mjs$)|src\/lib\/overview-preview(?:-v4)?\.mjs$|server\/journey-email-layout\.mjs$|services\/report-processing\/|node_modules\/|package(?:-lock|-manifest)?\.json$)/);
+    assert.match(path,/^(?:public\/|src\/hackathon\/(?:server\/|welcome\/questionnaire-(?:model|v1)\.mjs$)|src\/lib\/overview-preview(?:-v4)?\.mjs$|server\/journey-email-layout\.mjs$|services\/(?:report-processing|clinical-analysis)\/|node_modules\/|package(?:-lock|-manifest)?\.json$)/);
   }
   assert.equal(files.has('src/hackathon/development.mjs'),false);
   assert.equal(files.has('server/journey-server.mjs'),false);
@@ -126,6 +126,7 @@ test('Azure ZIP includes explicit workers, reviewer assets and Linux native depe
   assert.deepEqual(metadata.dependencies,RUNTIME_DEPENDENCIES);
   assert.deepEqual(manifest.runtimeTarget,AZURE_RUNTIME_TARGET);
   for(const path of REPORT_RUNTIME_FILES)assert.ok(files.has(path),path);
+  for(const path of ANALYSIS_RUNTIME_FILES)assert.ok(files.has(path),path);
   for(const name of ['@img/sharp-linux-x64','@img/sharp-libvips-linux-x64','@napi-rs/canvas-linux-x64-gnu'])assert.ok(files.has(`node_modules/${name}/package.json`),name);
   assert.ok([...files.keys()].some(path=>path.endsWith('.bcmap')));
   assert.ok([...files.keys()].some(path=>/standard_fonts\/.*\.ttf$/.test(path)));

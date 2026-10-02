@@ -1,0 +1,26 @@
+---
+import Wordmark from './Wordmark.astro';
+
+const {current = 'home'} = Astro.props;
+---
+
+<header class="floating-header" data-site-header>
+  <div class="header-shell">
+    <Wordmark />
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a class:list={{active: current === 'home'}} href="/">Home</a>
+      <a class:list={{active: current === 'how'}} href="/#membership">How it works</a>
+      <a href="/#experience">The experience</a>
+    </nav>
+    <a class="header-cta" href="#waitlist"><span class="header-cta-label">Join waitlist</span></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+      <span>Menu</span><i aria-hidden="true"></i>
+    </button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" hidden>
+    <a href="/">Home</a>
+    <a href="/#membership">How it works</a>
+    <a href="/#experience">The experience</a>
+    <a href="#waitlist">Join the waitlist <span aria-hidden="true">↗</span></a>
+  </nav>
+</header>

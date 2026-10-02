@@ -1,0 +1,494 @@
+{
+  "baseCommit": "b99a80070725c9a04a0209c7053661ac02408ec5",
+  "sourceSha256": "cfbc3b9d99cb1500160b5d4c6ce68f5d8029533c4d04fa32808e92dbb3337004",
+  "sourceUnmodified": true,
+  "workingTreeChanges": [],
+  "sourceFiles": [
+    {
+      "path": "app/analysis-preview/page.js",
+      "bytes": 1255,
+      "sha256": "959af08bec3469deac35b565a9aa174b9e6e3a59b15928730786d24eaec9a2ba"
+    },
+    {
+      "path": "app/api/analyze/route.js",
+      "bytes": 558,
+      "sha256": "1052d6b52a6f7bb0297fd88ecaf2059af212dcf78ff1a8b6508486bfde90ca71"
+    },
+    {
+      "path": "app/api/db/health/route.js",
+      "bytes": 241,
+      "sha256": "98b79fbfd7c868fcd5435ad0a1979be5f45abf01acb7674dc004b3290061baf3"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/analysis-context/route.js",
+      "bytes": 289,
+      "sha256": "59a9113938e27aeab97168b8cc37b4a20c9dc1886cf2901c0adf3bf9e2e41fe2"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/analysis-decisions/route.js",
+      "bytes": 276,
+      "sha256": "4ec86a2b31b1c662351e6faa360ea62d02b0d80251e373858df483d9872f51cc"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/patient-email/route.js",
+      "bytes": 284,
+      "sha256": "23db271a91f6ec2fdd8b9eb9564298cf11e08310d7336fee14cdab470410da3b"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/plan/route.js",
+      "bytes": 453,
+      "sha256": "1538fb4b25dd146f953ce309465d309864619d1c590d9bcef980ae9aac47e7d3"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/report-inventory/route.js",
+      "bytes": 298,
+      "sha256": "d4b1b59937dc9bb2ad07d4f3e3d76fabd4c5716335a3e650b88ffb1a0c3230d8"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/reports/[reportId]/confirmations/route.js",
+      "bytes": 286,
+      "sha256": "b2728369e963e3fb4161b2ee7ed7d5fd4eb1aff641fefe8692b1ed94faaad49a"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/reports/[reportId]/extraction/route.js",
+      "bytes": 281,
+      "sha256": "92ace6e133268ff46cbc23ff573173140bcf4e8df55e01c6263e37300a4a69c0"
+    },
+    {
+      "path": "app/api/submissions/[submissionId]/reports/[reportId]/source/route.js",
+      "bytes": 266,
+      "sha256": "37dc5e10572dc8e1f1166b618bb7e75f07be0e6f220cdef634cd4b83efdc4524"
+    },
+    {
+      "path": "app/api/submissions/route.js",
+      "bytes": 251,
+      "sha256": "ff57f82d37b41e6d51269e67f93289263e46372d815f926af4ad7810a37899cc"
+    },
+    {
+      "path": "app/favicon.ico",
+      "bytes": 25931,
+      "sha256": "2b8ad2d33455a8f736fc3a8ebf8f0bdea8848ad4c0db48a2833bd0f9cd775932"
+    },
+    {
+      "path": "app/fonts/archivo-latin.woff2",
+      "bytes": 90096,
+      "sha256": "4c98b9d490d1698ec95f2ff17a6c7d0e72691864c0c5d7bc2a2c161b45afe5ad"
+    },
+    {
+      "path": "app/fonts/dm-sans-latin-wght.woff2",
+      "bytes": 36932,
+      "sha256": "9fea608a947e67020c33cad9a6fe3d60c54119dfb8cff87768a8117a15ed7543"
+    },
+    {
+      "path": "app/fonts/ibm-plex-mono-latin-400.woff2",
+      "bytes": 14708,
+      "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+    },
+    {
+      "path": "app/globals.css",
+      "bytes": 1439,
+      "sha256": "7fc2b8b32fcbcd4f6278b2aa0e5f43d4091a6e01d6d672debf9e78788d2a3b28"
+    },
+    {
+      "path": "app/layout.js",
+      "bytes": 1007,
+      "sha256": "5f916bbfe8df27e74d15370e0ca99b4b2680889f8331bb262c4115993cbf20e6"
+    },
+    {
+      "path": "app/page.js",
+      "bytes": 690,
+      "sha256": "eda4d7b05090df58c04a385b3bb4e6cdda53f74f915026ea7a08476942a07884"
+    },
+    {
+      "path": "components/portal/ClinicalEvidence.js",
+      "bytes": 8828,
+      "sha256": "a7caf7057a553f5f4ea0c62e62831d20aa9e5c8623fde83e627e95d6b26e7347"
+    },
+    {
+      "path": "components/portal/ClinicalEvidence.module.css",
+      "bytes": 3981,
+      "sha256": "f025fcb2d523e9b2c4a045f6929d6f4e2af2db8438fc0f081983c947d2add25b"
+    },
+    {
+      "path": "components/portal/LabReport.module.css",
+      "bytes": 2463,
+      "sha256": "e921677cf811e4570c264d3a8d638c8b6a653a01547c6c0b5cb43d098db05677"
+    },
+    {
+      "path": "components/portal/LabReportCard.js",
+      "bytes": 6042,
+      "sha256": "da808a03b31802dcf803046f15cc995322882ff382031530fba5850214474684"
+    },
+    {
+      "path": "components/portal/Logo.js",
+      "bytes": 762,
+      "sha256": "b7c77a05a61dce803b4b5d5f116e1c93b9fce1fcd987884bb90ab7c3f62ad4c0"
+    },
+    {
+      "path": "components/portal/Logo.module.css",
+      "bytes": 789,
+      "sha256": "e847959a14f45546784e54993dc29ba58ef59ae8513c2031efe5ce181d1698c2"
+    },
+    {
+      "path": "components/portal/OfflineAnalysisPreview.js",
+      "bytes": 5270,
+      "sha256": "848750a88186038959a1811ea63e183b51ae7d173f9f140a399a9b2c883e70ba"
+    },
+    {
+      "path": "components/portal/OfflineAnalysisPreview.module.css",
+      "bytes": 1713,
+      "sha256": "50eb287c158fb5ca3df87dae392ed168489eede803af25871a24b5ee0e66d641"
+    },
+    {
+      "path": "components/portal/Overlays.module.css",
+      "bytes": 8941,
+      "sha256": "22ebfb1d46b6c66eb20c46ffa22a06b9146c09056c53b012945a7443d1dce88f"
+    },
+    {
+      "path": "components/portal/ParsedValues.js",
+      "bytes": 8747,
+      "sha256": "300cb280b1643d626518786a678196ad78aa26bb9d168d248b2b6ccfd1ac77f3"
+    },
+    {
+      "path": "components/portal/ParsedValues.module.css",
+      "bytes": 3211,
+      "sha256": "e0480eaa22da2cc9ffc970969e0a2eaccfa09900717df4ef650f673f463f3c8b"
+    },
+    {
+      "path": "components/portal/PatientEmail.js",
+      "bytes": 7574,
+      "sha256": "3c16ae76a5954e81247ef9af510fe2695ba2d28a794860b7cb0105f7af144ffb"
+    },
+    {
+      "path": "components/portal/PatientEmail.module.css",
+      "bytes": 2316,
+      "sha256": "b810b5491e56a0afb5486100c57d86c21149ae7137b05e8839dc992ac39d267d"
+    },
+    {
+      "path": "components/portal/PatientReview.js",
+      "bytes": 19072,
+      "sha256": "d7ba2db5ba933f63827e85529403b46be4615dde03c1924ac5f843846a744225"
+    },
+    {
+      "path": "components/portal/PatientSummary.js",
+      "bytes": 616,
+      "sha256": "5c4ebd5ed421ad5ea362f41bf84b16bb222bc5bc9d194fde8005e9a4b9289aeb"
+    },
+    {
+      "path": "components/portal/PatientSummary.module.css",
+      "bytes": 848,
+      "sha256": "d0185a71baa795eca44502f2ffaab829295b228be10bb5fd28ca6ec1ec98a1b5"
+    },
+    {
+      "path": "components/portal/PlanCard.js",
+      "bytes": 8700,
+      "sha256": "0749c7fc28db7e1b631765605699e78b239f916f7443980640a1bc65aecf6421"
+    },
+    {
+      "path": "components/portal/PlanCard.module.css",
+      "bytes": 4884,
+      "sha256": "346ce8c23a569eeeca48196589928086ac831b9f5f4b0a9ee26678b5d7b82664"
+    },
+    {
+      "path": "components/portal/PlanModal.js",
+      "bytes": 13037,
+      "sha256": "aee32baa0f332ec7d63df3aeb21965ae6b974699ee972ced224b8d5008dfdd52"
+    },
+    {
+      "path": "components/portal/QuestionnaireDrawer.js",
+      "bytes": 2931,
+      "sha256": "eb3ab9d6e0c52ae8aa1d10519062d1d2b513ba842577d493523baa6473756801"
+    },
+    {
+      "path": "components/portal/Rail.js",
+      "bytes": 4130,
+      "sha256": "e06f87ccaeef3efde2d669c467ae205fa30bbbb736c1a0b4a5b10240faef73ed"
+    },
+    {
+      "path": "components/portal/Rail.module.css",
+      "bytes": 3519,
+      "sha256": "f6d2785eed080c9b1d8ca52c27cdcce66087672895c2ff48648f7255e7dd5dfe"
+    },
+    {
+      "path": "components/portal/ReportViewer.js",
+      "bytes": 11209,
+      "sha256": "c561a590de2a49173f13f6a46a345064da4de4184ed659e94c6b37afbc7a627a"
+    },
+    {
+      "path": "components/portal/ReportViewer.module.css",
+      "bytes": 1128,
+      "sha256": "aa934442a2909da6a2cef072ba9e9382c5325f7926716f57c0f467a02af6e94b"
+    },
+    {
+      "path": "components/portal/ReviewWorkspace.js",
+      "bytes": 11034,
+      "sha256": "121e7c7deba084b1c0997d68a3793dd6c51642aae1d413a46018f1267e44f19d"
+    },
+    {
+      "path": "components/portal/Workspace.module.css",
+      "bytes": 1161,
+      "sha256": "117730feb9504950e6d88f6cd52d94233d371e86ff98f469671135b6a4727dc7"
+    },
+    {
+      "path": "components/portal/shared.module.css",
+      "bytes": 1950,
+      "sha256": "05ec82872cd9f15f7f2223fc030142fde9c6337ada1651365e94044aed73cd7d"
+    },
+    {
+      "path": "data/example.pdf",
+      "bytes": 31573,
+      "sha256": "640a23ed7728fa60e4a19cf054ead9560c7b7416f755f0aad878fc4c7a95d8f8"
+    },
+    {
+      "path": "data/lab-catalogue/abu_dhabi.json",
+      "bytes": 420471,
+      "sha256": "48a0716b7a41ef9515c6192d948c33732406602485300688203f6a1eb8d2fa91"
+    },
+    {
+      "path": "data/lab-catalogue/ajman.json",
+      "bytes": 236374,
+      "sha256": "a5619475b0ef113525faafe7985873c785c98c18b4842b8cb4b2f3f80959de7e"
+    },
+    {
+      "path": "data/lab-catalogue/biomarkers.json",
+      "bytes": 3198,
+      "sha256": "9654cdf2570ae1466b65f130fb5aa59ce1a41ef5f0d29030b562f7606674465b"
+    },
+    {
+      "path": "data/lab-catalogue/dubai.json",
+      "bytes": 678539,
+      "sha256": "6dc17753d9e84c0b6a91cd7c99c0434e58063af7345e8b6e3acfe230916e3021"
+    },
+    {
+      "path": "data/lab-catalogue/fujairah.json",
+      "bytes": 203515,
+      "sha256": "505a8be36bd856ccab453366f197572c7063931a7c22dd730738f3b6c6020916"
+    },
+    {
+      "path": "data/lab-catalogue/ras_al_khaimah.json",
+      "bytes": 249799,
+      "sha256": "b29b24051aa79ad1514b7ffb87011f100aba70674af017d35074fbd3de7af0db"
+    },
+    {
+      "path": "data/lab-catalogue/sharjah.json",
+      "bytes": 272871,
+      "sha256": "e56f4f3e1b66ccaa7eb2f28d1cec8499005a7d0f1ec22c31f0c20581524f0b0f"
+    },
+    {
+      "path": "data/lab-catalogue/umm_al_quwain.json",
+      "bytes": 203520,
+      "sha256": "4e1eaa0c2460c46b76778a5c99057a8ac9005462db0a9e65a3fa54147caec40e"
+    },
+    {
+      "path": "jsconfig.json",
+      "bytes": 73,
+      "sha256": "9c9b5e733ed51575e8d9910dc65bd9e7b994b42b3c93237b7ae4489ebfecacfc"
+    },
+    {
+      "path": "lib/assessment-request.mjs",
+      "bytes": 1128,
+      "sha256": "e274025dc7d306726238e4f53d84e2ab10d6c41f65683656e3d83cef7ac32b0f"
+    },
+    {
+      "path": "lib/blood-draw.mjs",
+      "bytes": 4349,
+      "sha256": "c975f2970e3a015e2397e66980ef65abd3c260dd8d9431e98b9a48757b715b43"
+    },
+    {
+      "path": "lib/clinical/analysis-contract.mjs",
+      "bytes": 6185,
+      "sha256": "336b44b4b21f6f9fc5e9d2fd477849f854a1ee3d7d5b23c8b38233fbcb2a86af"
+    },
+    {
+      "path": "lib/clinical/case-context.mjs",
+      "bytes": 11651,
+      "sha256": "422d55bea0fd486bfe3e47bc21030195f5d4baaf80941cabb69dfb63b93da8c2"
+    },
+    {
+      "path": "lib/clinical/demo-interpretation.mjs",
+      "bytes": 9137,
+      "sha256": "ccd0eec95fa53788c6300ca16b2d847fcc8c6d21e791353e22fa68b9b00aa003"
+    },
+    {
+      "path": "lib/clinical/evidence-links.mjs",
+      "bytes": 2383,
+      "sha256": "5b5d4e0e4969bc61f3c3a7168d478ee7fd6da189eb1eb396060e44ca25bb8e52"
+    },
+    {
+      "path": "lib/clinical/interpretation-assembly.mjs",
+      "bytes": 11941,
+      "sha256": "c164be44574a4c40ca48aafa937fbe623ec18ccac634aaaaaae089df48ba49d8"
+    },
+    {
+      "path": "lib/clinical/interpreter-contract.mjs",
+      "bytes": 3366,
+      "sha256": "c15a863b452e04ff654a7e6805207b05547ebe30550db888d93b0c9b27d28f61"
+    },
+    {
+      "path": "lib/clinical/interpreter.mjs",
+      "bytes": 11007,
+      "sha256": "ba48ccddf345085a4f278379a36bb28c92f1bfd146e8c8de0f46c958f3cb5998"
+    },
+    {
+      "path": "lib/clinical/knowledge-base.json",
+      "bytes": 649109,
+      "sha256": "d055062501ca8f985f5c1e308b3fa7a293ec70119a3301dee0128cf7730abb4b"
+    },
+    {
+      "path": "lib/clinical/knowledge.mjs",
+      "bytes": 5191,
+      "sha256": "62d1de579495187013fb2b8686a475d11addfa80af7b05abbee563ad837764de"
+    },
+    {
+      "path": "lib/clinical/model-knowledge.mjs",
+      "bytes": 2420,
+      "sha256": "0ae2a6a880fc385fef94ba72f6eda021de3af301dba15996117c1bd8e714f2c3"
+    },
+    {
+      "path": "lib/clinical/narrative-check.mjs",
+      "bytes": 16887,
+      "sha256": "1e26c05875036df8fb02e3842bffc3e1208bd4a20c4f5671dd6b0c7a967ccbcc"
+    },
+    {
+      "path": "lib/clinical/offline-preview.mjs",
+      "bytes": 5579,
+      "sha256": "092f5d8ad5e91fa0016e2e38faa5e17b0abe143e86e0ab5cea908a60effa2622"
+    },
+    {
+      "path": "lib/clinical/openai-provider.mjs",
+      "bytes": 15389,
+      "sha256": "681e3a5970dc9d72c1393be23c49faf61ec1931cfb4d39cabf870e7288fa31e2"
+    },
+    {
+      "path": "lib/clinical/proposal-policy.mjs",
+      "bytes": 14369,
+      "sha256": "35946a7afa81da03153f111f5e70d10b6a33db345bcebc7dabb3c6ddbbfd9ff6"
+    },
+    {
+      "path": "lib/clinical/report-inputs.mjs",
+      "bytes": 5682,
+      "sha256": "3ea5724b62730e1ecc23a2c91edd61472b354547d937fe2282cff8c1a74b7ecf"
+    },
+    {
+      "path": "lib/clinical/report-normalizer.mjs",
+      "bytes": 13112,
+      "sha256": "e539d0d6a413200cbe45f56750b94449fde40070b03fb5dbef42a0b1ee40534d"
+    },
+    {
+      "path": "lib/clinical/rules.mjs",
+      "bytes": 29723,
+      "sha256": "0693fb959c3e10c4df35fa6365aa991e88cf78fbab4ecbe33b7783ec73bec591"
+    },
+    {
+      "path": "lib/db.js",
+      "bytes": 478,
+      "sha256": "73bd44b414bdba98bb68a93bc3aad74c8257053454a6a5c6a956468a610d8a8c"
+    },
+    {
+      "path": "lib/lab-quote.mjs",
+      "bytes": 10693,
+      "sha256": "77dd165e9da135bc43bf8004dc140bd2f95176c18fee588a163df1200ffe6b5a"
+    },
+    {
+      "path": "lib/lab-values.mjs",
+      "bytes": 18888,
+      "sha256": "71c7308714d937c4b5e0a30e02cdec1da75ce8d224a1cbbe54242edd7b74b3fb"
+    },
+    {
+      "path": "lib/patient-email-template.mjs",
+      "bytes": 14977,
+      "sha256": "72edecad3f0cef0337140df37e68ecad1e0e0bb028267ee0a78fcb77162e8da8"
+    },
+    {
+      "path": "lib/patient-email.mjs",
+      "bytes": 17138,
+      "sha256": "f6bd2b925e19b03100f957e59f860d4a175a0f148b4b8278f9678a356094f866"
+    },
+    {
+      "path": "lib/plan-generator.mjs",
+      "bytes": 237,
+      "sha256": "5010cfb44af837582e68c5639805d6c73abf8af8cc5437401310436225a201b7"
+    },
+    {
+      "path": "lib/plan-preview-fixture.mjs",
+      "bytes": 5727,
+      "sha256": "9bf5afa3e46ba2e09244f12fedf0c5b903f0c5d283e506c2b025a84c3a0d5714"
+    },
+    {
+      "path": "lib/plan.mjs",
+      "bytes": 4210,
+      "sha256": "4edc7a676523c4dd381383bc42c04839854addbab3240e62e731e6bb0836643c"
+    },
+    {
+      "path": "lib/portal-access.mjs",
+      "bytes": 6552,
+      "sha256": "d0565722924acee20556611acdaa11c2456d63a46732b9457cae80c839993971"
+    },
+    {
+      "path": "lib/portal-backend.mjs",
+      "bytes": 26039,
+      "sha256": "01b09f824dc85b29faa3021df7974d62d40330330e6a81d91dc5fbff38216efa"
+    },
+    {
+      "path": "lib/questionnaire.mjs",
+      "bytes": 12208,
+      "sha256": "558760ed27cdeb435b1ff9e6a1e2ea83633873633c20a07afbe5729df6a988f0"
+    },
+    {
+      "path": "lib/report-files.mjs",
+      "bytes": 16257,
+      "sha256": "f31da91e84ab6f7b9eb4363328e154e9f4534d03d8e3f584300d8a174e4c96f6"
+    },
+    {
+      "path": "lib/shared-api.mjs",
+      "bytes": 18976,
+      "sha256": "b2b32dceca2af78a5cc8779c9ebdeb751b5be829e15a8590a1490093183e0b08"
+    },
+    {
+      "path": "next.config.mjs",
+      "bytes": 148,
+      "sha256": "cb09617a5737100fb7fb935fa5181f627207106fa6911411ab4cad9c4eddb744"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 50849,
+      "sha256": "3f5b419ef25ffc7df44ea9e8943aa46e3fb9ed48b9b9588d5388109b85682d12"
+    },
+    {
+      "path": "package.json",
+      "bytes": 527,
+      "sha256": "595a26c142189eb8c28321547d554095b25a07fca5faceb768aeb714fa01619d"
+    },
+    {
+      "path": "public/blood-drop.webp",
+      "bytes": 22782,
+      "sha256": "aae2f31fb114ad7c995537615ec45a20b4a71f6a09a64eb47a9fe34a4ee915c2"
+    },
+    {
+      "path": "public/file.svg",
+      "bytes": 391,
+      "sha256": "2b67812c325c199a02536cdbeea0c593a72f707d323b72ee3e08dbab06753bd4"
+    },
+    {
+      "path": "public/globe.svg",
+      "bytes": 1035,
+      "sha256": "b614b9bf183925957661ac851498fe1d8029fd43a62fbfed86f9e2624a57e7cf"
+    },
+    {
+      "path": "public/next.svg",
+      "bytes": 1375,
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc"
+    },
+    {
+      "path": "public/vercel.svg",
+      "bytes": 128,
+      "sha256": "f081337b2fee635b455b63275406a3e7f39d6a014e25ad90dab5a67e62a12ac4"
+    },
+    {
+      "path": "public/window.svg",
+      "bytes": 385,
+      "sha256": "644768c4aaeb4767bce293344eeb0c125fb804a94d801440424072202d85e3a1"
+    }
+  ],
+  "buildId": "Z5XLm4uu78EOeyPqaXix_"
+}

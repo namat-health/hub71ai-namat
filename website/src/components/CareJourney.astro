@@ -1,0 +1,467 @@
+---
+import HealthLockup from './HealthLockup.astro';
+
+const choices = [
+  {title: 'New diet', source: 'From a book', span: 47, end: 85, icon: 'M12 6C9 4 5 4 3 5v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-2-1-6-1-9 1Zm0 0v14'},
+  {title: 'New supplements', source: 'From a friend', span: 34, end: 71, icon: 'M4 4h12v9H9l-4 3v-3H4Zm6 13h5l4 3v-3h2V8h-2'},
+  {title: 'New routine', source: 'From a podcast', span: 51, end: 89, icon: 'M4 14v-3a8 8 0 0 1 16 0v3M4 12H3v8h4v-8Zm16 0h1v8h-4v-8Z'},
+];
+const stages = ['Baseline', 'Plan', 'Check-ins', 'Retest', 'Adjust'];
+const timeTicks = Array.from({length: 39}, (_, index) => {
+  const position = 1.5 + index * 2.55;
+  const betweenCheckups = position > 37 && position < 63;
+  return {
+    position,
+    height: betweenCheckups ? [9, 14, 7, 11][index % 4] : [12, 23, 15, 32, 10, 19][index % 6],
+    down: index % 4 === 2,
+    betweenCheckups,
+  };
+}).filter(tick => Math.abs(tick.position - 35.6) > 1.8 && Math.abs(tick.position - 64.4) > 1.8);
+---
+
+<section class="care-journey" id="experience" data-care-journey aria-labelledby="journey-title">
+  <span class="journey-anchor" id="approach"></span>
+  <span class="journey-anchor" id="audience"></span>
+  <h2 class="journey-sr-only" id="journey-title">You want the good years to last. So do we.</h2>
+
+  <div class="journey-stage" aria-hidden="true">
+    <div class="journey-heading">
+      <p class="journey-opening-title">You want the good years to last.<br class="journey-title-break" /> So do we.</p>
+      <p class="journey-timeline-title">Health happens<br />between appointments.</p>
+    </div>
+
+    <div class="journey-canvas">
+      <div class="journey-opening-rule">
+        {timeTicks.map(tick => <i class:list={['journey-time-tick', {'is-down': tick.down, 'is-between': tick.betweenCheckups}]} style={`--tick-x:${tick.position}%;--tick-height:${tick.height}px`}></i>)}
+      </div>
+      <img class="journey-person journey-person-woman" src="/assets/members/proactive-woman.webp" alt="" width="900" height="1205" loading="lazy" decoding="async" />
+      <img class="journey-person journey-person-man" src="/assets/members/proactive-man.webp" alt="" width="900" height="1203" loading="lazy" decoding="async" />
+
+      <div class="journey-timeline">
+        <div class="journey-era">
+          <span class="journey-today-label">Today</span>
+        </div>
+        <div class="journey-connecting-line"></div>
+
+        <div class="journey-endpoint journey-endpoint-start">
+          <i class="journey-marker"></i>
+          <span class="journey-checkup-label">Last check-up</span>
+          <span class="journey-cycle-label">Baseline</span>
+        </div>
+        <div class="journey-endpoint journey-endpoint-end">
+          <i class="journey-marker"></i>
+          <span class="journey-checkup-label">Next check-up</span>
+          <span class="journey-cycle-label">Adjust</span>
+        </div>
+
+        {choices.map((choice, index) => (
+          <div class="journey-choice" data-journey-attempt style={`--choice-x:${13 + index * 27}%;--choice-row:${index - 1};--attempt-span:${choice.span}%;--attempt-end:${choice.end}%`}>
+            <span class="journey-choice-source">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={choice.icon} /></svg>
+              <span>{choice.source}</span>
+            </span>
+            <span class="journey-choice-title">{choice.title}</span>
+            <span class="journey-attempt-track">
+              <i class="journey-attempt-solid"></i>
+              <i class="journey-attempt-start"></i>
+              <span class="journey-attempt-tail"><i></i><i></i><i></i></span>
+              <i class="journey-attempt-end"></i>
+            </span>
+          </div>
+        ))}
+
+        {stages.slice(1, -1).map((stage, index) => (
+          <div class="journey-cycle-point" style={`--point-x:${27 + index * 23}%`}>
+            <i class="journey-marker"></i>
+            <span class="journey-cycle-label">{stage}</span>
+          </div>
+        ))}
+
+        <div class="journey-return">
+          <i class="journey-return-right"></i>
+          <i class="journey-return-bottom"></i>
+          <i class="journey-return-left"></i>
+          <span class="journey-cycle-brand"><HealthLockup /></span>
+          <p class="journey-cycle-note">Each cycle informs the next</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-footer">
+      <span class="journey-scroll-cue">Keep scrolling <i>↓</i></span>
+      <div class="journey-progress"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="journey-readable">
+    <div class="journey-static-panel journey-static-audience">
+      <h3>You want the good years to last.<br class="journey-title-break" /> So do we.</h3>
+      <div class="journey-static-portraits" aria-hidden="true">
+        <img src="/assets/members/proactive-woman.webp" alt="" width="900" height="1205" loading="lazy" decoding="async" />
+        <img src="/assets/members/proactive-man.webp" alt="" width="900" height="1203" loading="lazy" decoding="async" />
+      </div>
+    </div>
+    <div class="journey-static-panel">
+      <h3>Health happens between appointments.</h3>
+      <p class="journey-static-era">Today</p>
+      <ol class="journey-static-timeline journey-static-today">
+        <li><strong>Last check-up</strong></li>
+        {choices.map(choice => <li><strong>{choice.title}</strong><span>{choice.source}</span><span class="journey-sr-only">A short-lived change, followed by a gap before the next attempt.</span></li>)}
+        <li><strong>Next check-up</strong></li>
+      </ol>
+    </div>
+    <div class="journey-static-panel">
+      <h3><span class="journey-sr-only">With Namat Health</span><HealthLockup /></h3>
+      <ol class="journey-static-timeline journey-static-cycle">
+        {stages.map(stage => <li><strong>{stage}</strong></li>)}
+      </ol>
+      <p class="journey-static-note">Each cycle informs the next.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .care-journey {
+    --journey-paper: var(--namat-white);
+    --spread: 0;
+    --portraits: 1;
+    --opening: 1;
+    --timeline-heading: 0;
+    --today: 0;
+    --today-layout: 0;
+    --attempt-captions: 1;
+    --merge: 0;
+    --cycle: 0;
+    --connection: 0;
+    --return: 0;
+    --endpoints: 0;
+    --stage-height: 100vh;
+    position: relative;
+    background: var(--journey-paper);
+    color: var(--namat-ink);
+    scroll-margin-top: 0;
+  }
+  @supports (height: 100svh) { .care-journey { --stage-height: 100svh; } }
+  .journey-anchor { position: absolute; top: 0; }
+  .journey-sr-only,
+  .care-journey.is-enhanced .journey-readable {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  .care-journey.is-enhanced { height: calc(var(--stage-height) * 3.6); }
+  .journey-stage {
+    display: none;
+    position: relative;
+    height: var(--stage-height);
+    min-height: 0;
+    overflow: hidden;
+    overflow: clip;
+    isolation: isolate;
+  }
+  .is-enhanced .journey-stage { display: block; position: sticky; top: 0; }
+  .is-enhanced .journey-stage[data-journey-phase] { display: none; }
+  .journey-heading {
+    position: absolute;
+    top: max(7.7rem, 14svh);
+    left: 5%;
+    right: 5%;
+    z-index: 4;
+    text-align: center;
+  }
+  .journey-heading p {
+    position: absolute;
+    width: 100%;
+    max-width: none;
+    font: 650 clamp(2.75rem, 5.25vw, 5.5rem)/1.01 var(--display);
+    font-stretch: 108%;
+    letter-spacing: -.055em;
+    text-wrap: balance;
+  }
+  .journey-opening-title {
+    opacity: var(--opening);
+    transform: translateY(calc((1 - var(--opening)) * -1.2rem));
+  }
+  /* “So do we.” always gets its own line; phones balance the first sentence. */
+  @media (max-width: 760px) {
+    .journey-opening-title, .journey-static-audience h3 { text-wrap: balance; }
+  }
+  .journey-timeline-title {
+    opacity: var(--timeline-heading);
+    transform: translateY(calc((1 - var(--timeline-heading)) * 1.2rem));
+  }
+  .journey-canvas { position: absolute; inset: 36% 0 9%; }
+  .journey-person {
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    height: 100%;
+    width: auto;
+    max-width: 35%;
+    object-fit: contain;
+    object-position: bottom;
+    opacity: var(--portraits);
+    mask-image: linear-gradient(#000 0%, #000 87%, transparent 100%);
+  }
+  .journey-person-woman { left: 4%; transform: translateX(calc((1 - var(--portraits)) * -8rem)); }
+  .journey-person-man { right: 4%; transform: translateX(calc((1 - var(--portraits)) * 8rem)); }
+  .journey-opening-rule {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #b7b9a9;
+    opacity: var(--opening);
+  }
+  .journey-opening-rule::before, .journey-opening-rule::after { content: ''; position: absolute; top: 0; width: 35.6%; height: 2px; background: var(--namat-ink); opacity: .65; }
+  .journey-opening-rule::before { left: 0; }
+  .journey-opening-rule::after { right: 0; }
+  .journey-time-tick { position: absolute; left: var(--tick-x); bottom: 0; width: 1px; height: var(--tick-height); background: var(--namat-ink); opacity: .55; }
+  .journey-time-tick.is-down { top: 0; bottom: auto; height: calc(var(--tick-height) * .45); }
+  .journey-time-tick.is-between { opacity: .3; }
+  .journey-timeline { position: absolute; z-index: 2; top: 50%; left: 5%; width: 90%; }
+  .journey-era { position: absolute; left: 4%; right: 4%; top: -9rem; font: 500 clamp(.85rem, 1.35vw, 1.2rem)/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .journey-era > span { position: absolute; inset: 0 auto auto 0; }
+  .journey-today-label { opacity: var(--today); }
+  .journey-cycle-brand { position: absolute; left: 50%; top: calc((100% - var(--return-gap)) / 2); opacity: var(--return); transform: translate(-50%, calc(-50% + (1 - var(--return)) * .6rem)); }
+  .journey-endpoint { position: absolute; top: 0; }
+  .journey-endpoint-start { left: calc(34% - var(--spread) * 30%); }
+  .journey-endpoint-end { left: calc(66% + var(--spread) * 30%); }
+  .journey-marker { position: absolute; top: 0; left: 0; display: block; width: 1.15rem; height: 1.15rem; background: var(--namat-clay); transform: translate(-50%, -50%); }
+  .journey-endpoint .journey-marker { width: calc(.25rem + var(--endpoints) * .9rem); height: calc(1.7rem - var(--endpoints) * .55rem); background: color-mix(in srgb, var(--namat-clay) calc(var(--endpoints) * 100%), var(--namat-ink)); }
+  .journey-checkup-label, .journey-cycle-label {
+    position: absolute;
+    left: 0;
+    width: max-content;
+    max-width: 10rem;
+    transform: translateX(-50%);
+    font: 400 clamp(.78rem, 1.3vw, 1.2rem)/1.4 var(--mono);
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .journey-checkup-label { top: 1.85rem; opacity: min(calc(1 - var(--cycle)), var(--attempt-captions)); color: #656d63; }
+  .journey-cycle-label { bottom: 1.8rem; opacity: var(--cycle); }
+  .journey-choice { --started: 0; --draw: 0; --segment-a: 0; --segment-b: 0; --segment-c: 0; --ended: 0; position: absolute; left: var(--choice-x); width: 20%; top: 0; opacity: var(--today); }
+  .journey-choice-title, .journey-choice-source { position: absolute; left: 0; width: 100%; opacity: var(--attempt-captions); }
+  .journey-choice-title { top: -2.75rem; font: 550 clamp(1rem, 1.65vw, 1.5rem)/1.15 var(--display); letter-spacing: -.025em; }
+  .journey-choice-source { top: -5rem; display: flex; align-items: center; gap: .5rem; color: #656d63; font: 400 clamp(.75rem, 1.05vw, .95rem)/1.4 var(--body); }
+  .journey-choice-source svg { flex: 0 0 auto; width: 1.2rem; height: 1.2rem; }
+  .journey-attempt-track { position: absolute; top: 0; left: 0; width: 100%; height: 0; transform-origin: left center; }
+  .journey-attempt-solid { position: absolute; top: -1.5px; left: 0; height: 3px; width: calc(var(--attempt-span) + (100% - var(--attempt-span)) * var(--merge)); background: var(--namat-ink); transform: scaleX(var(--draw)); transform-origin: left; }
+  .journey-attempt-start { position: absolute; top: -.25rem; left: -.25rem; width: .5rem; height: .5rem; border-radius: 50%; background: var(--namat-ink); opacity: calc(var(--started) * (1 - var(--merge))); }
+  .journey-attempt-tail { position: absolute; top: -1.5px; left: var(--attempt-span); width: calc(var(--attempt-end) - var(--attempt-span) - 8%); height: 3px; display: flex; gap: 5px; padding-left: 5px; }
+  .journey-attempt-tail i { display: block; height: 100%; background: var(--namat-ink); transform-origin: left; }
+  .journey-attempt-tail i:nth-child(1) { flex: 5; opacity: calc(.65 + var(--merge) * .35); transform: scaleX(var(--segment-a)); }
+  .journey-attempt-tail i:nth-child(2) { flex: 3; opacity: calc(.38 + var(--merge) * .62); transform: scaleX(var(--segment-b)); }
+  .journey-attempt-tail i:nth-child(3) { flex: 1; opacity: calc(.2 + var(--merge) * .8); transform: scaleX(var(--segment-c)); }
+  .journey-attempt-end { position: absolute; top: -.45rem; left: var(--attempt-end); width: 1px; height: .9rem; background: var(--namat-clay); opacity: calc(var(--ended) * (1 - var(--merge))); transform: scaleY(var(--ended)); }
+  .journey-connecting-line { position: absolute; left: 4%; width: 92%; height: 3px; top: -1.5px; background: var(--namat-ink); transform: scaleX(var(--connection)); transform-origin: left; }
+  .journey-cycle-point { position: absolute; left: var(--point-x); top: 0; opacity: var(--cycle); transform: translateY(calc((1 - var(--cycle)) * .6rem)); }
+  .journey-return { --return-gap: 1.3rem; position: absolute; top: var(--return-gap); left: 4%; width: 92%; height: clamp(8.5rem, 22svh, 12rem); opacity: var(--cycle); }
+  .journey-return i { position: absolute; display: block; background: var(--namat-ink); }
+  .journey-return-right { top: 0; right: -1px; height: 100%; width: 2px; transform: scaleY(clamp(0, var(--return) * 5, 1)); transform-origin: top; }
+  .journey-return-bottom { bottom: 0; left: 0; width: 100%; height: 2px; transform: scaleX(clamp(0, (var(--return) - .2) / .6, 1)); transform-origin: right; }
+  .journey-return-left { top: 0; left: -1px; height: 100%; width: 2px; transform: scaleY(clamp(0, (var(--return) - .8) * 5, 1)); transform-origin: bottom; }
+  .journey-return::after { content: ''; position: absolute; top: 0; left: 0; width: .55rem; height: .55rem; border-top: 2px solid currentColor; border-left: 2px solid currentColor; transform: translateX(-50%) rotate(45deg); opacity: clamp(0, (var(--return) - .94) / .06, 1); }
+  .journey-cycle-note { position: absolute; top: 100%; left: 50%; transform: translate(-50%, -50%); background: var(--journey-paper); padding: .5rem 1.5rem; width: max-content; max-width: 75%; opacity: var(--return); font: 500 clamp(.75rem, 1.1vw, 1rem)/1.35 var(--mono); letter-spacing: .02em; text-transform: uppercase; text-align: center; }
+  .journey-footer { position: absolute; bottom: 2.2rem; left: 5%; right: 5%; display: flex; justify-content: space-between; align-items: center; color: #656d63; }
+  .journey-scroll-cue { font: 400 .7rem/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; opacity: calc(1 - var(--return)); }
+  .journey-scroll-cue i { font-style: normal; margin-left: .6rem; }
+  .journey-progress { display: flex; gap: .5rem; }
+  .journey-progress i { display: block; width: 1.6rem; height: 2px; background: currentColor; opacity: .2; }
+  .journey-progress i:first-child { opacity: calc(.2 + var(--opening) * .8); }
+  .journey-progress i:nth-child(2) { opacity: calc(.2 + var(--today) * .8); }
+  .journey-progress i:last-child { opacity: calc(.2 + var(--cycle) * .8); }
+  .care-journey:not(.is-enhanced) .journey-footer { display: none; }
+  .journey-static-panel { padding: 4rem 7%; }
+  .journey-static-panel h3 { font-size: clamp(2rem, 4vw, 4rem); max-width: 19ch; }
+  .journey-static-audience h3 { max-width: none; text-align: center; }
+  .journey-static-portraits { display: grid; grid-template-columns: 1fr 1fr; align-items: end; width: min(58rem, 86vw); margin: 1.5rem auto -4rem; }
+  .journey-static-portraits img { width: 100%; height: auto; max-height: 26rem; object-fit: contain; object-position: center bottom; mask-image: linear-gradient(#000 0%, #000 86%, transparent 100%); }
+  .journey-static-era { font: 500 1rem var(--mono); text-transform: uppercase; margin-top: 3rem; }
+  .journey-static-timeline { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 2rem; margin-top: 3rem; }
+  .journey-static-timeline li { border-top: 2px solid var(--namat-ink); padding-top: 1rem; }
+  .journey-static-timeline strong { font-weight: 500; }
+  .journey-static-timeline span { display: block; color: #656d63; font-size: .875rem; }
+  .journey-static-cycle { gap: 0; }
+  .journey-static-cycle li { position: relative; }
+  .journey-static-cycle li::before { content: ''; position: absolute; top: -.4rem; width: .75rem; height: .75rem; background: var(--namat-clay); }
+  .journey-static-note { margin-top: 3rem; font-family: var(--mono); font-size: .85rem; text-transform: uppercase; }
+
+  @media (min-width: 1600px) { .journey-canvas { inset-block: 34% 9%; } }
+  @media (max-width: 760px) {
+    .care-journey { --portrait-width: min(54vw, 32svh, 36rem); --mobile-step: clamp(3.5rem, 9svh, 6rem); }
+    .journey-heading { top: max(6.75rem, 15svh); left: 5%; right: 5%; }
+    .journey-heading p { font-size: clamp(2.1rem, 7.7vw, 5rem); line-height: 1.05; }
+    .journey-canvas { inset: 32% 0 7%; }
+    .journey-person { top: 0; bottom: auto; width: var(--portrait-width); height: auto; max-width: none; }
+    .journey-person-woman { left: -6%; }
+    .journey-person-man { right: -6%; }
+    .journey-timeline { top: calc((var(--portrait-width) * 1.34 - .6rem) * (1 - var(--spread)) + 40% * var(--spread) + 1.5rem * var(--today-layout)); left: 7%; width: 86%; }
+    .journey-opening-rule { top: calc(var(--portrait-width) * 1.34 - .6rem); }
+    .journey-opening-rule::before, .journey-opening-rule::after { width: 36.24%; }
+    .journey-time-tick { height: calc(var(--tick-height) * .65); }
+    .journey-time-tick.is-down { height: calc(var(--tick-height) * .25); }
+    .journey-time-tick:nth-child(even) { display: none; }
+    .journey-era { top: calc(var(--mobile-step) * -1.5 - 2.5rem); left: 4%; font-size: clamp(.8rem, 1.45vw, 1rem); }
+    .journey-cycle-brand { --health-lockup-size: clamp(2.25rem, 5vw, 4rem); }
+    .journey-endpoint-start { left: calc(34% - var(--spread) * 30%); top: calc(var(--mobile-step) * -1.5 * var(--today-layout)); }
+    .journey-endpoint-end { left: calc(66% + var(--spread) * 30% - var(--today-layout) * 92%); top: calc(var(--mobile-step) * 2 * var(--today-layout)); }
+    .journey-checkup-label { font-size: clamp(.75rem, 1.45vw, 1rem); max-width: 7rem; line-height: 1.4; top: 1.2rem; }
+    .journey-checkup-label { left: calc(1.75rem * var(--today-layout)); top: calc(1.2rem - 1.6rem * var(--today-layout)); max-width: calc(5rem + 4rem * var(--today-layout)); }
+    .journey-endpoint-start .journey-checkup-label { transform: translateX(calc(-50% + var(--spread) * 30% + var(--today-layout) * 20%)); }
+    .journey-endpoint-end .journey-checkup-label { transform: translateX(calc(-50% - var(--spread) * 30% + var(--today-layout) * 80%)); }
+    .journey-cycle-label { font-size: clamp(.75rem, 1.45vw, 1rem); bottom: 1.4rem; letter-spacing: -.035em; max-width: 7rem; opacity: calc(var(--cycle) * (1 - var(--today-layout))); }
+    .journey-endpoint-start .journey-cycle-label { transform: translateX(-18%); }
+    .journey-endpoint-end .journey-cycle-label { transform: translateX(-82%); }
+    .journey-choice { left: calc(var(--choice-x) * (1 - var(--today-layout)) + 4% * var(--today-layout)); top: calc(var(--choice-row) * var(--mobile-step) * var(--today-layout)); width: calc(23% + 65% * var(--today-layout)); }
+    .journey-choice-title { left: calc(1.75rem * var(--today-layout)); top: calc(-2.75rem * (1 - var(--today-layout)) + .95rem * var(--today-layout)); font-size: clamp(.95rem, 4.2vw, 1.5rem); line-height: 1.2; }
+    .journey-choice-source { left: calc(1.75rem * var(--today-layout)); top: calc(-5rem * (1 - var(--today-layout)) - .55rem * var(--today-layout)); gap: .4rem; font-size: clamp(.72rem, 1.35vw, .9rem); }
+    .journey-choice-source svg { width: 1rem; height: 1rem; }
+    .journey-attempt-track { width: calc(100% * (1 - var(--today-layout)) + var(--mobile-step) * .73 * var(--today-layout)); transform: rotate(calc(var(--today-layout) * 90deg)); }
+    .journey-attempt-tail { gap: 3px; padding-left: 3px; }
+    .journey-marker { width: .8rem; height: .8rem; }
+    .journey-endpoint .journey-marker { width: calc(.2rem + var(--endpoints) * .6rem); height: calc(1.4rem - var(--endpoints) * .6rem); }
+    .journey-connecting-line, .journey-attempt-solid, .journey-attempt-tail { top: -1px; height: 2px; }
+    .journey-return { --return-gap: 1rem; height: clamp(8.5rem, 21svh, 14rem); }
+    .journey-cycle-note { max-width: 65%; font-size: .75rem; padding: .5rem .8rem; text-wrap: balance; }
+    .journey-footer { bottom: 1.6rem; left: 7%; right: 7%; }
+    .journey-progress i { width: 1.25rem; }
+  }
+  /* A tall monitor can show several chapters at once. Keep the same artwork
+     in compact, scroll-animated panels instead of reserving three full screens. */
+  .care-journey.is-enhanced.is-flow { height: auto; }
+  .is-flow .journey-stage,
+  .is-flow .journey-stage[data-journey-phase] { display: block; position: relative; top: auto; height: clamp(40rem, 70vw, 52rem); }
+  .is-flow .journey-heading { top: 6rem; }
+  .is-flow .journey-heading p { font-size: clamp(2.75rem, 5.25vw, 4.75rem); }
+  .is-flow .journey-canvas { inset: 34% 0 7%; }
+  .is-flow .journey-person { max-width: 27%; }
+  .is-flow .journey-person-woman { left: 2%; }
+  .is-flow .journey-person-man { right: 2%; }
+  .is-flow .journey-footer { display: none; }
+  .is-flow .journey-stage[data-journey-phase="today"] { height: 33rem; }
+  .is-flow .journey-stage[data-journey-phase="today"] .journey-heading { top: 2.5rem; }
+  .is-flow .journey-stage[data-journey-phase="today"] .journey-canvas { inset: 44% 0 0; }
+  .is-flow .journey-era { top: -7rem; }
+  .is-flow .journey-stage[data-journey-phase="cycle"] { height: 23rem; }
+  .is-flow .journey-stage[data-journey-phase="cycle"] .journey-heading { display: none; }
+  .is-flow .journey-stage[data-journey-phase="cycle"] .journey-canvas { inset: 0; }
+  .is-flow .journey-stage[data-journey-phase="cycle"] .journey-timeline { top: 15%; }
+  .is-flow .journey-return { height: 12rem; }
+  @media (max-width: 760px) {
+    .journey-static-panel { padding: 3.5rem 5%; }
+    .journey-static-portraits { width: 110%; margin: 1.25rem -5% -3.5rem; }
+    .journey-static-timeline { grid-template-columns: 1fr; gap: 1.75rem; }
+    .journey-static-cycle { gap: 0; }
+    .journey-static-cycle li { border-top: 0; border-left: 2px solid var(--namat-ink); padding: 0 0 2rem 1.5rem; }
+    .journey-static-cycle li::before { top: .3rem; left: -.43rem; }
+    .journey-static-cycle li:last-child { border-color: transparent; padding-bottom: 0; }
+  }
+  @media (max-height: 700px) and (min-width: 761px) {
+    .journey-heading { top: 6.75rem; }
+    .journey-heading p { font-size: clamp(2.5rem, 4.3vw, 4rem); }
+    .journey-canvas { inset: 43% 0 11%; }
+    .journey-era { top: -5.5rem; }
+    .journey-cycle-brand { --health-lockup-size: 2.625rem; }
+    .journey-return { height: clamp(5rem, 20svh, 8rem); }
+    .journey-footer { bottom: 1.15rem; }
+  }
+  @media (max-height: 550px) and (min-width: 761px) {
+    .journey-heading { top: 6rem; }
+    .journey-heading p { font-size: 2.5rem; }
+    .journey-cycle-brand { --health-lockup-size: 2rem; }
+    .journey-era { top: -4.7rem; }
+    .journey-choice-source { top: -3.65rem; }
+    .journey-choice-title { top: -2rem; font-size: 1.1rem; }
+    .journey-cycle-label { bottom: 1.2rem; }
+  }
+  @supports not (overflow: clip) { .journey-stage { overflow: hidden; } }
+</style>
+
+<script>
+  import {getJourneyMotion} from '../lib/care-journey-motion.mjs';
+  import {getJourneyLayout, getFlowJourneyProgress} from '../lib/journey-layout.mjs';
+
+  const scene = document.querySelector<HTMLElement>('[data-care-journey]');
+  if (scene) {
+    const stage = scene.querySelector<HTMLElement>('.journey-stage')!;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const flowStages: HTMLElement[] = [];
+    const attemptCache = new WeakMap<HTMLElement, HTMLElement[]>();
+    let queued = false;
+    let enabled = false;
+    let layout = '';
+    let lastProgress = -1;
+    const applyState = (target: HTMLElement, progress: number) => {
+      const state = getJourneyMotion(progress);
+      for (const [key, value] of Object.entries(state.scene)) target.style.setProperty(`--${key}`, value.toFixed(4));
+      if (!attemptCache.has(target)) attemptCache.set(target, Array.from(target.querySelectorAll<HTMLElement>('[data-journey-attempt]')));
+      attemptCache.get(target)!.forEach((attempt, index) => {
+        for (const [key, value] of Object.entries(state.attempts[index])) {
+          const property = key.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`);
+          attempt.style.setProperty(`--${property}`, value.toFixed(4));
+        }
+      });
+    };
+    const render = () => {
+      queued = false;
+      if (!enabled) return;
+      if (layout === 'flow') {
+        applyState(stage, 0);
+        flowStages.forEach((panel, index) => {
+          applyState(panel, getFlowJourneyProgress(index === 0 ? 'today' : 'cycle', panel.getBoundingClientRect().top, panel.offsetHeight, window.innerHeight));
+        });
+        return;
+      }
+      const distance = scene.offsetHeight - stage.offsetHeight;
+      const progress = Math.max(0, Math.min(1, -scene.getBoundingClientRect().top / Math.max(1, distance)));
+      if (progress === lastProgress) return;
+      lastProgress = progress;
+      applyState(stage, progress);
+    };
+    const schedule = () => {
+      if (queued || !enabled) return;
+      queued = true;
+      requestAnimationFrame(render);
+    };
+    // Phone toolbars change innerHeight while scrolling; measure the small viewport instead so the
+    // layout never flips between static and pinned mid-scroll.
+    const viewportProbe = document.createElement('div');
+    viewportProbe.setAttribute('aria-hidden', 'true');
+    viewportProbe.style.cssText = 'position:fixed;top:0;left:0;width:0;height:100vh;height:100svh;visibility:hidden;pointer-events:none';
+    document.body.appendChild(viewportProbe);
+    const configure = () => {
+      const nextLayout = getJourneyLayout({width: window.innerWidth, height: viewportProbe.offsetHeight, reducedMotion: motion.matches});
+      if (nextLayout === layout) { lastProgress = -1; schedule(); return; }
+      layout = nextLayout;
+      enabled = layout !== 'static';
+      lastProgress = -1;
+      scene.classList.toggle('is-enhanced', enabled);
+      scene.classList.toggle('is-flow', layout === 'flow');
+      if (layout === 'flow' && !flowStages.length) {
+        ['today', 'cycle'].forEach(phase => {
+          const panel = stage.cloneNode(true) as HTMLElement;
+          panel.dataset.journeyPhase = phase;
+          stage.parentNode!.insertBefore(panel, scene.querySelector('.journey-readable'));
+          flowStages.push(panel);
+        });
+      }
+      if (enabled) schedule();
+      else scene.removeAttribute('style');
+    };
+    window.addEventListener('scroll', schedule, {passive: true});
+    window.addEventListener('resize', configure, {passive: true});
+    window.addEventListener('pageshow', schedule);
+    motion.addEventListener('change', configure);
+    configure();
+  }
+</script>

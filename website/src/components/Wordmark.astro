@@ -1,0 +1,18 @@
+---
+const {light = false} = Astro.props;
+---
+<a class:list={['wordmark', {light}]} href="/" aria-label="Namat Health home">
+  <span class="original-wordmark" aria-hidden="true">
+    <span class="wordmark-name">namat</span>
+    <span class="wordmark-rule"></span>
+    <span class="wordmark-stop"></span>
+  </span>
+</a>
+<style>
+  @font-face{font-family:'Namat Archivo';font-style:normal;font-weight:100 900;font-stretch:62% 125%;font-display:swap;src:url('/assets/archivo-original-latin.woff2') format('woff2')}
+  .wordmark{width:auto;font-size:var(--wordmark-size,43px);line-height:1}
+  .original-wordmark{display:inline-block;position:relative;font-size:inherit;line-height:1;color:inherit;padding:0 .18em .2em 0}
+  .wordmark-name{display:block;font-family:'Namat Archivo',sans-serif;font-stretch:125%;font-weight:700;letter-spacing:-.035em;white-space:nowrap}
+  .wordmark-rule{position:absolute;left:0;right:.18em;bottom:.12em;height:max(1px,.022em);background:currentColor}
+  .wordmark-stop{position:absolute;right:0;bottom:0;width:.13em;height:.13em;background:currentColor}
+</style>

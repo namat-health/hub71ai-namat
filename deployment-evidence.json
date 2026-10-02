@@ -1,0 +1,36 @@
+{
+  "checkedAt": "2026-10-02T11:14:24Z",
+  "timezone": "Asia/Dubai",
+  "landing": {
+    "url": "https://namat.health/welcome",
+    "httpStatus": 200,
+    "sourceCommit": "8686a08f9276fe7b1f356e0ad0016a503ed5fdf7"
+  },
+  "questionnaire": {
+    "url": "https://start.namat.health/welcome",
+    "httpStatus": 200,
+    "sourceCommit": "fd908a42d6123086c9d561ea36d672424aad5fd8"
+  },
+  "doctorPortal": {
+    "url": "https://doctor.namat.health",
+    "httpStatusWithoutLogin": 401,
+    "authentication": "Microsoft staff sign-in preserved",
+    "previousLiveSourceCommit": "914731c573672154af8f10f79f0aaba16e14c66b",
+    "submittedSourceCommit": "b99a80070725c9a04a0209c7053661ac02408ec5",
+    "submittedReleaseSourceInputsVerified": 97,
+    "newReleaseStatus": "completed successfully, reported by the separately authorized deployment chat",
+    "sourceManifest": "deployed-portal-source.json"
+  },
+  "patientPortal": {
+    "url": "https://member.namat.health",
+    "httpStatus": 403,
+    "azureAppState": "Stopped",
+    "sourceIncluded": true
+  },
+  "verification": {
+    "sourceFiles": 1044,
+    "portalReleaseInputs": 97,
+    "knownPrivateCredentialScan": "passed; no matches in 1058 submission files",
+    "hostingChangesBySubmissionAudit": "none"
+  }
+}

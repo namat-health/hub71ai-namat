@@ -1,0 +1,37 @@
+---
+import Wordmark from '../../components/Wordmark.astro';
+import '../../styles/overview-preview.css';
+import './questionnaire.css';
+import {getJourneyVisual} from '../../lib/journey-visuals.mjs';
+import {BRAND_TAGLINE} from '../../lib/journey-copy.mjs';
+const welcomeVisual = getJourneyVisual('welcome', {});
+---
+<div class="overview-preview hackathon-questionnaire" data-hackathon-questionnaire data-step="welcome" data-visual-kind={welcomeVisual.kind} data-visual-scene="welcome">
+  <main class="ov-shell" id="main">
+    <aside class="ov-welcome-art" aria-hidden="true">
+      <picture class="ov-art-picture">
+        <source media="(max-width: 760px), (max-aspect-ratio: 999/1000)" srcset="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxIiBoZWlnaHQ9IjEiLz4=" />
+        <img data-journey-image src={welcomeVisual.src} srcset={welcomeVisual.srcSet} sizes={`max(50vw, ${(100 * welcomeVisual.width / welcomeVisual.height).toFixed(2)}svh)`} alt="" width={welcomeVisual.width} height={welcomeVisual.height} fetchpriority="high" loading="lazy" decoding="async" />
+      </picture>
+      <div class="ov-art-caption"><p>Namat Health</p><strong data-art-caption>{BRAND_TAGLINE}</strong></div>
+    </aside>
+    <section class="ov-workspace" aria-label="Your Namat questionnaire">
+      <header class="ov-header"><Wordmark href="https://namat.health/welcome" /><span class="hk-badge">Demo</span></header>
+      <div class="ov-content">
+        <div class="ov-progress" data-progress hidden>
+          <div class="ov-progress-copy"><span data-progress-label>0%</span><button type="button" class="ov-reset" data-action="restart">Start over</button></div>
+          <progress data-progress-meter max="100" value="0" aria-label="Questionnaire progress"></progress>
+        </div>
+        <div class="ov-step-view" data-step-view>
+          <h1 class="ov-title">Welcome to the UAE. Let’s take care of your health.</h1>
+          <p class="ov-intro">Tell us about your health priorities and explore what Namat could offer you.</p>
+          <noscript><p class="ov-note">Please enable JavaScript to use the questionnaire.</p></noscript>
+        </div>
+        <footer class="hk-form-footer"><span>Fictional examples only</span><a href="https://namat.health/privacy/" target="_blank" rel="noopener noreferrer">Privacy</a></footer>
+      </div>
+    </section>
+  </main>
+</div>
+<script>
+  import './questionnaire';
+</script>

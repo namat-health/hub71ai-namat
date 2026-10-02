@@ -1,0 +1,29 @@
+---
+import Wordmark from './Wordmark.astro';
+import {content} from '../data/content';
+---
+
+<footer class="site-footer">
+  <div class="footer-brand">
+    <Wordmark />
+    <p>A doctor-led approach to preventive health, being built in Abu Dhabi.</p>
+  </div>
+  <div class="footer-column">
+    <p class="footer-label">Explore</p>
+    <a href="/">Home</a>
+    <a href="/#membership">How it works</a>
+  </div>
+  <div class="footer-column">
+    <p class="footer-label">Contact</p>
+    <a href={`mailto:${content.email}`}>{content.email}</a>
+    <a href="/privacy/">Privacy</a>
+  </div>
+  <div class="footer-status">
+    <span><i aria-hidden="true"></i> In development</span>
+    <p>Abu Dhabi, UAE</p>
+  </div>
+  <div class="footer-legal">
+    <p>© {new Date().getFullYear()} Namat Health</p>
+    <p>Namat is in development. Website information is general and is not medical advice.</p>
+  </div>
+</footer>

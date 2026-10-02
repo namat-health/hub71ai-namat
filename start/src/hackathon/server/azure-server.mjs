@@ -9,9 +9,11 @@ import {MAX_BODY_BYTES} from './api.mjs';
 import {hackathonConfig} from './api.mjs';
 import {getHackathonPool,createHackathonStore} from './store.mjs';
 import {getReportService,reportConfig} from '../../../services/report-processing/service.mjs';
+import {createClinicalAnalysisStore} from '../../../services/clinical-analysis/store.mjs';
+import {analysisStoreResponse,MAX_ANALYSIS_STORE_BYTES} from '../../../services/clinical-analysis/http.mjs';
 import {fork} from 'node:child_process';
 import {sharedApiConfig,sharedApiRoute,portalRoute,validUpstreamRequest,proxySharedApi,INTERNAL_PREFIX,MAX_PROXY_RESPONSE_BYTES} from './shared-api.mjs';
-import {listSubmissions,reportExtractionResponse,reportReviewResponse,reportSourceResponse} from './portal-data.mjs';
+import {listSubmissions,reportExtractionResponse,reportEvidenceResponse,reportReviewResponse,reportSourceResponse} from './portal-data.mjs';
 
 export const SECURITY_HEADERS = Object.freeze({
   'X-Robots-Tag':'noindex, nofollow, noarchive',
@@ -109,8 +111,23 @@ export function createHackathonAzureServer({publicDirectory=DEFAULT_PUBLIC,env=p
           if(Buffer.byteLength(output)>MAX_PROXY_RESPONSE_BYTES)return send(req,res,503,'{"status":"unavailable"}',{'Content-Type':'application/json; charset=utf-8'});
           return send(req,res,200,output,{'Content-Type':'application/json; charset=utf-8'});
         }
+        if(route.kind==='analysis-store') {
+          const json={'Content-Type':'application/json; charset=utf-8'};
+          if(!/^application\/json(?:\s*;\s*charset=utf-8)?\s*$/i.test(req.headers['content-type']||''))return send(req,res,415,'{"error":"unsupported_media_type"}',json);
+          const length=req.headers['content-length'];
+          if(length!==undefined&&(!/^\d+$/.test(length)||Number(length)>MAX_ANALYSIS_STORE_BYTES))return rejectBody(req,res);
+          const raw=await readBody(req);
+          if(raw===null||raw.length>MAX_ANALYSIS_STORE_BYTES)return rejectBody(req,res);
+          const request=new Request(`https://start.namat.health${path}`,{method:'POST',headers:{'Content-Type':req.headers['content-type']},body:raw});
+          const result=await analysisStoreResponse(request,{store:createClinicalAnalysisStore(database)});
+          return send(req,res,result.status,Buffer.from(await result.arrayBuffer()),Object.fromEntries(result.headers));
+        }
         if(route.kind==='extraction') {
           const result=await reportExtractionResponse(route,{pool:database});
+          return send(req,res,result.status,Buffer.from(await result.arrayBuffer()),Object.fromEntries(result.headers));
+        }
+        if(route.kind==='evidence') {
+          const result=await reportEvidenceResponse(route,{pool:database});
           return send(req,res,result.status,Buffer.from(await result.arrayBuffer()),Object.fromEntries(result.headers));
         }
         if(route.kind==='review') {

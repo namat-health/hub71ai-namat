@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-start/
+dist-journey/
+dist-hackathon/
+.hackathon-package-*/
+.journey-build/
+.astro/
+.vercel/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+coverage/

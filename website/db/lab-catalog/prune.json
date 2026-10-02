@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "agreed": "2026-10-02",
+    "note": "Settings for `node scripts/lab-catalog.mjs prune`, which `load` also runs. The real catalogue keeps only providers and offerings that can produce a quote for a doctor-approved plan; the rules are in README.md."
+  },
+  "core_biomarkers": [
+    "glucose", "hba1c", "total-cholesterol", "ldl-cholesterol", "hdl-cholesterol", "triglycerides",
+    "vitamin-d-25-oh", "creatinine", "egfr", "ferritin", "vitamin-b12", "tsh", "alt", "ast", "hs-crp", "haemoglobin"
+  ],
+  "core_note": "The 16-marker registry from the Hub71 plan (research/hub71-hackathon-2026-10-02/01-Carry-On-plan-v2.md, section 2.6).",
+  "min_core_biomarkers": 12,
+  "excluded_providers": {
+    "burjeel": "Prices were read from the page code: the price is hidden on the rendered page and visitors see only 'Book Now'.",
+    "medeor": "Prices were read from the page code: they stay hidden until a 'View Price' lead form is submitted."
+  },
+  "stale_offerings_note": "Offerings on pages that are still online but out of date. Each rule names a provider and one of name, url or notes; offerings containing that text (any case) are removed.",
+  "stale_offerings": [
+    {"provider": "medcare", "url": "/health-check-packages/dubai/", "reason": "Older per-emirate package pages: still online, but no longer linked from Medcare's current check-up listing, which has different packages and prices."},
+    {"provider": "medcare", "url": "/health-check-packages/sharjah/", "reason": "As above, for the Sharjah pages."},
+    {"provider": "sidra-healthcare", "name": "Ramadan Special", "reason": "Ramadan offers; Ramadan 2026 ended in March."},
+    {"provider": "med7-careplus", "notes": "summer offer", "reason": "Cards say 'Limited time summer offer'; read on 1 Oct 2026, after the summer."}
+  ]
+}

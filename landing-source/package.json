@@ -1,0 +1,35 @@
+{
+  "name": "namat-hackathon",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "site": "node scripts/build-hackathon-site.mjs",
+    "verify:site": "node scripts/verify-hackathon-site.mjs",
+    "package:azure": "node scripts/package-hackathon-azure.mjs",
+    "start": "node src/hackathon/server/azure-server.mjs",
+    "reports:dev": "node services/report-processing/dev.mjs"
+  },
+  "dependencies": {
+    "@azure/identity": "4.13.3",
+    "@azure/storage-blob": "12.34.0",
+    "@cantoo/pdf-lib": "2.11.1",
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "astro": "7.3.3",
+    "pdfjs-dist": "6.3.289",
+    "pg": "8.23.0",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "typescript": "6.0.3"
+  }
+}

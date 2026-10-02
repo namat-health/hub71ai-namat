@@ -1,0 +1,1 @@
+{"extends":"astro/tsconfigs/strict","exclude":["dist","dist-start","dist-journey",".journey-build"]}

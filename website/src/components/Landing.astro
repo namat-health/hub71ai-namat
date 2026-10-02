@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from './SiteHeader.astro';
+import SiteFooter from './SiteFooter.astro';
+import Waitlist from './Waitlist.astro';
+import ProductExplainer from './ProductExplainer.astro';
+import CareJourney from './CareJourney.astro';
+import HealthChapters from './HealthChapters.astro';
+import HomeHero from './HomeHero.astro';
+import HealthspanRelief from './HealthspanRelief.astro';
+import {content} from '../data/content';
+---
+
+<Base
+  title="Namat Health — Preventive health in Abu Dhabi"
+  description="Namat Health is building a doctor-led approach to preventive health in Abu Dhabi. Join the waitlist."
+  bodyClass="landing mvp-home"
+>
+  <SiteHeader current="home" />
+  <main id="main">
+    <HomeHero />
+
+    <HealthspanRelief />
+
+    <CareJourney />
+
+    <ProductExplainer />
+
+    <HealthChapters />
+
+    <section class="faq-section section" id="faq" aria-labelledby="faq-title">
+      <div class="faq-heading" data-reveal><h2 id="faq-title">{content.faq.title}</h2></div>
+      <div class="faq-list" data-reveal>{content.faq.items.map((item,index)=><details open={index===0}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}{'link' in item && <>{' '}<a href={item.link.href}>{item.link.label}</a></>}</p></details>)}</div>
+    </section>
+
+    <Waitlist variant="home" />
+  </main>
+  <SiteFooter />
+</Base>

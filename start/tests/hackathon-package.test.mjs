@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {dirname, join} from 'node:path';
-import {buildHackathonPackage, collectHackathonPackage, lockedRuntimePackage, moduleImports, staticReferences, verifyHackathonPackage,RUNTIME_DEPENDENCIES,REPORT_RUNTIME_FILES,SHARED_API_RUNTIME_FILES} from '../scripts/build-hackathon-site.mjs';
+import {buildHackathonPackage, collectHackathonPackage, lockedRuntimePackage, moduleImports, staticReferences, verifyHackathonPackage,RUNTIME_DEPENDENCIES,REPORT_RUNTIME_FILES,SHARED_API_RUNTIME_FILES,ANALYSIS_RUNTIME_FILES} from '../scripts/build-hackathon-site.mjs';
 import {JOURNEY_VISUALS, getJourneyVisual} from '../src/lib/journey-visuals.mjs';
 
 const photos = new Set(Object.values(JOURNEY_VISUALS).flatMap(visual => [
@@ -19,7 +19,7 @@ function fixture(t) {
   write('package-lock.json', readFileSync(new URL('../package-lock.json', import.meta.url)));
   write('api/hackathon.mjs', "export {handler as default} from '../src/hackathon/server/http.mjs';");
   write('src/hackathon/server/http.mjs', "export async function handler() { return import('pg'); }");
-  for(const path of [...REPORT_RUNTIME_FILES,...SHARED_API_RUNTIME_FILES])write(path,path.endsWith('.mjs')?'export const fixture=true;':'Reviewer fixture');
+  for(const path of [...REPORT_RUNTIME_FILES,...SHARED_API_RUNTIME_FILES,...ANALYSIS_RUNTIME_FILES])write(path,path.endsWith('.mjs')?'export const fixture=true;':'Reviewer fixture');
   write('dist/welcome/index.html', `<html data-hackathon-questionnaire><meta name="robots" content="noindex"><meta http-equiv="Content-Security-Policy" content="connect-src 'self'"><link rel="stylesheet" href="/_astro/welcome.css"><script type="module" src="/_astro/welcome.js"></script></html>`);
   write('dist/_astro/welcome.js', `import './chunk.js'; const visuals = ${JSON.stringify(JOURNEY_VISUALS)};`);
   write('dist/_astro/chunk.js', "export const version = 'test';");
@@ -38,7 +38,7 @@ function fixture(t) {
 test('standalone package follows static/dynamic asset imports and excludes other routes and secrets', t => {
   const {root, write} = fixture(t);
   const result = buildHackathonPackage(root);
-  assert.deepEqual(verifyHackathonPackage(result.target), {files: 25 + photos.size, staticFiles: 5 + photos.size, runtimeFiles: 16, dependencies: 125});
+  assert.deepEqual(verifyHackathonPackage(result.target), {files: 27 + photos.size, staticFiles: 5 + photos.size, runtimeFiles: 18, dependencies: 125});
   const files = collectHackathonPackage(root);
   for (const content of files.values()) assert.ok(!content.includes('DO_NOT_COPY_SENTINEL'));
   assert.ok(files.has('public/_astro/chunk.js'));
@@ -51,6 +51,7 @@ test('standalone package follows static/dynamic asset imports and excludes other
   assert.match(config.functions['api/hackathon.mjs'].includeFiles,/services\/report-processing\/\*\*/);
   for(const path of REPORT_RUNTIME_FILES)assert.ok(files.has(path),`includes explicit worker/reviewer asset ${path}`);
   for(const path of SHARED_API_RUNTIME_FILES)assert.ok(files.has(path),`includes shared API adapter ${path}`);
+  for(const path of ANALYSIS_RUNTIME_FILES)assert.ok(files.has(path),`includes analysis storage ${path}`);
   assert.deepEqual(config.redirects, [{source: '/', destination: '/welcome', permanent: false}]);
   assert.ok(config.headers[0].headers.some(header => header.key === 'X-Robots-Tag' && header.value.includes('noindex')));
   // Every invocation reads the latest source, including changes to the mailer.

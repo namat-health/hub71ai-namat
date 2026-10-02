@@ -16,7 +16,7 @@ if(process.argv.includes('--init')) {
     await client.query('BEGIN');await client.query("SELECT pg_advisory_xact_lock(hashtext('namat-report-preview-initialization'))");
     if(!(await client.query('SELECT to_regnamespace($1) AS schema',[schema])).rows[0].schema) {
       await client.query(`CREATE SCHEMA ${schema}`);
-      for(const path of ['../../src/hackathon/db/001_welcome_submissions.sql','./db/002_report_processing.sql'])await client.query(scoped(await readFile(new URL(path,import.meta.url),'utf8')));
+      for(const path of ['../../src/hackathon/db/001_welcome_submissions.sql','./db/002_report_processing.sql','../../src/hackathon/db/003_questionnaire_v2.sql','../clinical-analysis/db/004_clinical_analysis.sql'])await client.query(scoped(await readFile(new URL(path,import.meta.url),'utf8')));
     }
     await client.query('COMMIT');console.log('Local report preview schema is ready.');
   }catch(error){await client.query('ROLLBACK');throw error;}finally{client.release();await native.end();}

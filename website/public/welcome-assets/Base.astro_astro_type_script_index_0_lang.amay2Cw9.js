@@ -1,0 +1,1 @@
+import{a as e,r as t,t as n}from"./attribution.D-n0oNi1.js";var r=`namat.acquisition`,i=n(window.location.search);try{Object.keys(i).length?sessionStorage.setItem(r,JSON.stringify(i)):i=t(JSON.parse(sessionStorage.getItem(r)||`{}`))}catch{}Object.keys(i).length&&document.querySelectorAll(`a[data-start-link]`).forEach(t=>{t.href=e(t.getAttribute(`href`)||``,i)});

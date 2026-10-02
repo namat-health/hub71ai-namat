@@ -1,0 +1,49 @@
+---
+import '@fontsource-variable/dm-sans';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/600.css';
+import '../styles/global.css';
+import '../styles/experience.css';
+import SiteMotion from '../components/SiteMotion.astro';
+const {
+  title,
+  description = 'Namat Health is building a doctor-led approach to preventive health in Abu Dhabi.',
+  bodyClass = '',
+  robots = 'index, follow',
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, 'https://namat.health');
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Namat Health',
+  url: 'https://namat.health/',
+  description,
+};
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content={robots} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Namat Health" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="theme-color" content="#143f3c" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <title>{title}</title>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <slot />
+    <SiteMotion />
+  </body>
+</html>

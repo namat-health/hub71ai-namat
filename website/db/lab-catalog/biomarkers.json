@@ -1,0 +1,1551 @@
+{
+ "meta": {
+  "source": "namat-clinical-kb",
+  "version": "0.2.0",
+  "kb_date": "2026-10-01",
+  "status": "DRAFT: illustrative until approved by Namat's CMO and co-signing specialists",
+  "derived_on": "2026-10-01",
+  "note": "Generated from research/preventive-health-knowledge-base-2026-09-30/knowledge-base/namat-clinical-kb-v0.2.json. Bundles keep only members that are lab biomarkers."
+ },
+ "biomarkers": [
+  {
+   "id": "total-cholesterol",
+   "name": "Total cholesterol",
+   "aliases": [
+    "TC",
+    "Cholesterol, total",
+    "Serum cholesterol"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "ldl-cholesterol",
+   "name": "LDL cholesterol",
+   "aliases": [
+    "LDL-C",
+    "LDL",
+    "Low-density lipoprotein cholesterol",
+    "LDL calculated",
+    "LDL direct"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "hdl-cholesterol",
+   "name": "HDL cholesterol",
+   "aliases": [
+    "HDL-C",
+    "HDL",
+    "High-density lipoprotein cholesterol"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "triglycerides",
+   "name": "Triglycerides",
+   "aliases": [
+    "TG",
+    "Trigs",
+    "Triacylglycerol"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "non-hdl-cholesterol",
+   "name": "Non-HDL cholesterol",
+   "aliases": [
+    "Non-HDL-C",
+    "Non HDL cholesterol"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "apob",
+   "name": "Apolipoprotein B",
+   "aliases": [
+    "ApoB",
+    "Apo B",
+    "Apolipoprotein B-100"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "lipoprotein-a",
+   "name": "Lipoprotein(a)",
+   "aliases": [
+    "Lp(a)",
+    "Lp little a",
+    "Lipoprotein little a"
+   ],
+   "category": "lipids",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "hba1c",
+   "name": "HbA1c",
+   "aliases": [
+    "Glycated haemoglobin",
+    "Haemoglobin A1c",
+    "A1C",
+    "Glycosylated haemoglobin"
+   ],
+   "category": "glycaemic",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "glucose",
+   "name": "Plasma glucose (fasting or random)",
+   "aliases": [
+    "Fasting plasma glucose",
+    "FPG",
+    "Fasting glucose",
+    "Random glucose",
+    "Blood sugar",
+    "Glucose, fasting"
+   ],
+   "category": "glycaemic",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "fasting-insulin",
+   "name": "Fasting insulin",
+   "aliases": [
+    "Insulin, fasting",
+    "Serum insulin"
+   ],
+   "category": "glycaemic",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "ogtt",
+   "name": "Oral glucose tolerance test (75 g)",
+   "aliases": [
+    "OGTT",
+    "Glucose tolerance test",
+    "2-hour glucose"
+   ],
+   "category": "glycaemic",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "alt",
+   "name": "ALT (alanine aminotransferase)",
+   "aliases": [
+    "ALT",
+    "SGPT",
+    "GPT",
+    "Alanine transaminase"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "ast",
+   "name": "AST (aspartate aminotransferase)",
+   "aliases": [
+    "AST",
+    "SGOT",
+    "GOT",
+    "Aspartate transaminase"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "alp",
+   "name": "ALP (alkaline phosphatase)",
+   "aliases": [
+    "ALP",
+    "Alk phos",
+    "Alkaline phosphatase"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "ggt",
+   "name": "GGT (gamma-glutamyl transferase)",
+   "aliases": [
+    "GGT",
+    "Gamma GT",
+    "GGTP",
+    "Gamma-glutamyl transpeptidase"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "bilirubin",
+   "name": "Bilirubin (total, with conjugated if printed)",
+   "aliases": [
+    "Total bilirubin",
+    "T. bili",
+    "Bilirubin, total"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "albumin",
+   "name": "Albumin",
+   "aliases": [
+    "Serum albumin",
+    "ALB",
+    "Albumin, serum"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "prothrombin-time",
+   "name": "Prothrombin time (PT)",
+   "aliases": [
+    "PT",
+    "Prothrombin time",
+    "Prothrombin time (PT)"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "inr",
+   "name": "INR (international normalised ratio)",
+   "aliases": [
+    "INR",
+    "International normalised ratio",
+    "International normalized ratio"
+   ],
+   "category": "liver",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "creatinine",
+   "name": "Creatinine",
+   "aliases": [
+    "Serum creatinine",
+    "Creat",
+    "Cr"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "egfr",
+   "name": "eGFR (estimated glomerular filtration rate)",
+   "aliases": [
+    "eGFR",
+    "GFR estimated",
+    "CKD-EPI eGFR"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "cystatin-c",
+   "name": "Cystatin C",
+   "aliases": [
+    "Cys C",
+    "Cystatin-C"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "urine-acr",
+   "name": "Urine albumin-to-creatinine ratio",
+   "aliases": [
+    "uACR",
+    "ACR",
+    "Microalbumin",
+    "Urine microalbumin",
+    "Albumin/creatinine ratio"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "urine"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "urea",
+   "name": "Urea / BUN",
+   "aliases": [
+    "Urea",
+    "BUN",
+    "Blood urea nitrogen",
+    "Serum urea"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "sodium",
+   "name": "Sodium",
+   "aliases": [
+    "Na",
+    "Serum sodium",
+    "Na+"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "potassium",
+   "name": "Potassium",
+   "aliases": [
+    "K",
+    "Serum potassium",
+    "K+"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "chloride",
+   "name": "Chloride",
+   "aliases": [
+    "Cl",
+    "Serum chloride",
+    "Cl-"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "bicarbonate",
+   "name": "Bicarbonate",
+   "aliases": [
+    "HCO3",
+    "Total CO2",
+    "tCO2",
+    "Serum bicarbonate"
+   ],
+   "category": "kidney",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "calcium",
+   "name": "Calcium (albumin-adjusted)",
+   "aliases": [
+    "Adjusted calcium",
+    "Corrected calcium",
+    "Albumin-adjusted calcium",
+    "Calcium (corrected)"
+   ],
+   "category": "vitamins-minerals",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "phosphate",
+   "name": "Phosphate",
+   "aliases": [
+    "PO4",
+    "Phosphorus",
+    "Inorganic phosphate"
+   ],
+   "category": "vitamins-minerals",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "magnesium",
+   "name": "Magnesium (serum)",
+   "aliases": [
+    "Mg",
+    "Serum magnesium"
+   ],
+   "category": "vitamins-minerals",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "pth",
+   "name": "Parathyroid hormone (PTH)",
+   "aliases": [
+    "PTH",
+    "Intact PTH",
+    "iPTH",
+    "Parathormone"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "uric-acid",
+   "name": "Uric acid",
+   "aliases": [
+    "Urate",
+    "Serum urate",
+    "Uric acid, serum"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "haemoglobin",
+   "name": "Haemoglobin",
+   "aliases": [
+    "Hb",
+    "HGB",
+    "Hgb",
+    "Haemoglobin (FBC)"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "haematocrit",
+   "name": "Haematocrit",
+   "aliases": [
+    "HCT",
+    "Hct",
+    "PCV",
+    "Packed cell volume"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "mcv",
+   "name": "MCV (mean cell volume)",
+   "aliases": [
+    "MCV",
+    "Mean corpuscular volume",
+    "Mean cell volume"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "white-cell-count",
+   "name": "White cell count",
+   "aliases": [
+    "WBC",
+    "White blood cells",
+    "Leucocytes",
+    "Total leucocyte count",
+    "TLC"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "neutrophils",
+   "name": "Neutrophils (absolute count)",
+   "aliases": [
+    "ANC",
+    "Absolute neutrophil count",
+    "Neutrophils #"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "lymphocytes",
+   "name": "Lymphocytes (absolute count)",
+   "aliases": [
+    "Lymphocytes #",
+    "Absolute lymphocyte count",
+    "ALC"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "platelets",
+   "name": "Platelets",
+   "aliases": [
+    "PLT",
+    "Platelet count",
+    "Thrombocytes"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "blasts",
+   "name": "Blasts (blood film or differential)",
+   "aliases": [
+    "Blasts",
+    "Blast cells",
+    "Blasts %",
+    "Blasts #"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "ferritin",
+   "name": "Ferritin",
+   "aliases": [
+    "Serum ferritin",
+    "Stored iron"
+   ],
+   "category": "iron",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "serum-iron",
+   "name": "Serum iron",
+   "aliases": [
+    "Serum iron",
+    "Iron, serum",
+    "Fe"
+   ],
+   "category": "iron",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "tibc",
+   "name": "Total iron-binding capacity (TIBC)",
+   "aliases": [
+    "TIBC",
+    "Total iron binding capacity",
+    "Total iron-binding capacity"
+   ],
+   "category": "iron",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "transferrin-saturation",
+   "name": "Transferrin saturation (TSAT)",
+   "aliases": [
+    "Transferrin saturation",
+    "TSAT",
+    "Iron saturation",
+    "% saturation"
+   ],
+   "category": "iron",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "vitamin-b12",
+   "name": "Vitamin B12",
+   "aliases": [
+    "B12",
+    "Cobalamin",
+    "Total B12",
+    "Vitamin B12, total"
+   ],
+   "category": "vitamins-minerals",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "folate",
+   "name": "Folate (serum)",
+   "aliases": [
+    "Serum folate",
+    "Folic acid level",
+    "Folate, serum"
+   ],
+   "category": "vitamins-minerals",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "vitamin-d-25-oh",
+   "name": "25-hydroxyvitamin D",
+   "aliases": [
+    "25(OH)D",
+    "25-OH vitamin D",
+    "Vitamin D",
+    "Vitamin D3",
+    "Calcidiol",
+    "25-hydroxy vitamin D"
+   ],
+   "category": "vitamins-minerals",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "tsh",
+   "name": "TSH (thyroid-stimulating hormone)",
+   "aliases": [
+    "TSH",
+    "Thyrotropin",
+    "Thyroid stimulating hormone"
+   ],
+   "category": "thyroid",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "free-t4",
+   "name": "Free T4 (free thyroxine)",
+   "aliases": [
+    "FT4",
+    "fT4",
+    "Free thyroxine"
+   ],
+   "category": "thyroid",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "free-t3",
+   "name": "Free T3 (free triiodothyronine)",
+   "aliases": [
+    "FT3",
+    "fT3",
+    "Free triiodothyronine"
+   ],
+   "category": "thyroid",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "tpo-antibodies",
+   "name": "Thyroid peroxidase antibodies",
+   "aliases": [
+    "TPOAb",
+    "Anti-TPO",
+    "TPO antibodies",
+    "Thyroid peroxidase antibody"
+   ],
+   "category": "thyroid",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "total-testosterone",
+   "name": "Total testosterone",
+   "aliases": [
+    "Testosterone",
+    "Testosterone, total",
+    "Serum testosterone"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "shbg",
+   "name": "SHBG (sex hormone-binding globulin)",
+   "aliases": [
+    "SHBG",
+    "Sex hormone binding globulin",
+    "Sex hormone-binding globulin"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "oestradiol",
+   "name": "Oestradiol",
+   "aliases": [
+    "Estradiol",
+    "E2",
+    "Oestradiol (E2)",
+    "Estradiol (E2)"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "progesterone",
+   "name": "Progesterone",
+   "aliases": [
+    "P4",
+    "Serum progesterone",
+    "Day 21 progesterone"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "fsh",
+   "name": "FSH (follicle-stimulating hormone)",
+   "aliases": [
+    "FSH",
+    "Follicle stimulating hormone"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "lh",
+   "name": "LH (luteinising hormone)",
+   "aliases": [
+    "LH",
+    "Luteinizing hormone",
+    "Luteinising hormone"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "dhea-s",
+   "name": "DHEA-S (dehydroepiandrosterone sulphate)",
+   "aliases": [
+    "DHEAS",
+    "DHEA-S",
+    "DHEA sulphate",
+    "DHEA sulfate"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "prolactin",
+   "name": "Prolactin",
+   "aliases": [
+    "PRL",
+    "Serum prolactin"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "amh",
+   "name": "AMH (anti-Müllerian hormone)",
+   "aliases": [
+    "AMH",
+    "Anti-Mullerian hormone",
+    "Ovarian reserve test"
+   ],
+   "category": "sex-hormones",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "pregnancy-test",
+   "name": "Pregnancy test (urine or serum hCG)",
+   "aliases": [
+    "hCG",
+    "Beta hCG",
+    "β-hCG",
+    "Pregnancy test",
+    "Urine pregnancy test",
+    "Serum hCG"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood",
+    "urine"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "psa",
+   "name": "PSA (prostate-specific antigen)",
+   "aliases": [
+    "PSA",
+    "Total PSA",
+    "Prostate-specific antigen",
+    "PSA, total"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "cortisol",
+   "name": "Cortisol (serum, morning)",
+   "aliases": [
+    "Serum cortisol",
+    "Morning cortisol",
+    "9am cortisol"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "igf-1",
+   "name": "IGF-1 (insulin-like growth factor 1)",
+   "aliases": [
+    "IGF-1",
+    "IGF1",
+    "Somatomedin C"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "hs-crp",
+   "name": "hs-CRP (high-sensitivity C-reactive protein)",
+   "aliases": [
+    "hs-CRP",
+    "hsCRP",
+    "High sensitivity CRP",
+    "Cardio CRP"
+   ],
+   "category": "inflammation",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "crp",
+   "name": "CRP (standard C-reactive protein)",
+   "aliases": [
+    "CRP",
+    "C-reactive protein",
+    "C reactive protein (standard)"
+   ],
+   "category": "inflammation",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "esr",
+   "name": "ESR (erythrocyte sedimentation rate)",
+   "aliases": [
+    "ESR",
+    "Sed rate",
+    "Westergren ESR"
+   ],
+   "category": "inflammation",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "urinalysis",
+   "name": "Urinalysis (dipstick with or without microscopy)",
+   "aliases": [
+    "Urine routine",
+    "Urine R/E",
+    "Urine dipstick",
+    "Urine analysis"
+   ],
+   "category": "other",
+   "specimens": [
+    "urine"
+   ],
+   "hlmcs_tier": "mandatory",
+   "restriction": "none"
+  },
+  {
+   "id": "haemoglobin-electrophoresis",
+   "name": "Haemoglobin HPLC / electrophoresis",
+   "aliases": [
+    "Hb electrophoresis",
+    "Hb HPLC",
+    "Haemoglobinopathy screen",
+    "Thalassaemia screen",
+    "HbA2"
+   ],
+   "category": "blood-count",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "coeliac-ttg-iga",
+   "name": "Coeliac serology (tTG-IgA with total IgA)",
+   "aliases": [
+    "tTG-IgA",
+    "Tissue transglutaminase IgA",
+    "Anti-tTG",
+    "Coeliac screen",
+    "Celiac serology"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "rheumatoid-factor-anti-ccp",
+   "name": "Rheumatoid factor and anti-CCP",
+   "aliases": [
+    "RF",
+    "Rheumatoid factor",
+    "Anti-CCP",
+    "ACPA",
+    "Anti-cyclic citrullinated peptide"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "nt-probnp",
+   "name": "NT-proBNP",
+   "aliases": [
+    "NT-proBNP",
+    "NT-pro BNP",
+    "N-terminal pro-BNP",
+    "N-terminal pro-B-type natriuretic peptide"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  },
+  {
+   "id": "fit",
+   "name": "Faecal immunochemical test (FIT)",
+   "aliases": [
+    "FIT",
+    "iFOBT",
+    "Faecal immunochemical test",
+    "Faecal occult blood (immunochemical)",
+    "Immunochemical faecal occult blood"
+   ],
+   "category": "other",
+   "specimens": [
+    "stool"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "blood-lead",
+   "name": "Blood lead",
+   "aliases": [
+    "Lead, blood",
+    "Pb",
+    "BLL"
+   ],
+   "category": "other",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "optional-recommended",
+   "restriction": "none"
+  },
+  {
+   "id": "hbsag",
+   "name": "Hepatitis B surface antigen (HBsAg)",
+   "aliases": [
+    "HBsAg",
+    "Hepatitis B surface antigen",
+    "HBs antigen"
+   ],
+   "category": "infection",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "anti-hbs",
+   "name": "Hepatitis B surface antibody (anti-HBs)",
+   "aliases": [
+    "Anti-HBs",
+    "HBsAb",
+    "Hepatitis B surface antibody",
+    "Anti-HBs titre"
+   ],
+   "category": "infection",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "anti-hbc",
+   "name": "Hepatitis B core antibody (anti-HBc)",
+   "aliases": [
+    "Anti-HBc",
+    "HBcAb",
+    "Hepatitis B core antibody",
+    "Anti-HBc total"
+   ],
+   "category": "infection",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "hepatitis-c-antibody",
+   "name": "Hepatitis C antibody (with reflex HCV RNA)",
+   "aliases": [
+    "Anti-HCV",
+    "HCV antibody",
+    "Hepatitis C screen"
+   ],
+   "category": "infection",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "hcv-rna",
+   "name": "Hepatitis C RNA (HCV PCR)",
+   "aliases": [
+    "HCV RNA",
+    "HCV PCR",
+    "Hepatitis C RNA",
+    "HCV viral load"
+   ],
+   "category": "infection",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "consent"
+  },
+  {
+   "id": "rubella-igg",
+   "name": "Rubella IgG",
+   "aliases": [
+    "Rubella antibody",
+    "Rubella immunity",
+    "German measles IgG"
+   ],
+   "category": "infection",
+   "specimens": [
+    "blood"
+   ],
+   "hlmcs_tier": "not-listed",
+   "restriction": "none"
+  }
+ ],
+ "groups": [
+  {
+   "id": "hlmcs-baseline-bloods",
+   "name": "HLMCS Appendix 1 mandatory blood and urine tests",
+   "members": [
+    "total-cholesterol",
+    "ldl-cholesterol",
+    "hdl-cholesterol",
+    "triglycerides",
+    "hba1c",
+    "glucose",
+    "fasting-insulin",
+    "alt",
+    "ast",
+    "alp",
+    "ggt",
+    "bilirubin",
+    "albumin",
+    "prothrombin-time",
+    "creatinine",
+    "egfr",
+    "urea",
+    "sodium",
+    "potassium",
+    "chloride",
+    "bicarbonate",
+    "haemoglobin",
+    "haematocrit",
+    "mcv",
+    "white-cell-count",
+    "neutrophils",
+    "lymphocytes",
+    "platelets",
+    "tsh",
+    "free-t4",
+    "free-t3",
+    "total-testosterone",
+    "oestradiol",
+    "progesterone",
+    "fsh",
+    "lh",
+    "dhea-s",
+    "cortisol",
+    "hs-crp",
+    "esr",
+    "urinalysis"
+   ]
+  },
+  {
+   "id": "lipid-panel",
+   "name": "Lipid panel",
+   "members": [
+    "total-cholesterol",
+    "ldl-cholesterol",
+    "hdl-cholesterol",
+    "triglycerides",
+    "non-hdl-cholesterol"
+   ]
+  },
+  {
+   "id": "glycaemic-panel",
+   "name": "Glycaemic panel",
+   "members": [
+    "hba1c",
+    "glucose",
+    "fasting-insulin"
+   ]
+  },
+  {
+   "id": "full-blood-count",
+   "name": "Full blood count with differential",
+   "members": [
+    "haemoglobin",
+    "haematocrit",
+    "mcv",
+    "white-cell-count",
+    "neutrophils",
+    "lymphocytes",
+    "platelets",
+    "blasts"
+   ]
+  },
+  {
+   "id": "renal-electrolytes",
+   "name": "Kidney function and electrolytes",
+   "members": [
+    "creatinine",
+    "egfr",
+    "urea",
+    "sodium",
+    "potassium",
+    "chloride",
+    "bicarbonate"
+   ]
+  },
+  {
+   "id": "liver-panel",
+   "name": "Liver panel (HLMCS grouping)",
+   "members": [
+    "alt",
+    "ast",
+    "alp",
+    "ggt",
+    "bilirubin",
+    "albumin",
+    "prothrombin-time",
+    "inr"
+   ]
+  },
+  {
+   "id": "thyroid-panel",
+   "name": "Thyroid panel (HLMCS)",
+   "members": [
+    "tsh",
+    "free-t4",
+    "free-t3"
+   ]
+  },
+  {
+   "id": "hormone-profile",
+   "name": "HLMCS hormone profile",
+   "members": [
+    "total-testosterone",
+    "oestradiol",
+    "progesterone",
+    "fsh",
+    "lh",
+    "dhea-s",
+    "cortisol"
+   ]
+  },
+  {
+   "id": "inflammation",
+   "name": "Inflammation markers (HLMCS CRP and ESR)",
+   "members": [
+    "hs-crp",
+    "esr"
+   ]
+  },
+  {
+   "id": "urine",
+   "name": "Urine tests",
+   "members": [
+    "urinalysis",
+    "urine-acr"
+   ]
+  },
+  {
+   "id": "iron-and-vitamins",
+   "name": "Iron and vitamin status (HLMCS micronutrient analysis, optional)",
+   "members": [
+    "ferritin",
+    "vitamin-b12",
+    "folate",
+    "vitamin-d-25-oh",
+    "magnesium"
+   ]
+  },
+  {
+   "id": "anaemia-follow-up",
+   "name": "Red-cell follow-up",
+   "members": [
+    "ferritin",
+    "serum-iron",
+    "tibc",
+    "transferrin-saturation",
+    "vitamin-b12",
+    "folate",
+    "haemoglobin-electrophoresis",
+    "coeliac-ttg-iga"
+   ]
+  },
+  {
+   "id": "iron-studies",
+   "name": "Iron studies (serum iron, TIBC, transferrin saturation)",
+   "members": [
+    "serum-iron",
+    "tibc",
+    "transferrin-saturation"
+   ]
+  },
+  {
+   "id": "heart-risk-refinement",
+   "name": "Heart-risk refinement",
+   "members": [
+    "apob",
+    "lipoprotein-a",
+    "hs-crp"
+   ]
+  },
+  {
+   "id": "kidney-risk",
+   "name": "Kidney risk add-on",
+   "members": [
+    "urine-acr",
+    "cystatin-c",
+    "nt-probnp"
+   ]
+  },
+  {
+   "id": "liver-fibrosis-pathway",
+   "name": "Liver fibrosis pathway",
+   "members": [
+    "alt",
+    "ast",
+    "platelets"
+   ]
+  },
+  {
+   "id": "bone-and-calcium",
+   "name": "Bone and calcium",
+   "members": [
+    "calcium",
+    "phosphate",
+    "pth",
+    "vitamin-d-25-oh",
+    "alp"
+   ]
+  },
+  {
+   "id": "androgen-excess-pathway",
+   "name": "Female androgen-excess pathway",
+   "members": [
+    "total-testosterone",
+    "shbg",
+    "dhea-s",
+    "prolactin",
+    "tsh",
+    "ogtt"
+   ]
+  },
+  {
+   "id": "male-low-testosterone-confirmation",
+   "name": "Male low-testosterone confirmation",
+   "members": [
+    "total-testosterone",
+    "shbg",
+    "lh",
+    "fsh",
+    "prolactin",
+    "haematocrit",
+    "psa"
+   ]
+  },
+  {
+   "id": "preconception",
+   "name": "Preconception checks (doctor-decided)",
+   "members": [
+    "rubella-igg",
+    "tsh",
+    "ferritin",
+    "haemoglobin-electrophoresis",
+    "amh"
+   ]
+  },
+  {
+   "id": "infection-once",
+   "name": "One-off infection screen (opt-in with consent)",
+   "members": [
+    "hbsag",
+    "anti-hbs",
+    "anti-hbc",
+    "hepatitis-c-antibody",
+    "hcv-rna"
+   ]
+  },
+  {
+   "id": "hbv-triple-panel",
+   "name": "Hepatitis B triple panel (HBsAg, anti-HBs, anti-HBc)",
+   "members": [
+    "hbsag",
+    "anti-hbs",
+    "anti-hbc"
+   ]
+  },
+  {
+   "id": "cancer-screening-review",
+   "name": "Guideline cancer screening review",
+   "members": [
+    "fit",
+    "psa"
+   ]
+  }
+ ]
+}

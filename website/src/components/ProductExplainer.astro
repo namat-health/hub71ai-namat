@@ -1,0 +1,96 @@
+---
+import {content} from '../data/content';
+
+const {productExplainer} = content;
+---
+
+<section class="product-explainer" id="problem" aria-labelledby="problem-title" data-product-explainer>
+  <div class="product-explainer-pin">
+  <div class="product-explainer-copy" data-reveal>
+    <h2 id="problem-title">{productExplainer.title}<br /><span>{productExplainer.titleAccent}</span></h2>
+  </div>
+
+  <div class="biomarker-stage" data-reveal>
+    <div class="condition-card-field" role="group" aria-label="Examples of condition signals Namat reviews">
+      {productExplainer.rows.map((row, rowIndex) => (
+        <div class:list={['condition-card-row', `condition-card-row-${rowIndex + 1}`]}>
+          <div class="condition-card-track">
+            {/* Four copies so the loop (one copy per cycle) still covers screens up to ~4200px wide. */}
+            {[0, 1, 2, 3].map((copy) => (
+              <ul class="condition-card-group" aria-label={copy === 0 ? row.label : undefined} aria-hidden={copy > 0 ? 'true' : undefined}>
+                {row.items.map((item) => (
+                  <li class="product-tile">
+                    <span class="product-tile-art" aria-hidden="true">
+                      <img src={item.image} alt="" width="512" height="512" loading="lazy" decoding="async" />
+                    </span>
+                    <span class="product-tile-name">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="biomarker-card">
+      <div class="biomarker-card-heading" aria-hidden="true">
+        <span><i></i>Biomarker trend</span>
+      </div>
+      <svg class="biomarker-chart" viewBox="0 0 500 240" role="img" aria-labelledby="biomarker-trend-title biomarker-trend-desc">
+        <title id="biomarker-trend-title">Illustrative biomarker trend</title>
+        <desc id="biomarker-trend-desc">The trend begins below the reference range at baseline, enters range at retest and remains in range at current.</desc>
+        <rect class="reference-band" x="108" y="70" width="370" height="80"></rect>
+
+        <path class="range-divider" d="M14 70H478 M14 150H478"></path>
+        <line class="label-rail" x1="92" y1="18" x2="92" y2="188"></line>
+
+        <line class="chart-guide" x1="140" y1="18" x2="140" y2="188"></line>
+        <line class="chart-guide" x1="300" y1="18" x2="300" y2="188"></line>
+        <line class="chart-guide" x1="444" y1="18" x2="444" y2="188"></line>
+
+        <text class="range-label" x="16" y="45">ABOVE</text>
+        <text class="range-label range-label-active" x="16" y="112">IN RANGE</text>
+        <text class="range-label" x="16" y="178">BELOW</text>
+
+        <path class="biomarker-line" pathLength="1" d="M140 169 C191 164 246 99 300 106 C352 112 403 109 444 112"></path>
+
+        <circle class="trend-point trend-point-out" cx="140" cy="169" r="7"></circle>
+        <circle class="trend-point trend-point-in" cx="300" cy="106" r="7"></circle>
+        <g class="trend-target" transform="translate(444 112)">
+          <circle class="trend-target-ring" r="17"></circle>
+          <circle class="trend-target-core" r="6"></circle>
+        </g>
+
+        <text class="timeline-label" x="140" y="218" text-anchor="middle">BASELINE</text>
+        <text class="timeline-label" x="300" y="218" text-anchor="middle">RETEST</text>
+        <text class="timeline-label" x="444" y="218" text-anchor="middle">CURRENT</text>
+      </svg>
+    </div>
+
+    <button class="product-motion-toggle" type="button" aria-pressed="false" data-product-motion-toggle>
+      <span aria-hidden="true" data-product-motion-icon>Ⅱ</span>
+      <span data-product-motion-label>Pause motion</span>
+    </button>
+  </div>
+
+  <div class="product-explainer-action">
+    <a class="product-explainer-cta" href="#waitlist">Join the waitlist</a>
+  </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-product-explainer]').forEach((section) => {
+    const button = section.querySelector<HTMLButtonElement>('[data-product-motion-toggle]');
+    const label = button?.querySelector<HTMLElement>('[data-product-motion-label]');
+    const icon = button?.querySelector<HTMLElement>('[data-product-motion-icon]');
+    button?.addEventListener('click', () => {
+      const paused = !section.classList.contains('is-paused');
+      section.classList.toggle('is-paused', paused);
+      button.setAttribute('aria-pressed', String(paused));
+      if (label) label.textContent = paused ? 'Resume motion' : 'Pause motion';
+      if (icon) icon.textContent = paused ? '▶' : 'Ⅱ';
+    });
+  });
+</script>

@@ -1,0 +1,22 @@
+:root {
+  color-scheme: light;
+  background: #f5f3ef;
+  color: #30291f;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+body {
+  min-height: 100vh;
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}

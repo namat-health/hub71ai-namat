@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import Wordmark from '../components/Wordmark.astro';
+import {startHref} from '../data/start-link';
+const storageProvider = import.meta.env.FUNNEL_STORAGE_PROVIDER;
+const storageRegion = import.meta.env.FUNNEL_STORAGE_REGION;
+const retentionDays = Number(import.meta.env.FUNNEL_RETENTION_DAYS);
+const storageDescribed = storageProvider && storageRegion && Number.isInteger(retentionDays) && retentionDays >= 1 && retentionDays <= 365;
+---
+<Base title="Namat Health — Waitlist privacy" description="How Namat handles waitlist contact details and guided-discovery preferences." robots="noindex, follow" bodyClass="document-page">
+  <header class="site-header"><Wordmark /><a href="/">Home</a></header>
+  <main id="main" class="document-shell">
+    <p class="eyebrow">Waitlist privacy · Effective 22 September 2026</p>
+    <h1>Your information. Your choice.</h1>
+    <p>Namat offers a guided waitlist and a simpler email-updates form. Neither is a medical consultation, emergency service, diagnosis or reservation. Do not submit medical records, test results, medication details or urgent concerns through these forms.</p>
+    <h2>The guided waitlist</h2>
+    <p>The guided form asks about your goals, main priority, what you want help with, broad location, when you last had bloodwork and readiness to start. You can choose not to disclose recent testing. It then asks for your email address and an optional first name. These choices can reveal health interests, even though this is not a clinical intake.</p>
+    <p>Your answers are kept in this browser tab (session storage) so that reloading the page does not lose them. They are not sent as you move between questions, and closing the tab or choosing Restart clears them. On submission, Namat asks for your agreement to store and use the answers for waitlist planning and follow-up, and your agreement to receive waitlist emails.</p>
+    <p>We use submitted preferences to understand demand, reflect your stated priorities and plan relevant waitlist follow-up. Location and readiness help organise interest; they are not a medical eligibility decision or a promise of priority access. We do not use this form to diagnose you or automatically decide access to clinical care.</p>
+    <h2>Where information goes</h2>
+    <p>The website is hosted by Vercel. For the guided waitlist, contact details and answers are stored encrypted in a separate PostgreSQL database. A keyed email lookup supports duplicate handling. Submission receipts, form and consent versions, timestamps and email-delivery state are also recorded. Access to identifiable answers requires authorised server-side credentials and the separate encryption key.</p>
+    {storageDescribed ? <p>Guided-waitlist database provider: {storageProvider}. Configured storage region: {storageRegion}. Guided records are scheduled for removal after {retentionDays} days without a new submission. Email subscription records are managed separately in Brevo.</p> : <p><strong>The guided waitlist is currently a preview.</strong> Its answer-storage provider, region and retention period have not been configured. It does not accept real submissions in this state. We will identify these arrangements here before enabling collection.</p>}
+    <p>Brevo receives your email address to send the confirmation email and manage waitlist updates. The guided form does not send Brevo your questionnaire answers, first name, qualification category or campaign information. Email confirmation and subscription status are managed by Brevo; saving answers alone does not confirm your subscription.</p>
+    <h2>Email updates only</h2>
+    <p>The simpler email form asks only for your email and consent to receive waitlist updates. It sends the email to Brevo for double opt-in, without a questionnaire record. Follow the confirmation link to subscribe. You can choose this option without completing the guided form.</p>
+    <h2>Measurement and technical data</h2>
+    <p>No advertising pixels, analytics SDKs or session replay are installed in the guided questionnaire. We may store recognised, predefined campaign codes with an explicit submission to understand where interest comes from. If you arrive through a recognised campaign link, your browser keeps that code for the current tab so the questionnaire link can carry it; closing the tab clears it. We do not store the full referral URL. Hosting and email services may process technical information needed to provide their services. Short-lived keyed request-rate counters help prevent abuse; the answer database does not store raw IP addresses.</p>
+    <h2>Change your mind</h2>
+    <p>Use the unsubscribe link in a waitlist email to stop those emails. Unsubscribing does not automatically delete a separate guided-questionnaire record. To request deletion of your answers, withdraw your interest, correct information or ask about handling, contact <a href="mailto:borja@namat.health">borja@namat.health</a>. If available, include your submission receipt—not medical details. We may need to verify your identity before acting on the request.</p>
+    <p>These permissions cover waitlist availability and enrolment updates, not a general health-content newsletter or clinical care. Any later clinical intake will have its own purpose, access and consent information.</p>
+    <a href={startHref('privacy','inline')} data-start-link>Explore the guided waitlist ↗</a>
+  </main>
+</Base>

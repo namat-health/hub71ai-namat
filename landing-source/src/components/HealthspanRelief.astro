@@ -1,0 +1,177 @@
+---
+import {content} from '../data/content';
+import {getHealthspanRelief} from '../lib/healthspan-relief.mjs';
+
+const {healthspan} = content;
+const stats = {lifeExpectancy: healthspan.lifeExpectancy, healthyLifeExpectancy: healthspan.healthyLifeExpectancy};
+// Real walking steps need room: seven across a desktop, five on tablets, three on phones.
+const layouts = [
+  {key: 'wide', relief: getHealthspanRelief({...stats, steps: 7})},
+  {key: 'medium', relief: getHealthspanRelief({...stats, steps: 5})},
+  {key: 'narrow', relief: getHealthspanRelief({...stats, steps: 3})},
+];
+const {mark, gap} = layouts[0].relief;
+const years = (value: number) => value.toFixed(1);
+const suns = ['high', 'low'] as const;
+const trails = [
+  {key: 'life', label: healthspan.lifeLabel, value: stats.lifeExpectancy},
+  {key: 'healthy', label: healthspan.healthyLabel, value: stats.healthyLifeExpectancy},
+] as const;
+const sprite = (print: {foot: string; variant: number}, depth: string, sun: string) =>
+  `/assets/healthspan/print-${print.foot}-${depth}-${sun}-${print.variant}.webp`;
+const summary = `Worldwide in 2023, life expectancy at birth was ${years(stats.lifeExpectancy)} years and healthy life expectancy was ${years(stats.healthyLifeExpectancy)} years. On average, ${years(gap)} years of life are spent in poor health. Source: ${healthspan.source.label}.`;
+---
+
+<section class="healthspan" id="healthspan" aria-labelledby="healthspan-title" data-scroll-scene>
+  <div class="healthspan-stage">
+    <div class="healthspan-inner">
+    <h2 id="healthspan-title" data-reveal>{healthspan.title}</h2>
+
+    <figure class="healthspan-figure" aria-describedby="healthspan-summary" style={`--mark:${mark}`}>
+      <p class="healthspan-sr-only" id="healthspan-summary">{summary}</p>
+      {trails.map((trail) => (
+        <>
+          <div class:list={['healthspan-trail', `healthspan-trail-${trail.key}`]} aria-hidden="true">
+            {layouts.map(({key, relief}) => {
+              const layout = relief[trail.key];
+              return (
+                <div class:list={['relief-trail', `relief-${key}`]} style={`--trail-aspect:${layout.aspectRatio};--print-width:${layout.width * 100}%;--beats:${layout.beats}`}>
+                  {suns.map((sun) => (
+                    <div class:list={['relief-layer', `relief-${sun}`]}>
+                      {layout.prints.flatMap((print) =>
+                        (['deep', 'faint'] as const).filter((depth) => print[depth] > 0).map((depth) => (
+                          <img
+                            class="relief-print"
+                            src={sprite(print, depth, sun)}
+                            alt=""
+                            width="480"
+                            height="240"
+                            loading="lazy"
+                            decoding="async"
+                            style={`left:${print.x * 100}%;top:${print.y * 100}%;--r:${print.rotate}deg;--b:${print.beat};--alpha:${print[depth]}`}
+                          />
+                        ))
+                      )}
+                    </div>
+                  ))}
+                  {trail.key === 'healthy' && <span class="healthspan-bracket"></span>}
+                </div>
+              );
+            })}
+          </div>
+          <p class:list={['healthspan-label', `healthspan-label-${trail.key}`]}>
+            <span class="healthspan-label-name">{trail.label}</span>{' '}<span class="healthspan-label-value">{years(trail.value)} years</span>
+          </p>
+        </>
+      ))}
+      <p class="healthspan-gap">
+        <span class="healthspan-gap-value">{years(gap)} years</span>{' '}
+        <span class="healthspan-gap-caption">{healthspan.gapCaption}</span>
+      </p>
+      <figcaption class="healthspan-source">{healthspan.scope} · Source: <a href={healthspan.source.href}>{healthspan.source.label}</a></figcaption>
+    </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* The page's paper becomes sand. The section is one screen that locks in place below the
+     floating header (a sticky stage inside a taller section, like the care journey after it):
+     while it is locked the steps walk in, the sun lowers and 10.7 settles under the faded steps.
+     Baked relief sprites are transparent on flat ground, so the sun is only a crossfade between
+     two sprite layers. Without scroll progress (reduced motion, no JS) everything falls back to
+     the finished state. With a pin of 90svh, SiteMotion's progress runs 0 → .345 while the stage
+     arrives, .345 → .655 while it is locked, then on to 1 as it leaves. */
+  .healthspan{--pin:90svh;--header-gap:clamp(2rem,6svh,3.5rem);--header-clearance:calc(5.4rem + var(--header-gap));--p:var(--scene-progress,1);--sun-warmth:clamp(0,(var(--p) - .15) / .3,1);--sun:clamp(0,(var(--p) - .2) / .3,1);--walk:clamp(0,(var(--p) - .24) / .34,1);position:relative;height:calc(100svh + var(--pin));background:var(--namat-paper)}
+  .healthspan-stage{position:sticky;top:0;box-sizing:border-box;height:100svh;display:flex;flex-direction:column;isolation:isolate;overflow:clip;padding:var(--header-clearance) var(--page-gutter) clamp(1.25rem,4svh,2.25rem)}
+  .healthspan-stage::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(110% 70% at 14% 50%,#ecdfc6 0%,#f0e7d6 40%,transparent 74%);opacity:calc(var(--sun-warmth) * .8);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 74%,transparent 96%);mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 74%,transparent 96%)}
+  .healthspan-inner{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;max-width:88rem;margin:0 auto;container-type:inline-size}
+
+  /* One line across the full measure on wide screens: the size is derived from the width. */
+  .healthspan h2{margin:0;max-width:none;white-space:nowrap;font-size:calc(100cqi / 17.95);line-height:1;letter-spacing:-.055em;font-stretch:106%;color:var(--namat-ink)}
+
+  /* The walk takes the rest of the screen, centred below the headline. Both trails run the full
+     width (one lifespan); the bracket marks the healthy trail's faded steps. */
+  .healthspan-figure{flex:1;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:'life' 'life-label' 'healthy' 'healthy-label' 'source';align-content:center;width:100%;max-width:calc((100svh - 22rem) * 5);margin:clamp(1rem,3svh,2rem) 0 0}
+  .healthspan-trail{width:100%}
+  .healthspan-trail-life{grid-area:life}
+  .healthspan-trail-healthy{grid-area:healthy}
+  .healthspan-label-life{grid-area:life-label}
+  .healthspan-label-healthy{grid-area:healthy-label}
+  .healthspan-source{grid-area:source}
+
+  .relief-trail{position:relative;width:100%;aspect-ratio:var(--trail-aspect)}
+  .relief-medium,.relief-narrow{display:none}
+  .relief-layer{position:absolute;inset:0;will-change:opacity}
+  .relief-high{opacity:calc(1 - var(--sun))}
+  .relief-low{opacity:var(--sun)}
+  .relief-print{--appear:clamp(0,var(--walk) * var(--beats) - var(--b),1);position:absolute;width:var(--print-width);max-width:none;height:auto;opacity:calc(var(--alpha) * var(--appear));transform:translate(-50%,-50%) rotate(var(--r)) scale(calc(1.06 - .06 * var(--appear)));user-select:none;pointer-events:none}
+  .healthspan-bracket{--draw:clamp(0,(var(--walk) - .72) / .28,1);position:absolute;top:calc(100% + .35rem);left:calc(var(--mark) * 100%);right:0;height:.45rem;border:1.5px solid var(--namat-clay);border-top:0;border-radius:0 0 .2rem .2rem;transform-origin:0 0;transform:scaleX(var(--draw))}
+
+  .healthspan-label{display:flex;flex-wrap:wrap;align-items:baseline;gap:.2rem .7rem;max-width:none;margin:.55rem 0 0;color:var(--namat-ink)}
+  .healthspan-label-name{font:600 clamp(.76rem,.98vw,.96rem)/1.2 var(--mono);letter-spacing:.11em;text-transform:uppercase}
+  .healthspan-label-value{font-family:var(--display);font-size:clamp(1.25rem,1.75vw,1.7rem);font-weight:660;line-height:1;letter-spacing:-.035em;font-stretch:106%}
+  .healthspan-label-life{margin-bottom:clamp(1.25rem,4.5svh,3rem)}
+
+  /* 10.7 is the third figure (desktops and tablets): same type as the two labels, in clay,
+     centred under the bracket that marks the faded steps and baseline-aligned with the
+     healthy-life label. It settles in as the last, faded steps are walked. */
+  .healthspan-label-healthy{margin-top:1.1rem}
+  .healthspan-gap{--gap-ink:color-mix(in srgb,var(--namat-clay) 88%,var(--namat-ink));grid-column:1;grid-row:4;justify-self:end;width:calc((1 - var(--mark)) * 100%);min-width:max-content;display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:.2rem .6rem;max-width:none;margin:1.1rem 0 0;white-space:nowrap;color:var(--gap-ink);opacity:clamp(0,(var(--walk) - .8) / .2,1)}
+  .healthspan-gap-value{font-family:var(--display);font-size:clamp(1.25rem,1.75vw,1.7rem);font-weight:660;line-height:1;letter-spacing:-.035em;font-stretch:106%}
+  .healthspan-gap-caption{font:600 clamp(.76rem,.98vw,.96rem)/1.2 var(--mono);letter-spacing:.11em;text-transform:uppercase}
+
+  .healthspan-source{max-width:none;margin-top:clamp(2rem,6svh,3.5rem);font:400 .62rem/1.5 var(--mono);letter-spacing:.07em;text-transform:uppercase;color:color-mix(in srgb,var(--namat-ink) 74%,transparent)}
+  .healthspan-source a{color:inherit;text-underline-offset:3px}
+  .healthspan-sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+  /* Tablets: five steps, and the headline wraps. */
+  @media(max-width:1050px){
+    .healthspan h2{white-space:normal;max-width:16ch;font-size:clamp(2.2rem,5.6vw,3.6rem);line-height:1;text-wrap:balance}
+    .relief-wide{display:none}
+    .relief-medium{display:block}
+  }
+
+  /* Phones in either orientation leave out the 10.7 annotation and its bracket: on a small
+     screen they crowd the trails. */
+  @media(max-width:760px),(max-height:500px) and (orientation:landscape) and (pointer:coarse){
+    .healthspan-gap,.healthspan-bracket{display:none}
+    .healthspan-label-healthy{margin-top:.55rem}
+  }
+  /* Phones: three steps. The headline sits under the header like the other locked screens and
+     the source settles at the foot of the screen as a footnote. The walk sits in the upper
+     middle between them: spare height on taller phones splits 1 : 1.4 above and below it. */
+  @media(max-width:760px){
+    .healthspan{--header-clearance:calc(4.4rem + var(--header-gap))}
+    .healthspan h2{font-size:clamp(1.9rem,8.4vw,2.6rem)}
+    .healthspan-figure{grid-template-areas:'.' 'life' 'life-label' 'healthy' 'healthy-label' '.' 'source';grid-template-rows:minmax(0,1fr) auto auto auto auto minmax(0,1.4fr) auto;align-content:stretch;max-width:none;margin-top:clamp(1.5rem,4svh,2.5rem)}
+    .relief-medium{display:none}
+    .relief-narrow{display:block}
+    .healthspan-label,.healthspan-label-healthy{margin-top:.35rem}
+    .healthspan-label-life{margin-bottom:clamp(1.5rem,7svh,4rem)}
+    .healthspan-label-name{font-size:.64rem}
+    .healthspan-label-value{font-size:1.15rem}
+    .healthspan-source{font-size:.56rem}
+  }
+
+  /* Short landscape screens and reduced motion get the section in normal flow, not locked. */
+  @media(max-height:560px),(prefers-reduced-motion:reduce){
+    .healthspan{height:auto}
+    .healthspan-stage{position:relative;height:auto;min-height:100svh}
+    .healthspan-figure{max-width:none}
+  }
+  /* Tall portrait screens (vertical monitors, portrait tablets): a locked full screen would be
+     mostly empty, so the section flows at its natural height. Same test as the care journey's
+     flow layout (width/height <= .8) and the biomarker explainer. */
+  @media(min-height:1000px) and (max-aspect-ratio:4/5){
+    .healthspan{height:auto}
+    .healthspan-stage{position:relative;height:auto;min-height:0;padding-block:clamp(5rem,8vw,7rem)}
+    .healthspan-inner,.healthspan-figure{flex:none}
+    .healthspan-figure{margin-top:clamp(2.5rem,5vw,4rem)}
+  }
+
+  /* Without scroll progress the sun is already low: never fetch or paint the high-sun layer. */
+  :global(html:not(.js)) .relief-high{display:none}
+  @media(prefers-reduced-motion:reduce){.relief-high{display:none}}
+  @media(forced-colors:active){.healthspan-bracket{border-color:CanvasText}}
+</style>

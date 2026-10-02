@@ -1,0 +1,27 @@
+---
+import {content} from '../data/content';
+const {section} = Astro.props;
+---
+{section === 'approach' ? (
+  <section class="approach section" id="approach" aria-labelledby="approach-title">
+    <div class="section-heading"><p class="eyebrow">{content.approach.label}</p><h2 id="approach-title">{content.approach.title}</h2></div>
+    <ol class="steps">{content.approach.steps.map(step=><li><span class="step-number" aria-hidden="true">{step.number}</span><div><h3>{step.title}</h3><p>{step.body}</p></div></li>)}</ol>
+    <p class="cycle-note"><span aria-hidden="true">↺</span> {content.approach.note}</p>
+  </section>
+) : section === 'membership' ? (
+  <section class="membership section" id="membership" aria-labelledby="membership-title">
+    <div class="section-heading"><p class="eyebrow">{content.membership.label}</p><h2 id="membership-title">{content.membership.title}</h2><p class="section-intro">{content.membership.body}</p></div>
+    <div class="membership-grid">{content.membership.items.map((item,index)=><article><span>{String(index+1).padStart(2,'0')}</span><h3>{item.title}</h3><p>{item.body}</p></article>)}</div>
+    <div class="status-panel"><p class="eyebrow">In development</p><p>{content.membership.status}</p><p>{content.membership.pricing}</p><a href="#waitlist">Join the waitlist <span aria-hidden="true">↗</span></a></div>
+  </section>
+) : section === 'faq' ? (
+  <section class="faq section" id="faq" aria-labelledby="faq-title">
+    <div class="section-heading"><p class="eyebrow">{content.faq.label}</p><h2 id="faq-title">{content.faq.title}</h2></div>
+    <div class="faq-list">{content.faq.items.map((item,index)=><details open={index===0}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div>
+  </section>
+) : section === 'founders' ? (
+  <section class="founders section" id="founders" aria-labelledby="founders-title"><div class="section-heading"><p class="eyebrow">{content.founders.label}</p><h2 id="founders-title">{content.founders.title}</h2></div><div class="founder-list">{content.founders.people.map(person=><article><p class="eyebrow">{person.role}</p><h3>{person.name}</h3><p>{person.body}</p></article>)}</div></section>
+) : (['problem','audience','status'].includes(section)) ? (()=> {
+  const item = content[section as 'problem'|'audience'|'status'];
+  return <section class={`${section} section`} id={section} aria-labelledby={`${section}-title`}><p class="eyebrow">{item.label}</p><div class="statement"><h2 id={`${section}-title`}>{item.title}</h2><p>{item.body}</p></div></section>;
+})() : null}
