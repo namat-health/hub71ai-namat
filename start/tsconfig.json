@@ -1,0 +1,9 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "exclude": [
+    "dist",
+    "dist-hackathon",
+    "output",
+    "node_modules"
+  ]
+}

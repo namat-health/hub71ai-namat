@@ -1,0 +1,16 @@
+{
+  "questionnaireRevision": "uae-arrival-2026-09-30",
+  "sources": {
+    "src/hackathon/welcome/questionnaire-model.mjs": "4185b94ffc0c8b8d784a81cb0fd9b406733ee9d9629d4693fa1c942d7ea6824d",
+    "src/lib/overview-preview.mjs": "3ffc50bef3598ffe1c749351a056c71f86f8e0121dc846a70dbc7f08c77d7b01",
+    "src/lib/overview-preview-v4.mjs": "6a6a2117ae467b1e5ec6cde74e1533391854d92a335c3d240b92df8a2ed3c450",
+    "src/hackathon/server/api.mjs": "fd160820a84ec03957371a49704c93bce5f1584d5942359f79ad5db93767afca",
+    "src/hackathon/server/uploads.mjs": "e0401e8abee73d4d9f0c8c74dbada6a0dfee54996c915278adc8585cea0ec894",
+    "src/hackathon/server/store.mjs": "46e51517246cc624655b93dc7972e164c6af999a2813ffbf32178e3e80ee5a0e",
+    "src/hackathon/db/001_welcome_submissions.sql": "95feb0243fa0958f9ddd3976728679b75203da3449b425ad77da818119f555ca",
+    "services/report-processing/document.mjs": "9b00c88dd697d8ab8b7918b02fa83243400af6d919388f28bc6de82b12536448",
+    "services/report-processing/document-worker.mjs": "b4073d22d04aa5d3bb2e66a1a2e60597fa0c6bf747997998d424622ae9519087"
+  },
+  "reportValidationRevision": "structured-documents-2026-10-01",
+  "reviewNote": "Questionnaire answers and legacy 2 MiB payload contract remain unchanged. The documented PDF format is now structurally validated, including safe C2PA provenance metadata. Referenced uploads use the separate report-upload-v1 contract."
+}

@@ -1,0 +1,2052 @@
+{
+  "openapi": "3.1.0",
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "info": {
+    "title": "Namat API — local synthetic intake",
+    "version": "0.2.0",
+    "description": "First local-only shared API boundary. No private record reads, clinical approval, AI processing or external email calls are implemented. Request bodies contain fictional data only. API version (/v1), source questionnaire version and explicit questionnaireRevision are independent. No global authentication scheme is declared because this initial service has no private read operations. Future case/plan operations require managed identity and per-record authorization before implementation."
+  },
+  "servers": [
+    {
+      "url": "http://127.0.0.1:4340",
+      "description": "Loopback-only development server. No public deployment is represented by this contract."
+    }
+  ],
+  "tags": [
+    {
+      "name": "Operations",
+      "description": "Local service checks and contract discovery."
+    },
+    {
+      "name": "Submissions",
+      "description": "Synthetic, write-only questionnaire intake."
+    }
+  ],
+  "security": [],
+  "paths": {
+    "/healthz": {
+      "get": {
+        "operationId": "getLiveness",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Check that the process is responding",
+        "responses": {
+          "200": {
+            "description": "Process is responding.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Liveness"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, or a supplied Origin is not allowlisted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "forbidden_origin"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "method_not_allowed"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "description": "Optional. If provided it must exactly match an allowed loopback origin.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ]
+      },
+      "head": {
+        "operationId": "headLiveness",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Read the status and headers without a body",
+        "responses": {
+          "200": {
+            "description": "Process is responding.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, or a supplied Origin is not allowlisted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "description": "Optional. If provided it must exactly match an allowed loopback origin.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ],
+        "description": "The same status and headers as GET, with no response body even for an error."
+      }
+    },
+    "/readyz": {
+      "get": {
+        "operationId": "getReadiness",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Check that local storage is available",
+        "responses": {
+          "200": {
+            "description": "Storage is available.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Readiness"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, or a supplied Origin is not allowlisted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "forbidden_origin"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "method_not_allowed"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage is not configured or unavailable. This small operational response intentionally does not use ApiError.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnavailableReadiness"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "description": "Optional. If provided it must exactly match an allowed loopback origin.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ]
+      },
+      "head": {
+        "operationId": "headReadiness",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Read the status and headers without a body",
+        "responses": {
+          "200": {
+            "description": "Storage is available.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, or a supplied Origin is not allowlisted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Storage is not configured or unavailable. This small operational response intentionally does not use ApiError.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "description": "Optional. If provided it must exactly match an allowed loopback origin.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ],
+        "description": "The same status and headers as GET, with no response body even for an error."
+      }
+    },
+    "/v1/openapi.json": {
+      "get": {
+        "operationId": "getOpenApi",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Read the implemented OpenAPI contract",
+        "responses": {
+          "200": {
+            "description": "This OpenAPI 3.1 document.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "OpenAPI 3.1 document; its schema is defined by the OpenAPI specification, not an application record schema."
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, or a supplied Origin is not allowlisted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "forbidden_origin"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "method_not_allowed"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "description": "Optional. If provided it must exactly match an allowed loopback origin.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ]
+      },
+      "head": {
+        "operationId": "headOpenApi",
+        "tags": [
+          "Operations"
+        ],
+        "summary": "Read the status and headers without a body",
+        "responses": {
+          "200": {
+            "description": "This OpenAPI 3.1 document.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, or a supplied Origin is not allowlisted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": false,
+            "description": "Optional. If provided it must exactly match an allowed loopback origin.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ],
+        "description": "The same status and headers as GET, with no response body even for an error."
+      }
+    },
+    "/v1/submissions": {
+      "post": {
+        "operationId": "createSubmission",
+        "tags": [
+          "Submissions"
+        ],
+        "summary": "Save a fictional questionnaire and a pending confirmation",
+        "description": "Validates the accepted questionnaire revision, active question path, contact values and bounded report attachments. Commits the submission and pending confirmation atomically. Does not call an external email provider or AI service. Retries with the same body requestId and same normalized content return the original receipt; changed content returns 409. Each HTTP response has its own server trace in X-Request-Id. Request body limit: 4,000,000 bytes. The process admits at most 60 authorized POST attempts per fixed 60-second window and at most four submissions concurrently; these are local development limits, not a distributed production rate limiter. The URL must match exactly: trailing slashes and query strings return 404. A new submission starts with confirmationEmail pending. An idempotent replay reports the stored notification outcome and does not reset completed, failed or uncertain work. The local worker can mark an acknowledgement simulated; simulated is not a send, and accepted is not proof of delivery.",
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "description": "Required for submission/preflight. Exact configured loopback browser origin; Sec-Fetch-Site: cross-site is rejected. Not authentication and not a record-access credential.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmissionRequest"
+              },
+              "examples": {
+                "fictionalNoBloodwork": {
+                  "summary": "Fictional curiosity-only case with no bloodwork report",
+                  "value": {
+                    "version": "namat-hackathon-welcome-v1",
+                    "questionnaireRevision": "uae-arrival-2026-09-30",
+                    "requestId": "6df937fa-e83a-4a58-95c9-0f4e44533504",
+                    "dataClass": "synthetic",
+                    "fictionalConfirmed": true,
+                    "answers": {
+                      "goals": [
+                        "curiosity"
+                      ],
+                      "age": "31-40",
+                      "sex": "female",
+                      "location": "abu-dhabi",
+                      "motivation": [],
+                      "priority": "",
+                      "prevention": [],
+                      "checkup": [],
+                      "symptoms": [],
+                      "history": [],
+                      "performance": [],
+                      "weight": "",
+                      "hormones": [],
+                      "curiosity": [
+                        "risks"
+                      ],
+                      "sleep": [],
+                      "family": [
+                        "none"
+                      ],
+                      "bloodwork": "no"
+                    },
+                    "notes": {},
+                    "email": "alex@example.invalid",
+                    "firstName": "Alex",
+                    "reports": []
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "A new submission and pending confirmation are saved, or an identical normalized submission was already saved. Replays return the original receipt and the stored confirmation outcome without creating or sending another notification.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmissionSaved"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed JSON or an invalid/unsupported questionnaire payload.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "invalid_json",
+                            "validation_failed"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "The Host is not loopback with the actual listener port, Origin is missing or not allowlisted, the browser marks the submission cross-site, or its preflight is not permitted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "forbidden_origin"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "method_not_allowed"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "The submission requestId was already saved with different normalized content.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "idempotency_conflict"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "The JSON payload exceeds 4,000,000 bytes.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "payload_too_large"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "Content-Type must be application/json, optionally with charset=utf-8. Content-Encoding must be absent or identity. Invalid UTF-8 JSON uses 400 invalid_json.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "unsupported_media_type"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "A process-wide local limit was reached: more than 60 authorized POST attempts in a fixed 60-second window, or four submissions already in flight. Retry-After is 60 seconds.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Retry-After": {
+                "description": "Delay in seconds before retrying after either local admission limit.",
+                "schema": {
+                  "type": "string",
+                  "const": "60"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "rate_limited"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "The service cannot save this submission. No success is claimed.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "service_unavailable"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "operationId": "preflightSubmission",
+        "tags": [
+          "Submissions"
+        ],
+        "summary": "Validate the browser preflight for JSON intake",
+        "parameters": [
+          {
+            "name": "Origin",
+            "in": "header",
+            "required": true,
+            "description": "Exact configured browser origin. Not authentication and not a record-access credential.",
+            "schema": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          {
+            "name": "Access-Control-Request-Method",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "POST"
+            }
+          },
+          {
+            "name": "Access-Control-Request-Headers",
+            "in": "header",
+            "required": false,
+            "description": "If present, a comma-separated list containing only Content-Type (case-insensitive).",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Allowed JSON POST preflight. Empty response body.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "description": "The exact allowed request origin.",
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              },
+              "Access-Control-Allow-Methods": {
+                "schema": {
+                  "type": "string",
+                  "const": "POST, OPTIONS"
+                }
+              },
+              "Access-Control-Allow-Headers": {
+                "schema": {
+                  "type": "string",
+                  "const": "Content-Type"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Origin is missing or not permitted, or the browser preflight is not permitted.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "forbidden_origin"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Method not supported for this route.",
+            "headers": {
+              "X-Request-Id": {
+                "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+                "schema": {
+                  "$ref": "#/components/schemas/TraceId"
+                }
+              },
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "Allow": {
+                "description": "Methods allowed on this resource.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ApiError"
+                    },
+                    {
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "method_not_allowed"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TraceId": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+        "description": "Server-generated request trace; unrelated to the body idempotency key."
+      },
+      "SubmissionIdempotencyKey": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+        "description": "Caller-generated UUIDv4 retained for retries of the same questionnaire. A deliberate new submission requires a new key."
+      },
+      "ReceiptId": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+        "description": "Reference for a saved questionnaire. Not an access credential."
+      },
+      "Liveness": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok"
+          }
+        }
+      },
+      "Readiness": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ready"
+          }
+        }
+      },
+      "UnavailableReadiness": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "unavailable"
+          }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "code",
+          "message",
+          "requestId"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "error"
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "validation_failed",
+              "invalid_json",
+              "forbidden_origin",
+              "unsupported_media_type",
+              "payload_too_large",
+              "idempotency_conflict",
+              "service_unavailable",
+              "not_found",
+              "method_not_allowed",
+              "rate_limited"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "requestId": {
+            "$ref": "#/components/schemas/TraceId"
+          }
+        }
+      },
+      "QuestionnaireAnswers": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "goals",
+          "age",
+          "sex",
+          "location",
+          "family",
+          "bloodwork"
+        ],
+        "properties": {
+          "goals": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "checkup",
+                "prevention",
+                "symptoms",
+                "performance",
+                "uae_move",
+                "curiosity"
+              ]
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 6,
+            "description": "What brings you to Namat today? Required for every submission."
+          },
+          "age": {
+            "type": "string",
+            "enum": [
+              "18-30",
+              "31-40",
+              "41-50",
+              "51-60",
+              "61-70",
+              "71-plus"
+            ],
+            "description": "What is your age? Required for every submission."
+          },
+          "sex": {
+            "type": "string",
+            "enum": [
+              "female",
+              "male"
+            ],
+            "description": "Are you male or female? Required for every submission."
+          },
+          "location": {
+            "type": "string",
+            "enum": [
+              "abu-dhabi",
+              "dubai",
+              "sharjah",
+              "ajman",
+              "umm-al-quwain",
+              "ras-al-khaimah",
+              "fujairah"
+            ],
+            "description": "Where do you live? Required for every submission."
+          },
+          "motivation": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "prevention",
+                    "history",
+                    "symptoms",
+                    "lifestyle",
+                    "performance",
+                    "weight",
+                    "hormones",
+                    "checkup"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 8
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "What made you want to check your health now? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "priority": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "",
+                  "prevention",
+                  "history",
+                  "symptoms",
+                  "lifestyle",
+                  "performance",
+                  "weight",
+                  "hormones",
+                  "checkup"
+                ]
+              },
+              {
+                "type": "array",
+                "maxItems": 0
+              }
+            ],
+            "description": "What would you like to improve first? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "prevention": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "heart",
+                    "metabolism",
+                    "hormones",
+                    "brain",
+                    "cancer",
+                    "reproductive",
+                    "inherited",
+                    "broad",
+                    "other"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 9
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "Which health risks would you like to prevent? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "checkup": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "risks",
+                    "measurements",
+                    "guidance",
+                    "priorities",
+                    "plan",
+                    "reassurance"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 6
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "What would make this check-up worth it for you? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "symptoms": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "energy",
+                    "weight",
+                    "focus-mood",
+                    "sleep",
+                    "recovery",
+                    "skin-hair",
+                    "digestion",
+                    "movement",
+                    "other",
+                    "none"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 10,
+                "not": {
+                  "minItems": 2,
+                  "contains": {
+                    "const": "none"
+                  }
+                }
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "What symptoms or health concerns do you have? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "history": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "cholesterol",
+                    "blood-pressure",
+                    "blood-sugar",
+                    "hormones",
+                    "reproductive",
+                    "autoimmune",
+                    "stress-anxiety",
+                    "injury",
+                    "other",
+                    "none"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 10,
+                "not": {
+                  "minItems": 2,
+                  "contains": {
+                    "const": "none"
+                  }
+                }
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "Do you have a history of any of the following? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "performance": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "energy",
+                    "clarity",
+                    "strength",
+                    "sleep",
+                    "recovery",
+                    "mood",
+                    "injury",
+                    "other"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 8
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "What would you like to improve day to day? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "weight": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "",
+                  "stable",
+                  "gained",
+                  "lost"
+                ]
+              },
+              {
+                "type": "array",
+                "maxItems": 0
+              }
+            ],
+            "description": "How has your weight changed over the last 12 months? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "hormones": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "cycle",
+                    "menopause",
+                    "energy-mood",
+                    "libido",
+                    "body",
+                    "skin-hair",
+                    "check",
+                    "other"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 8
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "Why do you want to check your hormones? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "curiosity": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "metabolism",
+                    "reproductive",
+                    "heart",
+                    "energy",
+                    "clarity",
+                    "risks",
+                    "other",
+                    "unsure"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 8
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "What would you like to know more about? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "sleep": {
+            "anyOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "unrested",
+                    "snore",
+                    "none"
+                  ]
+                },
+                "uniqueItems": true,
+                "minItems": 0,
+                "maxItems": 3,
+                "not": {
+                  "minItems": 2,
+                  "contains": {
+                    "const": "none"
+                  }
+                }
+              },
+              {
+                "type": "string",
+                "const": ""
+              }
+            ],
+            "description": "How is your sleep? Required and nonempty only when active on the questionnaire path; otherwise omit or use the empty value. For compatibility the validator accepts either empty string or empty array for any inactive answer; the server normalizes its type."
+          },
+          "family": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "heart",
+                "stroke",
+                "metabolic",
+                "cancer",
+                "bone-joint",
+                "hormonal",
+                "neurological",
+                "autoimmune",
+                "inherited",
+                "reproductive",
+                "early",
+                "none"
+              ]
+            },
+            "uniqueItems": true,
+            "minItems": 1,
+            "maxItems": 12,
+            "not": {
+              "minItems": 2,
+              "contains": {
+                "const": "none"
+              }
+            },
+            "description": "Do any of these run in your family? Required for every submission."
+          },
+          "bloodwork": {
+            "type": "string",
+            "enum": [
+              "yes",
+              "no"
+            ],
+            "description": "Have you had any blood work done in the past six months? Required for every submission."
+          }
+        },
+        "description": "Exact current questionnaire vocabulary. Conditional active-path rules, priority selection and sex-specific options are also validated by the server; see the contract README."
+      },
+      "QuestionnaireNotes": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {
+          "prevention": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>]*$",
+            "description": "Optional detail only for an active question whose “other” answer is selected. Blank values are removed."
+          },
+          "symptoms": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>]*$",
+            "description": "Optional detail only for an active question whose “other” answer is selected. Blank values are removed."
+          },
+          "history": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>]*$",
+            "description": "Optional detail only for an active question whose “other” answer is selected. Blank values are removed."
+          },
+          "performance": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>]*$",
+            "description": "Optional detail only for an active question whose “other” answer is selected. Blank values are removed."
+          },
+          "hormones": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>]*$",
+            "description": "Optional detail only for an active question whose “other” answer is selected. Blank values are removed."
+          },
+          "curiosity": {
+            "type": "string",
+            "maxLength": 200,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>]*$",
+            "description": "Optional detail only for an active question whose “other” answer is selected. Blank values are removed."
+          }
+        },
+        "description": "Only the named optional detail boxes are permitted. The server checks applicability to the active answers."
+      },
+      "Report": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "type",
+          "size",
+          "base64"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>/\\\\]+$",
+            "description": "Trimmed filename, at most 256 UTF-8 bytes, with .pdf, .jpg/.jpeg or .png extension matching type. Runtime checks byte length and extension."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "application/pdf",
+              "image/jpeg",
+              "image/png"
+            ]
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2097152,
+            "description": "Decoded byte length. Combined decoded bytes across all reports must not exceed 2 MiB."
+          },
+          "base64": {
+            "type": "string",
+            "contentEncoding": "base64",
+            "minLength": 4,
+            "maxLength": 2796204,
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
+            "description": "Canonical base64, without a data URL prefix. Runtime validates decoded size and file structure."
+          }
+        }
+      },
+      "SubmissionRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "questionnaireRevision",
+          "requestId",
+          "dataClass",
+          "fictionalConfirmed",
+          "answers",
+          "email",
+          "firstName",
+          "reports"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "const": "namat-hackathon-welcome-v1",
+            "description": "Legacy questionnaire model identifier; separate from API version and questionnaire revision."
+          },
+          "questionnaireRevision": {
+            "type": "string",
+            "const": "uae-arrival-2026-09-30",
+            "description": "Explicit immutable questionnaire revision. Only this revision is accepted in the first implementation."
+          },
+          "requestId": {
+            "$ref": "#/components/schemas/SubmissionIdempotencyKey"
+          },
+          "dataClass": {
+            "type": "string",
+            "const": "synthetic"
+          },
+          "fictionalConfirmed": {
+            "type": "boolean",
+            "const": true
+          },
+          "answers": {
+            "$ref": "#/components/schemas/QuestionnaireAnswers"
+          },
+          "notes": {
+            "$ref": "#/components/schemas/QuestionnaireNotes"
+          },
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "pattern": "^\\s*[^\\s@<>\\u0000-\\u0020\\u007f]+@[^\\s@<>\\u0000-\\u0020\\u007f]+\\.[^\\s@<>\\u0000-\\u0020\\u007f]+\\s*$",
+            "description": "Email address; surrounding whitespace is trimmed and the address is normalized to lowercase. Submit fictional/example contact details during local tests."
+          },
+          "firstName": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^\\u0000-\\u001f\\u007f<>\\u2028\\u2029]*$",
+            "description": "A nonblank name after trimming, at most 80 characters after trimming. Runtime enforces trimmed length."
+          },
+          "reports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Report"
+            },
+            "maxItems": 3,
+            "description": "If bloodwork is yes, attach one to three reports; if no, use an empty array. At most 2 MiB decoded total."
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "answers": {
+                  "properties": {
+                    "bloodwork": {
+                      "const": "yes"
+                    }
+                  },
+                  "required": [
+                    "bloodwork"
+                  ]
+                }
+              },
+              "required": [
+                "answers"
+              ]
+            },
+            "then": {
+              "properties": {
+                "reports": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "answers": {
+                  "properties": {
+                    "bloodwork": {
+                      "const": "no"
+                    }
+                  },
+                  "required": [
+                    "bloodwork"
+                  ]
+                }
+              },
+              "required": [
+                "answers"
+              ]
+            },
+            "then": {
+              "properties": {
+                "reports": {
+                  "maxItems": 0
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SubmissionSaved": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "receiptId",
+          "confirmationEmail"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "saved"
+          },
+          "receiptId": {
+            "$ref": "#/components/schemas/ReceiptId"
+          },
+          "confirmationEmail": {
+            "type": "string",
+            "description": "A new saved submission returns pending. An idempotent replay reports the stored confirmation outcome: pending (queued/in progress), simulated (local worker only; no email sent), accepted (recorded provider acceptance, not delivery), failed, or unknown (uncertain outcome held for reconciliation). This local API never calls an email provider. Stored failed/unknown outcomes do not trigger automatic retry.",
+            "enum": [
+              "pending",
+              "simulated",
+              "accepted",
+              "failed",
+              "unknown"
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "The request URL does not exactly match an implemented route. Includes unknown private record paths, query strings and trailing slashes.",
+        "headers": {
+          "X-Request-Id": {
+            "description": "Server-generated UUIDv4 identifying this HTTP request. Separate from the submission body requestId used for idempotency.",
+            "schema": {
+              "$ref": "#/components/schemas/TraceId"
+            }
+          },
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "not_found"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-response-policy": {
+    "traceHeader": "X-Request-Id",
+    "allowedOriginHeaders": [
+      "Access-Control-Allow-Origin",
+      "Access-Control-Expose-Headers",
+      "Vary"
+    ],
+    "notes": "Application responses use Cache-Control: private, no-store. Allowed-origin responses echo the exact origin, expose X-Request-Id and vary on Origin. Every HTTP Host must be localhost, 127.0.0.1 or [::1] with the actual listening port. Unknown or nonexact paths use HTTP 404 with ApiError code not_found. HEAD never has a response body. Invalid HTTP framing may be rejected by Node with an empty 400 before a trace or application error can be produced; disconnected/timed-out sockets need not yield a JSON response. CORS restrictions are not authentication."
+  },
+  "x-local-limits": {
+    "scope": "process",
+    "postAttemptsPerWindow": 60,
+    "windowMilliseconds": 60000,
+    "maxInFlightSubmissions": 4,
+    "retryAfterSeconds": 60,
+    "maxBodyBytes": 4000000
+  },
+  "x-report-validation-revision": "structured-documents-2026-10-01"
+}

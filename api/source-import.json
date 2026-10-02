@@ -1,0 +1,450 @@
+{
+  "formatVersion": 1,
+  "importedAt": "2026-10-01T14:16:56.944Z",
+  "sourceProject": "namat-website",
+  "scope": "Standalone API foundation plus connected fictional demo interface. Source hashes preserve the extraction lineage; adapted files are identified individually.",
+  "sourceRevisionManifestSha256": "92dddaee1abb70932d828308b99efc291a6757a0d9a77069903494fec8e6de48",
+  "files": [
+    {
+      "path": "scripts/lib/azure-runtime.mjs",
+      "sourcePath": "scripts/package-hackathon-azure.mjs",
+      "sha256": "60fa362f1ed7f31c9b6d7ebde2f26573bf4f378a8de5827e33888563ebdce92e",
+      "sourceSha256": "db0f1187b92e1ae9a13ce163d1c6d97200ccf2cb1ae412f8a2d487a2fd5b0d13",
+      "operation": "adapted",
+      "note": "Extracted runtime staging and Linux ELF checks without legacy site packaging. Standalone whitespace cleanup.",
+      "importedSha256": "80a51bf56fc85173aa8f31a0b1564ecf6fb3161653f5f7a50a5cc7794536ca72"
+    },
+    {
+      "path": "scripts/lib/deterministic-zip.mjs",
+      "sourcePath": "scripts/package-journey-test.mjs",
+      "sha256": "9229fe9472c13457b5b2629bdb20e93840eb3accaba9dc14d8b207f36fb83845",
+      "sourceSha256": "abe414fff7a4724148eac06fd19ee73098aca0d266afd3cbeda9ba4f6a2e287d",
+      "operation": "adapted",
+      "note": "Extracted deterministic ZIP implementation without journey/site assembly. Standalone whitespace cleanup.",
+      "importedSha256": "3ad0d069e18128d047ac51cbe68c1f8ef554f2321ec50417de2b3f0f584c2cf8"
+    },
+    {
+      "path": "scripts/lib/runtime-package.mjs",
+      "sourcePath": "scripts/build-hackathon-site.mjs",
+      "sha256": "5c7a45fec7dcebfe2d393d2c311cc200ee7018c67a965a9df32def8e660cb1a1",
+      "sourceSha256": "ead0929952ca52a5abbfe9d752c558e5b0fd5c574e45f8099e7c26e89a1eb4ce",
+      "operation": "adapted",
+      "note": "Extracted only runtime dependency pins, AST import discovery and lock closure; omitted all website/asset building. Standalone whitespace cleanup.",
+      "importedSha256": "48730d7c65c1a1f2ebdd8032ed424f5cb3be28b695dfe37f0a0fd6c2cffbe6c6"
+    },
+    {
+      "path": "scripts/package-namat-api-azure.mjs",
+      "sourcePath": "scripts/package-namat-api-azure.mjs",
+      "sha256": "56a3c6ef6a4b08b8b819ffceed9826b4fca70d01acaa7f384ba431f2a30317ba",
+      "sourceSha256": "f9023763e64f98d8c4f0e3f4c4184b1d2f43a5696fdba116229d2f149b414418",
+      "operation": "adapted",
+      "note": "Updated only helper imports to independent backend packaging modules."
+    },
+    {
+      "path": "scripts/test-namat-api-local.mjs",
+      "sourcePath": "scripts/test-namat-api-local.mjs",
+      "sha256": "a6286d7d716d7df4a89e42aa6c0d06231e9ab4f007111adde8495099e1004142",
+      "sourceSha256": "a6286d7d716d7df4a89e42aa6c0d06231e9ab4f007111adde8495099e1004142",
+      "operation": "copied"
+    },
+    {
+      "path": "server/journey-email-layout.mjs",
+      "sourcePath": "server/journey-email-layout.mjs",
+      "sha256": "a787d7b062701ecd53bfc67c66496a2ebf81bb43296315eb02ace3846a8c3818",
+      "sourceSha256": "a787d7b062701ecd53bfc67c66496a2ebf81bb43296315eb02ace3846a8c3818",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/client.d.mts",
+      "sourcePath": "services/namat-api/client.d.mts",
+      "sha256": "8894e71b423a177edbeded774f8fe58bb2ae48e5b93e3e920211403cdd629fe8",
+      "sourceSha256": "8894e71b423a177edbeded774f8fe58bb2ae48e5b93e3e920211403cdd629fe8",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/client.mjs",
+      "sourcePath": "services/namat-api/client.mjs",
+      "sha256": "a391275c083f52a7d0fcf2ea08f987ac164491b73e34f42589cf2ea14a0f0433",
+      "sourceSha256": "a391275c083f52a7d0fcf2ea08f987ac164491b73e34f42589cf2ea14a0f0433",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/config.mjs",
+      "sourcePath": "services/namat-api/config.mjs",
+      "sha256": "fc7b8d588ecbd6663baf2405f5601e4d0db4ada17eb1c0eb939e276e44f7b007",
+      "sourceSha256": "fc7b8d588ecbd6663baf2405f5601e4d0db4ada17eb1c0eb939e276e44f7b007",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/contracts/client.d.ts",
+      "sourcePath": "services/namat-api/contracts/client.d.ts",
+      "sha256": "742e54dcb9de8bdd368b688ef770be70e641ead5b8691961c47405ffcbdcfcd6",
+      "sourceSha256": "742e54dcb9de8bdd368b688ef770be70e641ead5b8691961c47405ffcbdcfcd6",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/contracts/openapi.json",
+      "sourcePath": "services/namat-api/contracts/openapi.json",
+      "sha256": "7245432645591904e97cd7f6ffebcdaf75a5c5090a2373dfba849f071c686599",
+      "sourceSha256": "7245432645591904e97cd7f6ffebcdaf75a5c5090a2373dfba849f071c686599",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/contracts/README.md",
+      "sourcePath": "services/namat-api/contracts/README.md",
+      "sha256": "a48d06abae57caa44cef2d35bce7a0ebb226322af23c52821d79ec5131f1b5e8",
+      "sourceSha256": "923d9626b79154706a9de6295ecc750d10de57659a5499c82ac3a56800fcd123",
+      "operation": "adapted",
+      "importedSha256": "923d9626b79154706a9de6295ecc750d10de57659a5499c82ac3a56800fcd123",
+      "note": " Updated for the connected demo API bridge and standalone handoff."
+    },
+    {
+      "path": "services/namat-api/database.mjs",
+      "sourcePath": "services/namat-api/database.mjs",
+      "sha256": "24852f34c7e577b3b1b259df81527e4ccabf6f2fa1abbc942cc501c526cb1830",
+      "sourceSha256": "24852f34c7e577b3b1b259df81527e4ccabf6f2fa1abbc942cc501c526cb1830",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/initialize.mjs",
+      "sourcePath": "services/namat-api/initialize.mjs",
+      "sha256": "0fd6edf4b08ad91b4326280ed1c5f9668f3498bb0cced33668af5139cb6d0d66",
+      "sourceSha256": "0fd6edf4b08ad91b4326280ed1c5f9668f3498bb0cced33668af5139cb6d0d66",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/README.md",
+      "sourcePath": "services/namat-api/README.md",
+      "sha256": "74f7a42e63645af95105b7723f4b10dba7a83eb6e0008e49d918e008efe2de23",
+      "sourceSha256": "1b1c25dc140e3dc276f73f75f85f710644bca2dac91e4b5fd6fc7e669c519406",
+      "operation": "adapted",
+      "importedSha256": "1b1c25dc140e3dc276f73f75f85f710644bca2dac91e4b5fd6fc7e669c519406",
+      "note": " Updated for the connected demo API bridge and standalone handoff."
+    },
+    {
+      "path": "services/namat-api/revision.mjs",
+      "sourcePath": "services/namat-api/revision.mjs",
+      "sha256": "4204a659b71931ecbc62c25749d5abf4bd3dee0e383af4e0746bc9b301c14ad1",
+      "sourceSha256": "4204a659b71931ecbc62c25749d5abf4bd3dee0e383af4e0746bc9b301c14ad1",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/server.mjs",
+      "sourcePath": "services/namat-api/server.mjs",
+      "sha256": "788aa85843add7b8fc798afaa38a2adc23e283f4505cdb8dd32eb73b4e180970",
+      "sourceSha256": "1db379f3c31fd7a428aefbbeca3d7c9f7ff7872e03a0b719e05c23ea55c46d2e",
+      "operation": "adapted",
+      "note": "Root task added a separate demo bridge hook; synthetic intake revision and pinned validators unchanged. Updated for the connected demo API bridge and standalone handoff. Response header names are normalized before applying upstream overrides.",
+      "importedSha256": "a495578aa3f30ba2a1062c10b8a7bc4fb0e38345f678bf458dd75bfc912b5da9"
+    },
+    {
+      "path": "services/namat-api/source-revision.json",
+      "sourcePath": "services/namat-api/source-revision.json",
+      "sha256": "92dddaee1abb70932d828308b99efc291a6757a0d9a77069903494fec8e6de48",
+      "sourceSha256": "92dddaee1abb70932d828308b99efc291a6757a0d9a77069903494fec8e6de48",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/staging-auth.mjs",
+      "sourcePath": "services/namat-api/staging-auth.mjs",
+      "sha256": "c46cbb6eb71ccb86ce7c60a86f2b1f87d0565af6b42f1acc225634d18a9b9ea5",
+      "sourceSha256": "c46cbb6eb71ccb86ce7c60a86f2b1f87d0565af6b42f1acc225634d18a9b9ea5",
+      "operation": "copied"
+    },
+    {
+      "path": "services/namat-api/worker.mjs",
+      "sourcePath": "services/namat-api/worker.mjs",
+      "sha256": "b98e1b5ecb9c15a0bd3fbd9a4f9e795fccbf27fbdce2d1d16d9fe5d86f559dd7",
+      "sourceSha256": "b98e1b5ecb9c15a0bd3fbd9a4f9e795fccbf27fbdce2d1d16d9fe5d86f559dd7",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/backfill.mjs",
+      "sourcePath": "services/report-processing/backfill.mjs",
+      "sha256": "21f52b59503274f8d8f903dde60ba1fda5674debda0e9d8e08d590fdcb579060",
+      "sourceSha256": "21f52b59503274f8d8f903dde60ba1fda5674debda0e9d8e08d590fdcb579060",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/blob.mjs",
+      "sourcePath": "services/report-processing/blob.mjs",
+      "sha256": "1a19a34cb7340b1f49892b17c37a88e8288a9bfa48895da8b4d4ae0aefa0ec6a",
+      "sourceSha256": "1a19a34cb7340b1f49892b17c37a88e8288a9bfa48895da8b4d4ae0aefa0ec6a",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/contracts/client.d.ts",
+      "sourcePath": "services/report-processing/contracts/client.d.ts",
+      "sha256": "e0a4b76009a93b9fad0b5c8a40107d74c02b19251921a28dfa3ab9fea1cc2a7d",
+      "sourceSha256": "e0a4b76009a93b9fad0b5c8a40107d74c02b19251921a28dfa3ab9fea1cc2a7d",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/db/002_report_processing.sql",
+      "sourcePath": "services/report-processing/db/002_report_processing.sql",
+      "sha256": "97be2626175ed96926f48dd1d03d30f2d8da2467f915b4d4c538703ae27fedec",
+      "sourceSha256": "97be2626175ed96926f48dd1d03d30f2d8da2467f915b4d4c538703ae27fedec",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/document-worker.mjs",
+      "sourcePath": "services/report-processing/document-worker.mjs",
+      "sha256": "b4073d22d04aa5d3bb2e66a1a2e60597fa0c6bf747997998d424622ae9519087",
+      "sourceSha256": "b4073d22d04aa5d3bb2e66a1a2e60597fa0c6bf747997998d424622ae9519087",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/document.mjs",
+      "sourcePath": "services/report-processing/document.mjs",
+      "sha256": "9b00c88dd697d8ab8b7918b02fa83243400af6d919388f28bc6de82b12536448",
+      "sourceSha256": "9b00c88dd697d8ab8b7918b02fa83243400af6d919388f28bc6de82b12536448",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/extract.mjs",
+      "sourcePath": "services/report-processing/extract.mjs",
+      "sha256": "9baad37e9cd450e74c0036dc63e042d08a698bdfafe73631e882cd3898457dc6",
+      "sourceSha256": "9baad37e9cd450e74c0036dc63e042d08a698bdfafe73631e882cd3898457dc6",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/local-blob.mjs",
+      "sourcePath": "services/report-processing/local-blob.mjs",
+      "sha256": "cfcf951159bf5f6ca736814d9890c574a6df0eabba34a878f202c1154c72d35e",
+      "sourceSha256": "cfcf951159bf5f6ca736814d9890c574a6df0eabba34a878f202c1154c72d35e",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/ocr.mjs",
+      "sourcePath": "services/report-processing/ocr.mjs",
+      "sha256": "707e9f01a42b3f895c024757d4f7b129d595ea36932f9ecfdb1172fdd66fb699",
+      "sourceSha256": "707e9f01a42b3f895c024757d4f7b129d595ea36932f9ecfdb1172fdd66fb699",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/service.mjs",
+      "sourcePath": "services/report-processing/service.mjs",
+      "sha256": "c001070d56d440211eeeff96a0505048b19338c634f838472f6d8811026196e1",
+      "sourceSha256": "c001070d56d440211eeeff96a0505048b19338c634f838472f6d8811026196e1",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/store.mjs",
+      "sourcePath": "services/report-processing/store.mjs",
+      "sha256": "f0109fbee7327a0f2dbbe5a112116a22e5542c856ef90beb8829bbf5d861027d",
+      "sourceSha256": "f0109fbee7327a0f2dbbe5a112116a22e5542c856ef90beb8829bbf5d861027d",
+      "operation": "copied"
+    },
+    {
+      "path": "services/report-processing/worker.mjs",
+      "sourcePath": "services/report-processing/worker.mjs",
+      "sha256": "33bd704c2a58cff010a84298476d862cea87ac890d3fd33f11c40f97b6b7f7bf",
+      "sourceSha256": "33bd704c2a58cff010a84298476d862cea87ac890d3fd33f11c40f97b6b7f7bf",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/db/001_welcome_submissions.sql",
+      "sourcePath": "src/hackathon/db/001_welcome_submissions.sql",
+      "sha256": "95feb0243fa0958f9ddd3976728679b75203da3449b425ad77da818119f555ca",
+      "sourceSha256": "95feb0243fa0958f9ddd3976728679b75203da3449b425ad77da818119f555ca",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/server/api.mjs",
+      "sourcePath": "src/hackathon/server/api.mjs",
+      "sha256": "fd160820a84ec03957371a49704c93bce5f1584d5942359f79ad5db93767afca",
+      "sourceSha256": "fd160820a84ec03957371a49704c93bce5f1584d5942359f79ad5db93767afca",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/server/azure-server.mjs",
+      "sourcePath": "src/hackathon/server/azure-server.mjs",
+      "sha256": "49a0c8941ed1b232e9f1b69dc5f635d7b66d95de442f5cc4e98111ffaf12699c",
+      "sourceSha256": "49a0c8941ed1b232e9f1b69dc5f635d7b66d95de442f5cc4e98111ffaf12699c",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/server/confirmation-email.mjs",
+      "sourcePath": "src/hackathon/server/confirmation-email.mjs",
+      "sha256": "5bc3ab220dedf5919ec66cf8be31029e66257a85b36e97a3e50dc3411c58a944",
+      "sourceSha256": "5bc3ab220dedf5919ec66cf8be31029e66257a85b36e97a3e50dc3411c58a944",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/server/http.mjs",
+      "sourcePath": "src/hackathon/server/http.mjs",
+      "sha256": "349e21027cb56beb75359c51290a8f424b63de058cc582a533fd94a6dd67fc1e",
+      "sourceSha256": "349e21027cb56beb75359c51290a8f424b63de058cc582a533fd94a6dd67fc1e",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/server/store.mjs",
+      "sourcePath": "src/hackathon/server/store.mjs",
+      "sha256": "46e51517246cc624655b93dc7972e164c6af999a2813ffbf32178e3e80ee5a0e",
+      "sourceSha256": "46e51517246cc624655b93dc7972e164c6af999a2813ffbf32178e3e80ee5a0e",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/server/uploads.mjs",
+      "sourcePath": "src/hackathon/server/uploads.mjs",
+      "sha256": "e0401e8abee73d4d9f0c8c74dbada6a0dfee54996c915278adc8585cea0ec894",
+      "sourceSha256": "e0401e8abee73d4d9f0c8c74dbada6a0dfee54996c915278adc8585cea0ec894",
+      "operation": "copied"
+    },
+    {
+      "path": "src/hackathon/welcome/questionnaire-model.mjs",
+      "sourcePath": "src/hackathon/welcome/questionnaire-model.mjs",
+      "sha256": "4185b94ffc0c8b8d784a81cb0fd9b406733ee9d9629d4693fa1c942d7ea6824d",
+      "sourceSha256": "4185b94ffc0c8b8d784a81cb0fd9b406733ee9d9629d4693fa1c942d7ea6824d",
+      "operation": "copied"
+    },
+    {
+      "path": "src/lib/overview-preview-v4.mjs",
+      "sourcePath": "src/lib/overview-preview-v4.mjs",
+      "sha256": "6a6a2117ae467b1e5ec6cde74e1533391854d92a335c3d240b92df8a2ed3c450",
+      "sourceSha256": "6a6a2117ae467b1e5ec6cde74e1533391854d92a335c3d240b92df8a2ed3c450",
+      "operation": "copied"
+    },
+    {
+      "path": "src/lib/overview-preview.mjs",
+      "sourcePath": "src/lib/overview-preview.mjs",
+      "sha256": "3ffc50bef3598ffe1c749351a056c71f86f8e0121dc846a70dbc7f08c77d7b01",
+      "sourceSha256": "3ffc50bef3598ffe1c749351a056c71f86f8e0121dc846a70dbc7f08c77d7b01",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/hackathon-confirmation-email.test.mjs",
+      "sourcePath": "tests/hackathon-confirmation-email.test.mjs",
+      "sha256": "9481d0a54c2c3e3a483619efeac10afc36a687c323f92e08d8d379340ed8a8db",
+      "sourceSha256": "9481d0a54c2c3e3a483619efeac10afc36a687c323f92e08d8d379340ed8a8db",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/hackathon-fixtures.mjs",
+      "sourcePath": "tests/hackathon-fixtures.mjs",
+      "sha256": "1fea86e25d7f6f1a89ad85f82965d672bfca1e357e6adeddb618c9cfc83bd304",
+      "sourceSha256": "1fea86e25d7f6f1a89ad85f82965d672bfca1e357e6adeddb618c9cfc83bd304",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/hackathon-postgres.test.mjs",
+      "sourcePath": "tests/hackathon-postgres.test.mjs",
+      "sha256": "337476cbee6ba07cc9fa76acba3f1f7a09eba7fe02b261375cb9348f88877fb6",
+      "sourceSha256": "337476cbee6ba07cc9fa76acba3f1f7a09eba7fe02b261375cb9348f88877fb6",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/hackathon-questionnaire.test.mjs",
+      "sourcePath": "tests/hackathon-questionnaire.test.mjs",
+      "sha256": "8fd5b311f580574ab8153a8dd5f4956eba6bb2644907efe32e7afccabc2986e4",
+      "sourceSha256": "8fd5b311f580574ab8153a8dd5f4956eba6bb2644907efe32e7afccabc2986e4",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/hackathon-server.test.mjs",
+      "sourcePath": "tests/hackathon-server.test.mjs",
+      "sha256": "416bf3d377f32b63b396ac208f20f83b720c4dc28033cb615d03407e3fcf4dbb",
+      "sourceSha256": "416bf3d377f32b63b396ac208f20f83b720c4dc28033cb615d03407e3fcf4dbb",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/namat-api-client.test.mjs",
+      "sourcePath": "tests/namat-api-client.test.mjs",
+      "sha256": "eee07fe415e2561d946eb3dc9636738c2a61e626d243cdf949a67494a2d99e1f",
+      "sourceSha256": "eee07fe415e2561d946eb3dc9636738c2a61e626d243cdf949a67494a2d99e1f",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/namat-api-config.test.mjs",
+      "sourcePath": "tests/namat-api-config.test.mjs",
+      "sha256": "d2f72dfd17caa4fa04754513471b69fa95a64c2bf46004c2b64eedd5e6b7aa84",
+      "sourceSha256": "d2f72dfd17caa4fa04754513471b69fa95a64c2bf46004c2b64eedd5e6b7aa84",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/namat-api-contract.test.mjs",
+      "sourcePath": "tests/namat-api-contract.test.mjs",
+      "sha256": "92b127890c90d1fdc91609919ea3bf3de3d789026dda3e26ad2e9d84087ace8c",
+      "sourceSha256": "92b127890c90d1fdc91609919ea3bf3de3d789026dda3e26ad2e9d84087ace8c",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/namat-api-package.test.mjs",
+      "sourcePath": "tests/namat-api-package.test.mjs",
+      "sha256": "19e0979c4c41b354607470c0903d5e6939e8bcff7668cb82a41b46201fe40257",
+      "sourceSha256": "a6235748d1216a47bd7d24721a6a5a0f7fd86c58827a278db7afc248fc304d61",
+      "operation": "adapted",
+      "note": "Updated only helper imports to independent backend packaging modules."
+    },
+    {
+      "path": "tests/namat-api-postgres.test.mjs",
+      "sourcePath": "tests/namat-api-postgres.test.mjs",
+      "sha256": "6ba5ec064b521fd6339b5488304224466fff07f6830b2b29698a57253f435875",
+      "sourceSha256": "6ba5ec064b521fd6339b5488304224466fff07f6830b2b29698a57253f435875",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/namat-api-server.test.mjs",
+      "sourcePath": "tests/namat-api-server.test.mjs",
+      "sha256": "99d675b6666e42cf8a01b04d6fa30c99e6906efedbc3e7cccae76954f589f5da",
+      "sourceSha256": "99d675b6666e42cf8a01b04d6fa30c99e6906efedbc3e7cccae76954f589f5da",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/namat-api-staging.test.mjs",
+      "sourcePath": "tests/namat-api-staging.test.mjs",
+      "sha256": "b0ee9e3a248ac71e9bf28a36bc2781808737e200367b54a81ddd33d7d6da23e9",
+      "sourceSha256": "b0ee9e3a248ac71e9bf28a36bc2781808737e200367b54a81ddd33d7d6da23e9",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/overview-preview.test.mjs",
+      "sourcePath": "tests/overview-preview.test.mjs",
+      "sha256": "08fdb7b966faf39fcd4cc2ff5e5327f238fc3b0d35ecc2eeff7b49376b14130d",
+      "sourceSha256": "7acd011eca246b8248f2f386804c03191c63606e4207afe6217a23b0cb4e1e66",
+      "operation": "adapted",
+      "importedSha256": "7acd011eca246b8248f2f386804c03191c63606e4207afe6217a23b0cb4e1e66",
+      "note": " Standalone whitespace cleanup."
+    },
+    {
+      "path": "tests/report-backfill-postgres.test.mjs",
+      "sourcePath": "tests/report-backfill-postgres.test.mjs",
+      "sha256": "8d5c80e72ef231f41f2776a38054b7ca8f8dbcece142f52b3202a9cfd910c1ea",
+      "sourceSha256": "8d5c80e72ef231f41f2776a38054b7ca8f8dbcece142f52b3202a9cfd910c1ea",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/report-document.test.mjs",
+      "sourcePath": "tests/report-document.test.mjs",
+      "sha256": "ec2f0c4a79eee6a475eee93f50f5f2a9022f75aadc53b6c3af48b5a4c17400c4",
+      "sourceSha256": "ec2f0c4a79eee6a475eee93f50f5f2a9022f75aadc53b6c3af48b5a4c17400c4",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/report-extraction.test.mjs",
+      "sourcePath": "tests/report-extraction.test.mjs",
+      "sha256": "ea1841a356f9aba05af2085d064f5ba64177bc953d06f436441609864f2900f2",
+      "sourceSha256": "ea1841a356f9aba05af2085d064f5ba64177bc953d06f436441609864f2900f2",
+      "operation": "copied"
+    },
+    {
+      "path": "tests/report-pipeline.test.mjs",
+      "sourcePath": "tests/report-pipeline.test.mjs",
+      "sha256": "11f789faa5305b4b728f4c2c6da8065d6ee65cfd22abb5c608f1adb02e0927dd",
+      "sourceSha256": "c14cd0bc7bdad1b225c78df40d79318a1e47b50c37b1ef8f264a265102091f43",
+      "operation": "adapted",
+      "note": "Retained test coverage; close the beforeEach-created HTTP listener in suite teardown too because dynamic t.skip on the optional sample can bypass afterEach on Node 22."
+    },
+    {
+      "path": "tests/report-processing-postgres.test.mjs",
+      "sourcePath": "tests/report-processing-postgres.test.mjs",
+      "sha256": "4751bb7d1e9347c814f85ef3a0583083282e11be84fb26c9d3a1d6b1caf79583",
+      "sourceSha256": "4751bb7d1e9347c814f85ef3a0583083282e11be84fb26c9d3a1d6b1caf79583",
+      "operation": "copied"
+    }
+  ],
+  "reconciliation": {
+    "at": "2026-10-01T14:31:30.831Z",
+    "note": "Parallel scaffold copies preserved in ignored .reconciliation; independent backend helpers and package metadata restored. Root-owned demo bridge source retained."
+  }
+}

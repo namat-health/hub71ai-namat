@@ -1,0 +1,33 @@
+{
+  "name": "namat-start",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build && node scripts/build-hackathon-site.mjs",
+    "check": "astro check",
+    "test": "node --test tests/*.test.mjs",
+    "test:compatibility": "node scripts/check-questionnaire-compatibility.mjs",
+    "verify": "node scripts/verify-hackathon-site.mjs",
+    "package:azure": "node scripts/package-hackathon-azure.mjs"
+  },
+  "dependencies": {
+    "@azure/identity": "4.13.3",
+    "@azure/storage-blob": "12.34.0",
+    "@cantoo/pdf-lib": "2.11.1",
+    "@fontsource-variable/dm-sans": "5.3.0",
+    "@fontsource/ibm-plex-mono": "5.3.0",
+    "astro": "7.3.3",
+    "pdfjs-dist": "6.3.289",
+    "pg": "8.23.0",
+    "sharp": "0.35.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "typescript": "6.0.3"
+  }
+}

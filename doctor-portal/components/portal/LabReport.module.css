@@ -1,0 +1,170 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  background: #fbfaf4;
+  border: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 12px;
+}
+
+.tabs {
+  display: flex;
+  padding: 4px;
+  background: #ece8dc;
+  border-radius: 999px;
+  gap: 2px;
+}
+
+.tab {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: #6b6857;
+  box-shadow: none;
+  transition: background 0.2s;
+}
+
+.tabActive {
+  background: #fbfaf4;
+  color: #102523;
+  box-shadow: 0 1px 2px rgba(16, 37, 35, 0.12);
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 13px;
+  color: #6b6857;
+  font-variant-numeric: tabular-nums;
+}
+
+.iconButton {
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #102523;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.iconButton:hover {
+  background: #ece8dc;
+}
+
+.iconButton:disabled {
+  color: rgba(16, 37, 35, 0.25);
+  cursor: default;
+}
+
+.iconButton:disabled:hover {
+  background: transparent;
+}
+
+.download {
+  font-size: 14px;
+}
+
+.pageLabel {
+  min-width: 34px;
+  text-align: center;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background: rgba(16, 37, 35, 0.12);
+  margin: 0 8px;
+}
+
+.zoomLabel {
+  border: 0;
+  background: transparent;
+  min-width: 44px;
+  height: 30px;
+  border-radius: 999px;
+  cursor: pointer;
+  color: #6b6857;
+  font-size: 13px;
+}
+
+.zoomLabel:hover {
+  background: #ece8dc;
+}
+
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  background: transparent;
+  padding: 6px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+  color: #8a3f1f;
+}
+
+.confirm:hover {
+  background: #f3eadb;
+}
+
+.confirmDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a8552f;
+}
+
+.body {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #e9e5d8;
+  border-top: 1px solid rgba(16, 37, 35, 0.08);
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.status {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: #6b6857;
+  font-size: 14px;
+  text-align: center;
+}
+
+.status p {
+  margin: 0;
+}

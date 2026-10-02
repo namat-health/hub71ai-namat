@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <title>Report review · Namat</title>
+  <link rel="stylesheet" href="/review.css" />
+  <script type="module" src="/review.mjs"></script>
+</head>
+<body>
+  <header class="site-header"><a class="wordmark" href="/review">namat<span>.</span></a><span class="demo-tag">Fictional cases only</span></header>
+  <main id="report-review">
+    <section class="login-card" aria-labelledby="review-title">
+      <p class="eyebrow">Report review</p>
+      <h1 id="review-title">Check the source.<br />Review the extraction.</h1>
+      <p>Extracted values are drafts. A reviewer must compare them with the original report before approving them.</p>
+      <form id="review-login">
+        <label for="operator-token">Reviewer access key</label>
+        <input id="operator-token" name="token" type="password" autocomplete="off" spellcheck="false" required />
+        <p class="field-note">This key stays in memory for this tab. Reloading or locking clears it.</p>
+        <button class="primary" type="submit">Open review queue</button>
+      </form>
+      <p id="login-error" class="error" role="alert" hidden></p>
+    </section>
+  </main>
+  <noscript><p class="error">Enable JavaScript to open the review queue.</p></noscript>
+</body>
+</html>

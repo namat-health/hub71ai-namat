@@ -1,0 +1,19 @@
+---
+description: Required backend and doctor portal checks for Namat questionnaire changes
+alwaysApply: true
+---
+
+# Questionnaire compatibility
+
+Whenever changing the Namat questionnaire:
+
+- Flag changes to versions, question IDs, option values, answer types, units, required fields, or wording that changes meaning.
+- Inspect backend validation, database constraints, portal loading, answer labels, and clinical interpretation.
+- Preserve existing submissions and questionnaires already in progress, including saved drafts.
+- Verify old and new submissions can appear together. Add a new response to a mixed patient list and check that it does not break loading, labels or clinical context.
+- Questionnaire-only tests are insufficient; exercise the actual backend and portal code with the resulting payload.
+- If a new version needs backend or portal support, release and verify that support before the form starts saving it.
+- Flag unresolved compatibility before deployment.
+- End questionnaire work with “Doctor portal impact: none / changes required / unverified,” choosing the applicable status and explaining the evidence.
+
+For example, grouping age, sex and location into one screen must preserve their separate saved fields and existing units. UI screen IDs must never become new answer IDs accidentally.

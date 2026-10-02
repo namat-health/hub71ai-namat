@@ -1,0 +1,49 @@
+/* The namat.health lockup, built from type. */
+.logo {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: max-content;
+  font-family: var(--display);
+  line-height: 1;
+}
+
+.word {
+  display: block;
+  letter-spacing: -0.035em;
+  padding-right: 0.18em;
+  font-weight: 700;
+  font-stretch: 125%;
+  line-height: 0.9;
+}
+
+.rule {
+  position: absolute;
+  top: 0.93em;
+  left: 0;
+  right: 0.18em;
+  height: max(1px, 0.022em);
+  background: currentColor;
+}
+
+.stop {
+  position: absolute;
+  top: 0.876em;
+  right: 0;
+  width: 0.13em;
+  height: 0.13em;
+  background: currentColor;
+}
+
+.health {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.2em;
+  padding-right: 0.18em;
+}
+
+.health span {
+  font-size: 0.36em;
+  font-weight: 350;
+  line-height: 1;
+}

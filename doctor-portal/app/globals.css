@@ -1,0 +1,67 @@
+:root {
+  --display: var(--font-archivo), sans-serif;
+  --body: var(--font-dm-sans), Arial, sans-serif;
+  --mono: var(--font-plex-mono), monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #f4f2e9;
+  color: #102523;
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button {
+  font: inherit;
+}
+
+a {
+  color: #143f3c;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #a8552f;
+}
+
+:focus-visible {
+  outline: 2px solid #a8552f;
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(16, 37, 35, 0.16);
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
+/* Overrides every component's motion, so it has to win over module styles. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must override component styles. */
+    animation-duration: 0.01ms !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must override component styles. */
+    animation-iteration-count: 1 !important;
+    /* biome-ignore lint/complexity/noImportantStyles: reduced motion must override component styles. */
+    transition-duration: 0.01ms !important;
+  }
+}

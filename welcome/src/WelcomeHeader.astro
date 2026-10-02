@@ -1,0 +1,17 @@
+---
+import Wordmark from '../../components/Wordmark.astro';
+import {welcome} from './content';
+---
+
+<header class="floating-header welcome-header" data-site-header>
+  <div class="header-shell">
+    <Wordmark href="/welcome/" />
+    <a class="header-cta" href={welcome.formUrl} data-start-link>
+      <span class="header-cta-label">{welcome.ctaLabel}</span>
+    </a>
+  </div>
+</header>
+
+<style>
+  .welcome-header .header-shell{grid-template-columns:auto auto;justify-content:space-between}
+</style>

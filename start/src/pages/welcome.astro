@@ -1,0 +1,24 @@
+---
+import '@fontsource-variable/dm-sans';
+import '@fontsource/ibm-plex-mono/400.css';
+import Questionnaire from '../hackathon/welcome/Questionnaire.astro';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="description" content="Your Namat welcome questionnaire." />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://namatreportstestuaen001.blob.core.windows.net; form-action 'none'; object-src 'none'; base-uri 'none'" />
+    <link rel="canonical" href="https://start.namat.health/welcome" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#172523" />
+    <title>Your welcome questionnaire — Namat Health</title>
+  </head>
+  <body>
+    <a class="ov-skip" href="#main">Skip to questions</a>
+    <Questionnaire />
+  </body>
+</html>

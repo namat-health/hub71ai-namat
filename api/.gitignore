@@ -1,0 +1,12 @@
+node_modules/
+output/
+coverage/
+.env
+.env.*
+*.local
+.npm-cache/
+.runtime/
+.reconciliation/
+.DS_Store
+*.log
+!*.example

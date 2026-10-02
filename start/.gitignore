@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-hackathon/
+.hackathon-package-*/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+coverage/
+output/
+tmp/
+.runtime-*/

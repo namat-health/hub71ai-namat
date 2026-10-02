@@ -1,0 +1,42 @@
+name: Start form
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: namat_form_test
+          POSTGRES_USER: namat_test
+          POSTGRES_PASSWORD: local_test_only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U namat_test -d namat_form_test"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      HACKATHON_TEST_DATABASE_URL: postgresql://namat_test:local_test_only@127.0.0.1:5432/namat_form_test
+      REPORT_TEST_DATABASE_URL: postgresql://namat_test:local_test_only@127.0.0.1:5432/namat_form_test
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run check
+      - run: npm run build
+      - run: npm run verify
+      - run: npm test
+      - run: npm run package:azure

@@ -1,0 +1,84 @@
+name: Namat API
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy the tested package to the existing Azure API app
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: namat-api-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: namat_api_test
+          POSTGRES_USER: namat_test
+          POSTGRES_PASSWORD: local_test_only
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U namat_test -d namat_api_test"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      NAMAT_API_TEST_DATABASE_URL: postgresql://namat_test:local_test_only@127.0.0.1:5432/namat_api_test
+      HACKATHON_TEST_DATABASE_URL: postgresql://namat_test:local_test_only@127.0.0.1:5432/namat_api_test
+      REPORT_TEST_DATABASE_URL: postgresql://namat_test:local_test_only@127.0.0.1:5432/namat_api_test
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run check
+      - run: npm test
+      - run: npm run package:azure
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: namat-api-${{ github.sha }}
+          path: |
+            output/namat-api-azure.zip
+            output/namat-api-azure-manifest.json
+          if-no-files-found: error
+          retention-days: 14
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: namat-api-${{ github.sha }}
+          path: output
+      - name: Authenticate to the API app
+        uses: azure/login@7184910d9eb2b1c5e48f7073824a90609bb9b6d6 # v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - name: Deploy the verified package
+        run: >-
+          az webapp deploy --resource-group namat-data-test-uaen
+          --name namat-api-staging-uaen-001
+          --src-path output/namat-api-azure.zip --type zip
+          --track-status true --only-show-errors --output none
+      - name: Verify deployed API
+        run: node scripts/verify-deployed.mjs

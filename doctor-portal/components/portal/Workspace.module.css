@@ -1,0 +1,63 @@
+.shell {
+  display: grid;
+  grid-template-columns: 216px minmax(0, 1fr);
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
+  background: #f4f2e9;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 20px;
+  padding: 16px 20px;
+  overflow: hidden;
+  min-width: 0;
+  min-height: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 0;
+  min-width: 0;
+}
+
+.waiting {
+  display: grid;
+  place-items: center;
+  color: #6b6857;
+  font-size: 15px;
+}
+
+/* The main area (viewport minus the 216px rail) is under 1040px: stack. */
+@media (max-width: 1255px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 820px auto;
+    overflow: auto;
+  }
+
+  /* Stacked, the main area scrolls: size the column to its content so the
+     auto row cannot collapse to zero. */
+  .column {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 899px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .main {
+    padding: 12px;
+    gap: 16px;
+  }
+}

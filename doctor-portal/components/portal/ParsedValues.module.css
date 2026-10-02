@@ -1,0 +1,231 @@
+.list {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  background: #fbfaf4;
+  padding: 8px 0 28px;
+}
+
+.message {
+  margin: 0;
+  padding: 18px 26px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6b6857;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 0 4px;
+}
+
+.groupName {
+  padding: 0 26px 10px;
+}
+
+/* One value: its row, and for a flagged value the note and its actions. */
+.entry {
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s;
+}
+
+.entryCheck {
+  background: #f6eedf;
+}
+
+.entry:hover {
+  background: #f1eee3;
+}
+
+.entryFocus,
+.entryFocus:hover {
+  background: #efe3cc;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 72px 44px;
+  gap: 4px 16px;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 11px 26px;
+  cursor: pointer;
+  color: #102523;
+}
+
+.rowWithCheck {
+  padding-bottom: 4px;
+}
+
+.name {
+  font-size: 14px;
+}
+
+.value {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.number {
+  font-weight: 620;
+}
+
+.unit {
+  font-size: 12.5px;
+  color: #6b6857;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  height: 10px;
+}
+
+.track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(16, 37, 35, 0.08);
+}
+
+.band {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 3px;
+  height: 4px;
+  border-radius: 2px;
+  background: #cbd8ca;
+}
+
+.dot {
+  position: absolute;
+  top: 1px;
+  width: 8px;
+  height: 8px;
+  margin-left: -4px;
+  border-radius: 50%;
+  background: #143f3c;
+  box-shadow: 0 0 0 2px #fbfaf4;
+}
+
+.dotOut {
+  background: #a8552f;
+}
+
+.flag {
+  justify-self: end;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #8a3f1f;
+}
+
+.checked {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #7d917f;
+}
+
+.check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 0 26px 11px;
+}
+
+.note {
+  font-size: 12.5px;
+  color: #8a3f1f;
+}
+
+.actions {
+  display: inline-flex;
+  flex: none;
+  gap: 6px;
+}
+
+.looksRight,
+.fix {
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.looksRight {
+  border: 0;
+  background: #143f3c;
+  color: #fbfaf4;
+  padding: 5px 12px;
+}
+
+.looksRight:hover:not(:disabled) {
+  background: #a8552f;
+}
+
+.fix {
+  border: 1px solid rgba(16, 37, 35, 0.2);
+  background: transparent;
+  color: #143f3c;
+  padding: 4px 12px;
+}
+
+.fix:hover:not(:disabled) {
+  background: #ece8dc;
+}
+
+.looksRight:disabled,
+.fix:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.fixForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 10px;
+  padding: 2px 26px 12px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 11.5px;
+  color: #6b6857;
+}
+
+.field input {
+  width: 88px;
+  padding: 5px 8px;
+  border: 1px solid rgba(16, 37, 35, 0.2);
+  border-radius: 8px;
+  background: #fbfaf4;
+  color: #102523;
+  font: inherit;
+  font-size: 13px;
+}
+
+.fieldWide input {
+  width: 120px;
+}
+
+.saveError {
+  margin: 0;
+  padding: 0 26px 11px;
+  font-size: 12.5px;
+  color: #8a3f1f;
+}
