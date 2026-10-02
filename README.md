@@ -9,7 +9,6 @@ Namat helps newcomers bring their health history to Abu Dhabi. They answer a hea
 - **Start here:** https://namat.health/welcome — public landing page.
 - **Questionnaire and report upload:** https://start.namat.health/welcome — public; use fictional demo details and reports.
 - **Doctor review, AI interpretation and results email:** https://doctor.namat.health — Microsoft sign-in with an approved Namat staff account. Demonstrate using the team's existing signed-in session.
-- **Patient portal:** https://member.namat.health — source included, but the Azure app was stopped during the submission audit at 15:14 Dubai. This is not the starting point for the judged demo.
 
 A three-minute journey: open the welcome page, show the questionnaire/report upload, then use an existing fictional submission in the doctor portal to generate and review the interpretation and preview the patient email. The live AI uses the fast GPT-6 Luna demo path, with doctor review before any results email is sent.
 
